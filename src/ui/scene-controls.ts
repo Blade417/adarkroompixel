@@ -1,4 +1,4 @@
-import { FORAGE, type ForestJourney, type ForestTarget, type PixelPlace } from '../app/forest';
+import { type ForestJourney, type ForestTarget, type PixelPlace } from '../app/forest';
 import { FOREST_TARGETS } from '../pixel/forest';
 import { toCss, type Fit } from '../pixel/fit';
 import { DOORWAY, type Rect } from '../pixel/layout';
@@ -14,11 +14,9 @@ export class SceneControls {
   private hovered: ForestTarget | null = null;
   private fit: Fit | null = null;
   private place = '';
-  private guideUntil = 0;
   private messageUntil = 0;
   private message = '';
   private messageTarget: ForestTarget = 'branches';
-  private used = false;
 
   constructor(parent: HTMLElement, private readonly journey: ForestJourney, private readonly ui: Ui,
     private readonly enabled: () => boolean, private readonly travel: (place: PixelPlace) => boolean) {
@@ -40,6 +38,10 @@ export class SceneControls {
   }
 
   get highlighted(): ForestTarget | null {
+    return this.selectedTarget ?? (this.enabled() ? this.journey.guideTarget : null);
+  }
+
+  private get selectedTarget(): ForestTarget | null {
     if (!this.enabled()) return null;
     for (const [id, button] of this.buttons) if (!button.hidden && (this.hovered === id || button.matches(':focus-visible'))) return id;
     return null;
@@ -58,7 +60,7 @@ export class SceneControls {
   frame(now: number, ready: boolean): void {
     const available = this.enabled() && ready;
     const place = available ? this.journey.outside ? 'outside' : this.journey.unlocked ? 'room' : '' : '';
-    if (place && place !== this.place) { this.guideUntil = now + 7000; this.used = false; this.hovered = null; }
+    if (place !== this.place) { this.hovered = null; this.messageUntil = 0; }
     this.place = place;
     for (const [id, button] of this.buttons) {
       button.hidden = !place || (id === 'door' ? this.journey.outside : !this.journey.outside);
@@ -72,12 +74,11 @@ export class SceneControls {
         bar.firstElementChild!.setAttribute('style', `transform:scaleX(${this.journey.progress(id)})`);
       }
     }
-    const selected = this.highlighted || (now < this.messageUntil ? this.messageTarget : null) ||
-      (!this.used && now < this.guideUntil && place ? this.journey.outside ? 'branches' : 'door' : null);
+    const selected = this.selectedTarget || (now < this.messageUntil ? this.messageTarget : null) || this.journey.guideTarget;
     this.feedback.hidden = !available || !selected || !place;
     if (this.feedback.hidden || !selected || !this.fit) return;
     const text = now < this.messageUntil && selected === this.messageTarget ? this.message :
-      !this.used && now < this.guideUntil && !this.highlighted ? this.ui(this.journey.outside ? 'forest.guide' : 'forest.door.guide') : this.label(selected);
+      selected === this.journey.guideTarget && !this.selectedTarget ? this.ui(this.journey.outside ? 'forest.guide' : 'forest.door.guide') : this.label(selected);
     if (this.feedback.textContent !== text) this.feedback.textContent = text;
     const r = this.rect(selected), fit = this.fit, p = toCss(fit, r.x + r.w / 2, r.y);
     const offset = fit.mode === 'stacked' ? fit.left : 0;
@@ -89,18 +90,17 @@ export class SceneControls {
     if (id === 'door' || id === 'home') return this.ui(id === 'door' ? 'forest.enter' : 'forest.home');
     const name = this.ui(id === 'branches' ? 'forest.branches' : 'forest.deadwood');
     const left = this.journey.remaining(id);
-    return left > 0 ? this.ui('forest.regrow', name, Math.ceil(left / 1000)) : this.ui('forest.collect', name, FORAGE[id].wood);
+    return left > 0 ? this.ui('forest.regrow', name, Math.ceil(left / 1000)) : this.ui('forest.collect', name, this.journey.yieldFor(id));
   }
   private activate(id: ForestTarget): void {
     if (!this.enabled()) return;
-    this.used = true;
     if (id === 'door' || id === 'home') {
       if (this.travel(id === 'door' ? 'outside' : 'room')) { this.hovered = null; this.messageUntil = 0; }
       return;
     }
     if (!this.journey.outside) return;
     const gathered = this.journey.gather(id);
-    this.message = gathered ? this.ui('forest.gained', FORAGE[id].wood) : this.label(id);
+    this.message = gathered ? this.ui('forest.gained', this.journey.yieldFor(id)) : this.label(id);
     this.messageTarget = id; this.messageUntil = performance.now() + 1800;
   }
 }

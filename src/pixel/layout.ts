@@ -51,6 +51,8 @@ export const WINDOW_GLASS: Rect = { x: 213, y: 80, w: 55, h: 43 };
 export const FIREBOX: Rect = { x: 338, y: 150, w: 54, h: 47 };
 /** Furnace opening and lip, including the transparent space inside the arch. */
 export const HEARTH_TARGET: Rect = { x: 328, y: 142, w: 74, h: 65 };
+/** Standing builder, separated from the hearth and door targets. */
+export const BUILDER_TARGET: Rect = { x: 259, y: 149, w: 44, h: 65 };
 /** centre of the fire's light */
 export const LIGHT_CENTRE: Point = { x: 366, y: 184 };
 

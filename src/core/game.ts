@@ -25,6 +25,8 @@ import { Space } from './locations/space';
 import type { TimerId } from './clock';
 
 export interface GameOptions {
+  /** Optional recipe scope for editions that implement only part of the original game. */
+  craftables?: readonly string[];
   content: ContentSources;
   storage?: StorageLike;
   rng?: Rng;
@@ -45,6 +47,7 @@ export interface Income {
 const TAB_ORDER: LocationId[] = ['room', 'outside', 'path', 'fabricator', 'ship'];
 
 export class Game {
+  readonly craftables: ReadonlySet<string> | undefined;
   readonly store = new Store();
   readonly clock = new Clock();
   readonly i18n = new I18n();
@@ -81,6 +84,7 @@ export class Game {
   readonly t = (key: string, ...args: unknown[]): string => this.i18n.t(key, ...args);
 
   constructor(opts: GameOptions) {
+    this.craftables = opts.craftables ? new Set(opts.craftables) : undefined;
     this.rng = opts.rng ?? mathRng;
     this.storage = opts.storage ?? new MemoryStorage();
     this.autoSave = opts.autoSave ?? true;

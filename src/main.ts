@@ -11,6 +11,7 @@ import { loadSceneArt, standInPieces } from './pixel/assets';
 import { chooseMode, fitFull, fitNarrow, STACKED_STAGE_SHARE, type Fit } from './pixel/fit';
 import { OpeningProgress } from './app/opening';
 import { ForestJourney, type PixelPlace } from './app/forest';
+import { PIXEL_BUILDABLES } from './app/building';
 import { ForestRenderer, loadForestArt } from './pixel/forest';
 import { SceneControls } from './ui/scene-controls';
 import { uiStrings } from './ui/strings';
@@ -39,7 +40,7 @@ const hasSave = (() => {
 
 document.documentElement.lang = prefs.language === 'zh' ? 'zh-CN' : 'en';
 
-const game = new Game({ content: browserContent, storage, language: prefs.language, dictionaries: { zh: zhDictionaries } });
+const game = new Game({ content: browserContent, storage, language: prefs.language, dictionaries: { zh: zhDictionaries }, craftables: PIXEL_BUILDABLES });
 const audio = new AudioManager((key) => {
   const path = game.content.audio[key];
   return path ? audioUrl(path) : undefined;
@@ -124,6 +125,7 @@ const host: HudHost = {
     return true;
   },
   get forestReady() { return forestRenderer !== null; },
+  hasWorkshopArt(id) { return Boolean(renderer?.sceneArt.workshop[id]); },
   travel(place: PixelPlace) {
     if (!hud.canInteract() || player.playing || (place === 'outside' && !forestRenderer)) return false;
     const moved = journey.travel(place);
@@ -186,7 +188,9 @@ function currentView(): RoomView {
     temperature: game.room.temperature,
     builderLevel: game.room.builderLevel,
     wood: s.get('stores.wood'),
-    fur: s.get('stores.fur')
+    fur: s.get('stores.fur'),
+    cart: s.num('game.buildings.cart'),
+    traps: s.num('game.buildings.trap')
   });
 }
 
@@ -226,6 +230,7 @@ function frame(now: number): void {
       arrival: pose,
       hoverHearth: hud.hearthHighlighted && !pose,
       hoverDoor: sceneControls.highlighted === 'door',
+      hoverWorkshop: hud.highlightedWorkshop,
       debugAnchors: anchors
     });
     hud.frame(now, view, !journey.outside && pose !== null);

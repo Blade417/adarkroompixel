@@ -11,6 +11,8 @@ export interface RoomState {
   /** undefined early in the game: shown as no woodpile, never filled in */
   wood: number | undefined;
   fur: number | undefined;
+  cart?: number;
+  traps?: number;
 }
 
 export type StrangerPose = 'huddled' | 'resting' | 'standing';
@@ -31,6 +33,8 @@ export interface RoomView {
   /** woodpile frame: 0 low, 1 medium, 2 high; null hides it */
   woodpile: 0 | 1 | 2 | null;
   furpile: boolean;
+  cart: boolean;
+  traps: number;
   /** frost on the window glass: 0 none, 1 light, 2 heavy (temperature, not fire) */
   frost: 0 | 1 | 2;
 }
@@ -64,6 +68,8 @@ export function roomView(s: RoomState): RoomView {
     stranger: strangerView(s.builderLevel),
     woodpile: woodpileFrame(s.wood),
     furpile: typeof s.fur === 'number' && s.fur >= 1,
+    cart: typeof s.cart === 'number' && s.cart >= 1,
+    traps: typeof s.traps === 'number' && Number.isFinite(s.traps) ? Math.max(0, Math.floor(s.traps)) : 0,
     frost: temperature === 0 ? 2 : temperature === 1 ? 1 : 0
   };
 }
@@ -71,5 +77,5 @@ export function roomView(s: RoomState): RoomView {
 /** a key that changes whenever the scene's meaning changes (for the text alternative) */
 export function describeKey(v: RoomView): string {
   const who = v.stranger ? v.stranger.pose : 'none';
-  return `${v.fire}|${v.temperature}|${who}|${v.woodpile ?? '-'}|${v.furpile ? 1 : 0}`;
+  return `${v.fire}|${v.temperature}|${who}|${v.woodpile ?? '-'}|${v.furpile ? 1 : 0}|${v.cart ? 1 : 0}|${v.traps}`;
 }

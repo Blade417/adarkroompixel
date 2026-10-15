@@ -258,6 +258,7 @@ export class Room {
 
   /** the original craftUnlocked(): reveals the option, notifying availableMsg once */
   craftUnlocked(thing: string): boolean {
+    if (this.g.craftables && !this.g.craftables.has(thing)) return false;
     const s = this.g.store;
     if (this.revealed.has(thing)) return true;
     if (this.builderLevel < 4) return false;
@@ -320,6 +321,7 @@ export class Room {
   }
 
   build(thing: string): boolean {
+    if (this.g.craftables && !this.g.craftables.has(thing)) return false;
     const s = this.g.store;
     const t = this.g.t;
     if (this.temperature <= 1) {

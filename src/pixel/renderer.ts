@@ -3,13 +3,15 @@
  * display canvas at an integer scale with nearest-neighbour sampling.
  *
  * Order: base -> room-back -> window snow and frost (clipped to the panes) -> [open door: the
- * night behind it, snow] -> door -> hearth -> woodpile -> furpile -> stranger -> light map
+ * night behind it, snow] -> door -> hearth -> woodpile -> prop shadows -> furpile -> workshop props -> stranger -> light map
  * (multiply) -> temperature tint (multiply) -> draft (cold light) -> warm glow (screen) -> fire
  * (emissive) -> sparks -> interaction glints -> debug anchors.
  * The flame sits above the light so it is never dimmed by the darkness it lights.
  */
 import type { ArrivalFigure, ArrivalPose } from './arrival';
 import type { SceneArt } from './assets';
+import type { PixelBuildable } from '../app/building';
+import { WORKSHOP_ANCHORS, WORKSHOP_MANIFEST, WORKSHOP_TARGETS } from './workshop';
 import type { Fit } from './fit';
 import {
   ANCHOR,
@@ -30,7 +32,7 @@ import {
 } from './layout';
 import { flickerVariant, lightLayers, tintLayer } from './lighting';
 import type { RoomView } from './mapping';
-import { bayer, ctx2d, hash, makeCanvas, type Ctx } from './paint';
+import { bayer, ctx2d, ellipse, hash, makeCanvas, type Ctx } from './paint';
 import { PAL } from './palette';
 import { snow, sparks, type Particle } from './particles';
 import { drawGround, groundRect, loopFrame, type Strip } from './sprites';
@@ -42,6 +44,7 @@ export interface FrameInput {
   arrival: ArrivalPose | null;
   hoverHearth: boolean;
   hoverDoor?: boolean;
+  hoverWorkshop?: PixelBuildable | null;
   debugAnchors: boolean;
 }
 
@@ -116,7 +119,12 @@ export class Renderer {
     drawGround(g, art.door[door], ANCHOR.door);
     drawGround(g, art.hearth, ANCHOR.hearth);
     if (v.woodpile !== null) drawGround(g, art.woodpile[v.woodpile], ANCHOR.woodpile);
+    // Floor shadows share the room's light pass and sit behind every foreground prop.
+    if (v.cart && art.workshop.cart) this.workshopShadow(g, 'cart');
+    if (v.traps > 0 && art.workshop.trap) this.workshopShadow(g, 'trap');
     if (v.furpile) drawGround(g, art.furpile, ANCHOR.furpile);
+    if (v.cart && art.workshop.cart) drawGround(g, art.workshop.cart, WORKSHOP_ANCHORS.cart);
+    if (v.traps > 0 && art.workshop.trap) drawGround(g, art.workshop.trap, WORKSHOP_ANCHORS.trap);
     if (pose) {
       if (pose.stranger) this.figure(g, pose.stranger, t, motion);
     } else if (v.stranger) {
@@ -160,6 +168,11 @@ export class Renderer {
       g.fillStyle = '#cfb38a';
       for (const x of [DOORWAY.x + 2, DOORWAY.x + DOORWAY.w - 5]) g.fillRect(x, DOORWAY.y + DOORWAY.h - 2, 3, 1);
     }
+    if (inp.hoverWorkshop) {
+      const r = WORKSHOP_TARGETS[inp.hoverWorkshop];
+      g.fillStyle = '#cfb38a';
+      for (const x of [r.x + 2, r.x + r.w - 5]) g.fillRect(x, r.y + r.h - 3, 3, 1);
+    }
     if (inp.debugAnchors) this.anchors(g);
 
     this.blit();
@@ -195,6 +208,15 @@ export class Renderer {
       g.globalAlpha = p.alpha;
       g.fillStyle = p.color;
       g.fillRect(p.x, p.y, p.size, p.size);
+    }
+    g.globalAlpha = 1;
+  }
+
+  private workshopShadow(g: Ctx, id: PixelBuildable): void {
+    const at = WORKSHOP_ANCHORS[id];
+    for (const [dx, dy, rx, ry, opacity] of WORKSHOP_MANIFEST.assets[id].shadows) {
+      g.globalAlpha = opacity;
+      ellipse(g, at.x + dx, at.y + dy, rx, ry, '#090c0c');
     }
     g.globalAlpha = 1;
   }

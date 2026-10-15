@@ -169,6 +169,70 @@ button {
   justify-self: end;
 }
 
+.top-actions { display: flex; align-items: center; justify-self: end; gap: 4px; }
+.build-launch {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: var(--core);
+  white-space: nowrap;
+}
+.builder-target span, .room-prop-target span {
+  position: absolute;
+  left: 50%;
+  top: -4px;
+  transform: translate(-50%, -100%);
+  padding: 2px 8px;
+  background: rgba(10,14,19,.88);
+  color: var(--core);
+  font-size: 13px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+}
+.builder-target:hover span, .builder-target:focus-visible span,
+.room-prop-target:hover span, .room-prop-target:focus-visible span { opacity: 1; }
+.builder-target:hover,
+.builder-target:focus-visible { outline: 1px dashed rgba(240,193,122,.55); outline-offset: -3px; }
+.field-tools {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  right: 16px;
+  max-width: min(350px, calc(100% - 32px));
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  background: rgba(10,14,19,.93);
+}
+.field-tools .btn { width: 100%; font-size: 14px; }
+.field-tools [aria-disabled='true'] { color: var(--dim); }
+.trap-result { margin: 6px 0 0; font-size: 13px; }
+.trap-result:empty { display: none; }
+#app[data-mode='stacked'] .field-tools {
+  position: relative;
+  top: auto;
+  right: auto;
+  order: 0;
+  margin: 8px 20px 0;
+  max-width: calc(100% - 40px);
+}
+.build-layer { z-index: 25; background: rgba(10,11,15,.72); }
+.build-card { width: min(520px,100%); }
+.build-intro { margin: 0 0 12px; color: var(--dim); }
+.build-wood { margin: 0 0 12px; color: var(--core); font-variant-numeric: tabular-nums; }
+.build-row { padding: 16px 0; border-top: 1px solid var(--line); }
+.recipe-title, .recipe-action { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.recipe-title h3 { margin: 0; font-size: 18px; font-weight: 500; }
+.recipe-title > span, .recipe-cost { font-size: 14px; color: var(--dim); }
+.build-row > p { margin: 8px 0 12px; font-size: 14px; color: var(--dim); }
+.recipe-action .btn { flex: none; }
+.recipe-action .btn:disabled { color: var(--dim); border-color: var(--line); cursor: default; }
+.build-row .recipe-status { margin: 6px 0 0; color: var(--warn); }
+.recipe-status:empty { display: none; }
+.recipe-use { min-height: 44px; margin-top: 8px; padding: 0; border: 0; background: transparent; color: var(--core); text-align: left; }
+.build-result { color: var(--core); font-size: 14px; }
+
 /* ------------------------------------------------------------------ stage */
 
 .stage {
@@ -860,6 +924,8 @@ button {
 }
 
 @media (max-width: 380px) {
+  .brand { display: none; }
+  .top { grid-template-columns: 1fr auto; }
   .tab .badge {
     display: none;
   }

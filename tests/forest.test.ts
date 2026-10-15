@@ -6,6 +6,34 @@ import { fitNarrow, toCss } from '../src/pixel/fit';
 import { makeGame, startGame, villageState } from './helpers';
 
 describe('the near-forest trip', () => {
+  it('keeps first-trip guidance until the action succeeds and remembers completion in saves', () => {
+    const g = startGame(), trip = new ForestJourney(g);
+    expect(trip.guideTarget).toBeNull();
+    g.room.tendFire();
+    g.clock.run(ROOM.BUILDER_STATE_DELAY + ROOM.NEED_WOOD_DELAY + 1000, 1000);
+    expect(trip.guideTarget).toBe('door');
+    g.tick(10_000); // A player taking time to read should still see where to go.
+    expect(trip.guideTarget).toBe('door');
+    trip.travel('outside');
+    expect(trip.guideTarget).toBe('branches');
+    g.events.startEvent({ title: 'interruption', scenes: { start: { text: ['wait'], buttons: {} } } });
+    expect(trip.gather('deadwood')).toBe(false);
+    g.events.endEvent();
+    expect(trip.guideTarget).toBe('branches');
+    expect(trip.gather('deadwood')).toBe(true); // Either gathering point teaches the action.
+    expect(trip.guideTarget).toBeNull();
+    trip.travel('room');
+    expect(trip.guideTarget).toBeNull();
+
+    const restored = makeGame({ storage: new MemoryStorage() });
+    expect(restored.importCode(g.exportCode())).toBe(true);
+    restored.start();
+    const next = new ForestJourney(restored);
+    expect(next.guideTarget).toBeNull();
+    next.travel('outside');
+    expect(next.guideTarget).toBeNull();
+  });
+
   it('keeps a new opening locked until the existing forest unlock', () => {
     const g = startGame(), trip = new ForestJourney(g);
     expect(trip.travel('outside')).toBe(false);

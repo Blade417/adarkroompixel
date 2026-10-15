@@ -9,6 +9,7 @@ import { ctx2d, makeCanvas, silhouetteOutline } from './paint';
 import { hex, PAL } from './palette';
 import type { SampleMode } from './resample';
 import type { Source, Sprite, Strip } from './sprites';
+import { loadWorkshopArt, type WorkshopArt } from './workshop';
 import {
   doorwayNight,
   fallbackDoor,
@@ -37,6 +38,7 @@ export type PieceId =
 export type StrangerArt = 'huddled' | 'resting' | 'standing' | 'walking';
 
 export interface SceneArt {
+  workshop: WorkshopArt;
   room: Sprite;
   /** 0 closed, 1 ajar, 2 open */
   door: [Sprite, Sprite, Sprite];
@@ -80,7 +82,7 @@ const strip = (frames: Sprite[], fps: number, source: Source): Strip => ({ frame
 const four = <T,>(fn: (i: number) => T): T[] => [0, 1, 2, 3].map(fn);
 
 export async function loadSceneArt(sample: SampleMode): Promise<SceneArt> {
-  const art = await bakeArtPack(sample);
+  const [art, workshop] = await Promise.all([bakeArtPack(sample), loadWorkshopArt(sample)]);
   const has = (v: unknown): Source => (v ? 'art' : 'placeholder');
 
   const room = art.room?.sprite ?? fallbackRoom();
@@ -95,6 +97,7 @@ export async function loadSceneArt(sample: SampleMode): Promise<SceneArt> {
   const outlineCanvas = silhouetteOutline(hearth.canvas, 0, 0, hearth.w, hearth.h, PAL.flameCore);
 
   return {
+    workshop,
     room,
     door: [closed, swungDoor(closed, 0.42, 0.25), swungDoor(closed, 0.13, 0.45)],
     doorway: doorwayNight(),

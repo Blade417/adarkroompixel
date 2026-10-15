@@ -1,0 +1,27 @@
+{
+  "id": "emberveil-workshop-v2",
+  "created": "2026-10-15",
+  "generator": "built-in image_gen.imagegen",
+  "logicalScene": [480, 270],
+  "alphaCut": 0.5,
+  "assets": {
+    "cart": {
+      "file": "cart.png",
+      "sourceSize": [1774, 887],
+      "sourceRect": [98, 236, 1581, 579],
+      "drawSize": [74, 27],
+      "groundAnchor": [148, 211],
+      "interactionRect": [110, 166, 74, 48],
+      "shadows": [[9, 0, 28, 3, 0.24], [26, 0, 6, 1.5, 0.55], [-7, -5, 3, 1, 0.45]]
+    },
+    "trap": {
+      "file": "trap.png",
+      "sourceSize": [1466, 1073],
+      "sourceRect": [123, 292, 1225, 628],
+      "drawSize": [34, 17],
+      "groundAnchor": [203, 216],
+      "interactionRect": [185, 181, 44, 44],
+      "shadows": [[-2, 0, 16, 2, 0.24], [3, -0.5, 10, 1.5, 0.48]]
+    }
+  }
+}
