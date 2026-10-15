@@ -1,0 +1,550 @@
+{
+  "room-back": {
+    "file": "room-back.png",
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB",
+    "grid": [
+      1,
+      1
+    ],
+    "clearPixels": 0,
+    "opaquePixels": 1573352,
+    "partialAlphaPixels": 0,
+    "cornerAlpha": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "contentAlphaThreshold": 8,
+    "sha256": "8004a5a240737e0478fa950b37670bcce43ad1f1df0b810ff9b226b231982ef9",
+    "frames": [
+      {
+        "index": 0,
+        "cell": [
+          0,
+          0,
+          1672,
+          941
+        ],
+        "alphaBounds": [
+          0,
+          0,
+          1672,
+          941
+        ],
+        "contentBounds": [
+          0,
+          0,
+          1672,
+          941
+        ],
+        "opaqueBounds": [
+          0,
+          0,
+          1672,
+          941
+        ],
+        "nonTransparentPixels": 1573352
+      }
+    ]
+  },
+  "hearth": {
+    "file": "hearth.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "grid": [
+      1,
+      1
+    ],
+    "clearPixels": 603785,
+    "opaquePixels": 2151,
+    "partialAlphaPixels": 966580,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "contentAlphaThreshold": 8,
+    "sha256": "8cf6ceb01ffd5cc8f46f86dc6cff756fd0b0c3a72a3762547cc5f335dcb6ba8e",
+    "frames": [
+      {
+        "index": 0,
+        "cell": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "alphaBounds": [
+          0,
+          27,
+          1219,
+          1197
+        ],
+        "contentBounds": [
+          68,
+          29,
+          1118,
+          1194
+        ],
+        "opaqueBounds": [
+          71,
+          30,
+          1113,
+          1191
+        ],
+        "nonTransparentPixels": 968731
+      }
+    ]
+  },
+  "fire": {
+    "file": "fire.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "grid": [
+      2,
+      2
+    ],
+    "clearPixels": 1245139,
+    "opaquePixels": 3759,
+    "partialAlphaPixels": 323618,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "contentAlphaThreshold": 8,
+    "sha256": "39c35864fd44e6afba49e2a7c19a8d36720a72f8f9fe86b91e0081dbdac94fd3",
+    "frames": [
+      {
+        "index": 0,
+        "cell": [
+          0,
+          0,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          0,
+          32,
+          627,
+          595
+        ],
+        "contentBounds": [
+          154,
+          120,
+          361,
+          474
+        ],
+        "opaqueBounds": [
+          155,
+          121,
+          359,
+          471
+        ],
+        "nonTransparentPixels": 88281
+      },
+      {
+        "index": 1,
+        "cell": [
+          627,
+          0,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          627,
+          18,
+          609,
+          607
+        ],
+        "contentBounds": [
+          743,
+          226,
+          388,
+          368
+        ],
+        "opaqueBounds": [
+          746,
+          226,
+          384,
+          366
+        ],
+        "nonTransparentPixels": 88016
+      },
+      {
+        "index": 2,
+        "cell": [
+          0,
+          627,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          0,
+          630,
+          627,
+          606
+        ],
+        "contentBounds": [
+          149,
+          722,
+          368,
+          450
+        ],
+        "opaqueBounds": [
+          150,
+          723,
+          366,
+          446
+        ],
+        "nonTransparentPixels": 85280
+      },
+      {
+        "index": 3,
+        "cell": [
+          627,
+          627,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          628,
+          646,
+          626,
+          608
+        ],
+        "contentBounds": [
+          746,
+          905,
+          379,
+          267
+        ],
+        "opaqueBounds": [
+          747,
+          908,
+          377,
+          261
+        ],
+        "nonTransparentPixels": 65800
+      }
+    ]
+  },
+  "stranger-huddled": {
+    "file": "stranger-huddled.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "grid": [
+      2,
+      2
+    ],
+    "clearPixels": 980880,
+    "opaquePixels": 2532,
+    "partialAlphaPixels": 589104,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "contentAlphaThreshold": 8,
+    "sha256": "d10fae5a8cd526210a8c54ca0a32704ed10d8ce9599988414c57c2c894438e32",
+    "frames": [
+      {
+        "index": 0,
+        "cell": [
+          0,
+          0,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          0,
+          27,
+          627,
+          600
+        ],
+        "contentBounds": [
+          57,
+          121,
+          532,
+          462
+        ],
+        "opaqueBounds": [
+          59,
+          122,
+          529,
+          459
+        ],
+        "nonTransparentPixels": 144829
+      },
+      {
+        "index": 1,
+        "cell": [
+          627,
+          0,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          640,
+          19,
+          581,
+          608
+        ],
+        "contentBounds": [
+          684,
+          121,
+          532,
+          462
+        ],
+        "opaqueBounds": [
+          686,
+          122,
+          529,
+          459
+        ],
+        "nonTransparentPixels": 146574
+      },
+      {
+        "index": 2,
+        "cell": [
+          0,
+          627,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          0,
+          628,
+          627,
+          626
+        ],
+        "contentBounds": [
+          41,
+          748,
+          548,
+          463
+        ],
+        "opaqueBounds": [
+          42,
+          749,
+          546,
+          460
+        ],
+        "nonTransparentPixels": 153010
+      },
+      {
+        "index": 3,
+        "cell": [
+          627,
+          627,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          628,
+          628,
+          620,
+          626
+        ],
+        "contentBounds": [
+          686,
+          748,
+          529,
+          462
+        ],
+        "opaqueBounds": [
+          687,
+          749,
+          528,
+          459
+        ],
+        "nonTransparentPixels": 147223
+      }
+    ]
+  },
+  "woodpile": {
+    "file": "woodpile-v2.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "grid": [
+      2,
+      2
+    ],
+    "clearPixels": 1280647,
+    "opaquePixels": 843,
+    "partialAlphaPixels": 291026,
+    "cornerAlpha": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "contentAlphaThreshold": 8,
+    "sha256": "bbb904929931461185b13a96a68ecc3d635ec3fb3c1e30bb5e5fe6e02edf1f63",
+    "frames": [
+      {
+        "index": 0,
+        "cell": [
+          0,
+          0,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          0,
+          0,
+          625,
+          609
+        ],
+        "contentBounds": [
+          158,
+          392,
+          331,
+          210
+        ],
+        "opaqueBounds": [
+          159,
+          393,
+          329,
+          209
+        ],
+        "nonTransparentPixels": 53004
+      },
+      {
+        "index": 1,
+        "cell": [
+          627,
+          0,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          628,
+          47,
+          570,
+          564
+        ],
+        "contentBounds": [
+          712,
+          273,
+          441,
+          331
+        ],
+        "opaqueBounds": [
+          714,
+          274,
+          438,
+          327
+        ],
+        "nonTransparentPixels": 99867
+      },
+      {
+        "index": 2,
+        "cell": [
+          0,
+          627,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          33,
+          634,
+          594,
+          620
+        ],
+        "contentBounds": [
+          51,
+          817,
+          553,
+          371
+        ],
+        "opaqueBounds": [
+          54,
+          818,
+          547,
+          367
+        ],
+        "nonTransparentPixels": 138429
+      },
+      {
+        "index": 3,
+        "cell": [
+          627,
+          627,
+          627,
+          627
+        ],
+        "alphaBounds": [
+          627,
+          664,
+          609,
+          572
+        ],
+        "contentBounds": null,
+        "opaqueBounds": null,
+        "nonTransparentPixels": 569
+      }
+    ]
+  },
+  "door-closed": {
+    "file": "door-closed.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "grid": [
+      1,
+      1
+    ],
+    "clearPixels": 1069332,
+    "opaquePixels": 2034,
+    "partialAlphaPixels": 501150,
+    "cornerAlpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "contentAlphaThreshold": 8,
+    "sha256": "353948c12328541b504dbefbaa3fe9522cc7e06bbf5e4f5e1b1fa448fd389ee3",
+    "frames": [
+      {
+        "index": 0,
+        "cell": [
+          0,
+          0,
+          1254,
+          1254
+        ],
+        "alphaBounds": [
+          0,
+          9,
+          1160,
+          1157
+        ],
+        "contentBounds": [
+          362,
+          155,
+          530,
+          943
+        ],
+        "opaqueBounds": [
+          363,
+          156,
+          528,
+          941
+        ],
+        "nonTransparentPixels": 503184
+      }
+    ]
+  }
+}

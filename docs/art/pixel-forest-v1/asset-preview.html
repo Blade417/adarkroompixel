@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>静谧森林 · 素材预览</title>
+<style>
+:root{color-scheme:dark;font-family:'Microsoft YaHei',system-ui,sans-serif;background:#101218;color:#e2d5b8}*{box-sizing:border-box}body{margin:0}main{max-width:1040px;margin:auto;padding:36px 24px 56px}.eyebrow{font-size:12px;letter-spacing:.2em;color:#bb956d}h1{font-weight:500;letter-spacing:.14em;font-size:28px;margin:8px 0 16px}p{color:#a2a7af;line-height:1.8;font-size:14px}a{color:#d5b28b}figure{margin:24px 0;border:1px solid #30343c;background:#0c1117}canvas{display:block;width:100%;height:auto;image-rendering:pixelated}figcaption{padding:12px 16px;font-size:13px;color:#a2a7af;border-top:1px solid #30343c}.controls{display:flex;gap:20px;flex-wrap:wrap;margin:18px 0;font-size:14px}.controls label{cursor:pointer;display:flex;align-items:center;gap:7px;min-height:32px}input{accent-color:#bc8c5c}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:#161a20;border:1px solid #30343c}.art{display:block;height:180px;padding:12px;background:repeating-conic-gradient(#141b22 0% 25%,#19212a 0% 50%) 0 0/20px 20px}.art img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}.info{padding:12px 14px}.info strong{font-size:14px;font-weight:500}.info small{display:block;color:#a2a7af;font-size:12px;margin-top:7px;overflow-wrap:anywhere}h2{font-size:18px;font-weight:500;margin-top:30px}.error{color:#e5a191}footer{margin-top:24px;font-size:13px;color:#a2a7af;line-height:1.8}@media(max-width:640px){main{padding:24px 12px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.art{height:150px}h1{font-size:23px}}@media(max-width:360px){.grid{grid-template-columns:1fr}}
+</style></head><body><main>
+<div class="eyebrow">EMBERVEIL · FOREST ART PACK 01</div><h1>静谧森林 · 第一批素材</h1>
+<p>寒夜、冷雾与林间空地。背景、前景树影和三件物件独立分层；枯枝与倒木可在采集后隐藏。此页仅预览美术摆放；森林拾柴已接入游戏，可从木门出发。</p>
+<figure><canvas id="scene" width="480" height="270" role="img" aria-label="寒夜森林空地：左侧回屋路标，中间枯枝，右侧倒木。">森林素材组合预览</canvas><figcaption id="status">正在载入素材…</figcaption></figure>
+<div class="controls"><label><input id="foreground" type="checkbox" checked>前景树影</label><label><input id="zones" type="checkbox">建议点击区域</label><label><input id="collected" type="checkbox">查看拾取后示意</label></div>
+<h2>独立 PNG 素材</h2><div id="cards" class="grid"></div>
+<footer>透明网格仅为网页底纹，没有写入 PNG。预览沿用黑屋的像素缩小算法，按清单裁取原图。<br><a href="../../../assets/pixel/forest/v1/manifest.json">尺寸与摆放清单</a> · <a href="../../../assets/pixel/forest/v1/README.md">接入说明</a> · <a href="PROMPTS.md">生成提示词</a></footer>
+</main><script type="module">
+import { resample } from '../../../src/pixel/resample.ts';
+const base = '../../../assets/pixel/forest/v1/';
+const names = {'forest-back':'寒夜林间 · 背景','forest-foreground':'近景树影 · 透明','loose-branches':'枯枝 · 可采集','fallen-log':'倒木 · 可采集','home-marker':'归途路标 · 返回木屋'};
+const canvas = document.querySelector('#scene'), g = canvas.getContext('2d');
+const status = document.querySelector('#status');
+try {
+  const response = await fetch(base + 'manifest.json');
+  if (!response.ok) throw Error(`清单加载失败：${response.status}`);
+  const manifest = await response.json();
+  const baked = {};
+  for (const [id,spec] of Object.entries(manifest.assets)) {
+    const image = new Image(); image.src = base + spec.file; await image.decode();
+    const frame = spec.frames[0], [sx,sy,sw,sh] = frame.sourceRect, [w,h] = frame.drawSize;
+    const source = document.createElement('canvas'); source.width=sw;source.height=sh;
+    const ctx = source.getContext('2d',{willReadFrequently:true}); ctx.drawImage(image,sx,sy,sw,sh,0,0,sw,sh);
+    const reduced = resample(ctx.getImageData(0,0,sw,sh), w,h,{mode:'mode',alphaCut:spec.hasAlpha ? 0.5 : null});
+    const sprite = document.createElement('canvas');sprite.width=w;sprite.height=h;
+    sprite.getContext('2d').putImageData(new ImageData(reduced.data,w,h),0,0);baked[id]=sprite;
+    const card = document.createElement('article');card.className='card';
+    card.innerHTML=`<a class="art" href="${base+spec.file}"><img src="${base+spec.file}" alt="${names[id]}"></a><div class="info"><strong>${names[id]}</strong><small>${spec.file}<br>${spec.sourceSize.join(' × ')} · ${spec.hasAlpha?'透明 PNG':'不透明 PNG'}<br>建议显示 ${w} × ${h} 逻辑像素</small></div>`;
+    document.querySelector('#cards').append(card);
+  }
+  function draw(){
+    g.clearRect(0,0,480,270);g.imageSmoothingEnabled=false;
+    const picked = document.querySelector('#collected').checked;
+    for(const id of manifest.renderOrder){
+      if(id==='forest-foreground'&&!document.querySelector('#foreground').checked)continue;
+      if(picked&&(id==='loose-branches'||id==='fallen-log'))continue;
+      const [x,y] = manifest.assets[id].frames[0].suggestedDestination;g.drawImage(baked[id],x,y);
+    }
+    if(document.querySelector('#zones').checked){
+      g.strokeStyle='#d6b484';g.lineWidth=1;g.setLineDash([3,3]);
+      for(const spec of Object.values(manifest.assets))if(spec.proposedInteraction) {
+        const [x,y,w,h]=spec.proposedInteraction.logicalRect;g.strokeRect(x+.5,y+.5,w-1,h-1);
+      }g.setLineDash([]);
+    }
+    status.textContent=`480 × 270 逻辑场景 · 五张原始 PNG · ${picked?'拾取后摆放示意':'分层摆放示意'} · 仅美术预览`;
+  }
+  document.querySelectorAll('input').forEach(input=>input.addEventListener('change',draw));draw();
+} catch(error){status.textContent='预览加载失败：'+error.message;status.className='error';console.error(error);}
+</script></body></html>

@@ -1,0 +1,6 @@
+Tool: built-in image_gen.imagegen
+Mode: new background plate using room-target-v1.png as a style reference
+Status: art draft; not approved for runtime integration
+
+undefined
+

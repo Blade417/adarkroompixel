@@ -1,0 +1,133 @@
+{
+  "assetCount": 6,
+  "imageChecks": [
+    {
+      "id": "room-back",
+      "size": [
+        1672,
+        941
+      ],
+      "usableFrames": 1,
+      "hashMatch": true,
+      "dominantAlpha": null
+    },
+    {
+      "id": "hearth",
+      "size": [
+        1254,
+        1254
+      ],
+      "usableFrames": 1,
+      "hashMatch": true,
+      "dominantAlpha": [
+        [
+          253,
+          813650
+        ],
+        [
+          0,
+          603785
+        ],
+        [
+          252,
+          119088
+        ]
+      ]
+    },
+    {
+      "id": "fire",
+      "size": [
+        1254,
+        1254
+      ],
+      "usableFrames": 4,
+      "hashMatch": true,
+      "dominantAlpha": [
+        [
+          0,
+          1245139
+        ],
+        [
+          253,
+          223378
+        ],
+        [
+          252,
+          27986
+        ]
+      ]
+    },
+    {
+      "id": "stranger-huddled",
+      "size": [
+        1254,
+        1254
+      ],
+      "usableFrames": 4,
+      "hashMatch": true,
+      "dominantAlpha": [
+        [
+          0,
+          980880
+        ],
+        [
+          253,
+          467239
+        ],
+        [
+          252,
+          33549
+        ]
+      ]
+    },
+    {
+      "id": "woodpile",
+      "size": [
+        1254,
+        1254
+      ],
+      "usableFrames": 3,
+      "hashMatch": true,
+      "dominantAlpha": [
+        [
+          0,
+          1280647
+        ],
+        [
+          253,
+          218728
+        ],
+        [
+          252,
+          24578
+        ]
+      ]
+    },
+    {
+      "id": "door-closed",
+      "size": [
+        1254,
+        1254
+      ],
+      "usableFrames": 1,
+      "hashMatch": true,
+      "dominantAlpha": [
+        [
+          0,
+          1069332
+        ],
+        [
+          253,
+          460732
+        ],
+        [
+          252,
+          14843
+        ]
+      ]
+    }
+  ],
+  "referenceChecks": 27,
+  "runtimeIntegrationTested": false,
+  "previewRenderedInBrowser": false
+}

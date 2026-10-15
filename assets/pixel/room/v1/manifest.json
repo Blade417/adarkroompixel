@@ -1,0 +1,578 @@
+{
+  "schemaVersion": 1,
+  "id": "emberveil-room-art-v1",
+  "created": "2026-10-15",
+  "status": "ready-for-first-integration",
+  "generator": "built-in image_gen.imagegen",
+  "logicalScene": {
+    "width": 480,
+    "height": 270
+  },
+  "sourcePolicy": "Original generated PNGs preserved. Source dimensions are not logical display dimensions. Use per-frame sourceRect; avoid scaling the whole sheet as one sprite.",
+  "frameOrder": "row-major: top-left, top-right, bottom-left, bottom-right",
+  "boundsAlphaThreshold": 8,
+  "coordinateSystem": "Top-left origin. Suggested placements are bottom-center ground anchors in logical scene coordinates.",
+  "assets": {
+    "room-back": {
+      "file": "room-back.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "sha256": "8004a5a240737e0478fa950b37670bcce43ad1f1df0b810ff9b226b231982ef9",
+      "grid": [
+        1,
+        1
+      ],
+      "sourceScale": null,
+      "frames": [
+        {
+          "index": 0,
+          "cell": [
+            0,
+            0,
+            1672,
+            941
+          ],
+          "sourceRect": [
+            0,
+            0,
+            1672,
+            941
+          ],
+          "drawSize": [
+            480,
+            270
+          ],
+          "anchor": "top-left",
+          "suggestedDestination": [
+            0,
+            0,
+            480,
+            270
+          ]
+        }
+      ]
+    },
+    "hearth": {
+      "file": "hearth.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "hasAlpha": true,
+      "sha256": "8cf6ceb01ffd5cc8f46f86dc6cff756fd0b0c3a72a3762547cc5f335dcb6ba8e",
+      "grid": [
+        1,
+        1
+      ],
+      "sourceScale": 0.119,
+      "frames": [
+        {
+          "index": 0,
+          "cell": [
+            0,
+            0,
+            1254,
+            1254
+          ],
+          "sourceRect": [
+            68,
+            29,
+            1118,
+            1194
+          ],
+          "drawSize": [
+            132.961,
+            142
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            298.52,
+            69,
+            132.961,
+            142
+          ]
+        }
+      ],
+      "suggestedGroundAnchor": [
+        365,
+        211
+      ]
+    },
+    "fire": {
+      "file": "fire.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "hasAlpha": true,
+      "sha256": "39c35864fd44e6afba49e2a7c19a8d36720a72f8f9fe86b91e0081dbdac94fd3",
+      "grid": [
+        2,
+        2
+      ],
+      "sourceScale": 0.089,
+      "frames": [
+        {
+          "index": 0,
+          "cell": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "sourceRect": [
+            154,
+            120,
+            361,
+            474
+          ],
+          "drawSize": [
+            31.987,
+            42
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            350.007,
+            155,
+            31.987,
+            42
+          ]
+        },
+        {
+          "index": 1,
+          "cell": [
+            627,
+            0,
+            627,
+            627
+          ],
+          "sourceRect": [
+            743,
+            226,
+            388,
+            368
+          ],
+          "drawSize": [
+            34.38,
+            32.608
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            348.81,
+            164.392,
+            34.38,
+            32.608
+          ]
+        },
+        {
+          "index": 2,
+          "cell": [
+            0,
+            627,
+            627,
+            627
+          ],
+          "sourceRect": [
+            149,
+            722,
+            368,
+            450
+          ],
+          "drawSize": [
+            32.608,
+            39.873
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            349.696,
+            157.127,
+            32.608,
+            39.873
+          ]
+        },
+        {
+          "index": 3,
+          "cell": [
+            627,
+            627,
+            627,
+            627
+          ],
+          "sourceRect": [
+            746,
+            905,
+            379,
+            267
+          ],
+          "drawSize": [
+            33.582,
+            23.658
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            349.209,
+            173.342,
+            33.582,
+            23.658
+          ]
+        }
+      ],
+      "suggestedGroundAnchor": [
+        366,
+        197
+      ],
+      "animation": {
+        "fps": 8,
+        "sequence": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "reducedMotionFrame": 0
+      },
+      "levelsSuggestion": {
+        "0": {
+          "visible": false
+        },
+        "1": {
+          "frame": 3,
+          "scaleX": 0.6,
+          "scaleY": 0.18,
+          "opacity": 0.75
+        },
+        "2": {
+          "animated": true,
+          "scale": 0.55
+        },
+        "3": {
+          "animated": true,
+          "scale": 0.8
+        },
+        "4": {
+          "animated": true,
+          "scale": 1
+        }
+      },
+      "note": "For level 1, this pack uses a compressed flame as a temporary ember treatment. A dedicated ember sprite can refine it later. Keep the ground anchor fixed when scaling."
+    },
+    "stranger-huddled": {
+      "file": "stranger-huddled.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "hasAlpha": true,
+      "sha256": "d10fae5a8cd526210a8c54ca0a32704ed10d8ce9599988414c57c2c894438e32",
+      "grid": [
+        2,
+        2
+      ],
+      "sourceScale": 0.095,
+      "frames": [
+        {
+          "index": 0,
+          "cell": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "sourceRect": [
+            57,
+            121,
+            532,
+            462
+          ],
+          "drawSize": [
+            50.482,
+            43.839
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            150.759,
+            170.161,
+            50.482,
+            43.839
+          ]
+        },
+        {
+          "index": 1,
+          "cell": [
+            627,
+            0,
+            627,
+            627
+          ],
+          "sourceRect": [
+            684,
+            121,
+            532,
+            462
+          ],
+          "drawSize": [
+            50.482,
+            43.839
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            150.759,
+            170.161,
+            50.482,
+            43.839
+          ]
+        },
+        {
+          "index": 2,
+          "cell": [
+            0,
+            627,
+            627,
+            627
+          ],
+          "sourceRect": [
+            41,
+            748,
+            548,
+            463
+          ],
+          "drawSize": [
+            52,
+            43.934
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            150,
+            170.066,
+            52,
+            43.934
+          ]
+        },
+        {
+          "index": 3,
+          "cell": [
+            627,
+            627,
+            627,
+            627
+          ],
+          "sourceRect": [
+            686,
+            748,
+            529,
+            462
+          ],
+          "drawSize": [
+            50.197,
+            43.839
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            150.902,
+            170.161,
+            50.197,
+            43.839
+          ]
+        }
+      ],
+      "suggestedGroundAnchor": [
+        176,
+        214
+      ],
+      "animation": {
+        "fps": 2.5,
+        "sequence": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "reducedMotionFrame": 0
+      },
+      "coreState": "builderLevel 1 or 2; hide for -1 or 0. Resting/standing sprites for later levels are not included in this batch."
+    },
+    "woodpile": {
+      "file": "woodpile-v2.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "hasAlpha": true,
+      "sha256": "bbb904929931461185b13a96a68ecc3d635ec3fb3c1e30bb5e5fe6e02edf1f63",
+      "grid": [
+        2,
+        2
+      ],
+      "sourceScale": 0.087,
+      "frames": [
+        {
+          "index": 0,
+          "cell": [
+            0,
+            0,
+            627,
+            627
+          ],
+          "sourceRect": [
+            158,
+            392,
+            331,
+            210
+          ],
+          "drawSize": [
+            28.731,
+            18.228
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            434.635,
+            197.772,
+            28.731,
+            18.228
+          ]
+        },
+        {
+          "index": 1,
+          "cell": [
+            627,
+            0,
+            627,
+            627
+          ],
+          "sourceRect": [
+            712,
+            273,
+            441,
+            331
+          ],
+          "drawSize": [
+            38.278,
+            28.731
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            429.861,
+            187.269,
+            38.278,
+            28.731
+          ]
+        },
+        {
+          "index": 2,
+          "cell": [
+            0,
+            627,
+            627,
+            627
+          ],
+          "sourceRect": [
+            51,
+            817,
+            553,
+            371
+          ],
+          "drawSize": [
+            48,
+            32.203
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            425,
+            183.797,
+            48,
+            32.203
+          ]
+        }
+      ],
+      "suggestedGroundAnchor": [
+        449,
+        216
+      ],
+      "states": {
+        "low": 0,
+        "medium": 1,
+        "high": 2
+      },
+      "quantityThresholdsSuggestion": {
+        "zero": "hide",
+        "undefined": "hide",
+        "low": [
+          1,
+          19
+        ],
+        "medium": [
+          20,
+          99
+        ],
+        "high": [
+          100,
+          null
+        ]
+      }
+    },
+    "door-closed": {
+      "file": "door-closed.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "hasAlpha": true,
+      "sha256": "353948c12328541b504dbefbaa3fe9522cc7e06bbf5e4f5e1b1fa448fd389ee3",
+      "grid": [
+        1,
+        1
+      ],
+      "sourceScale": 0.119,
+      "frames": [
+        {
+          "index": 0,
+          "cell": [
+            0,
+            0,
+            1254,
+            1254
+          ],
+          "sourceRect": [
+            362,
+            155,
+            530,
+            943
+          ],
+          "drawSize": [
+            62.948,
+            112
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            44.526,
+            79,
+            62.948,
+            112
+          ]
+        }
+      ],
+      "suggestedGroundAnchor": [
+        76,
+        191
+      ]
+    }
+  },
+  "renderOrder": [
+    "room-back",
+    "door-closed",
+    "hearth",
+    "woodpile",
+    "stranger-huddled",
+    "fire"
+  ],
+  "validation": {
+    "imageDimensionsChecked": true,
+    "transparentSpritesChecked": true,
+    "visibleFrameContentInsideCellChecked": true,
+    "woodpileFourthCellHasNoVisibleContent": true,
+    "gameIntegrationTested": false
+  }
+}

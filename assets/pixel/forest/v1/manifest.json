@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "id": "emberveil-forest-art-v1",
+  "created": "2026-10-15",
+  "status": "integrated-near-forest-prototype",
+  "generator": "built-in image_gen.imagegen",
+  "logicalScene": {
+    "width": 480,
+    "height": 270
+  },
+  "boundsAlphaThreshold": 8,
+  "sourcePolicy": "Original generated PNGs preserved. Crop sourceRect, bake once to drawSize using the existing mode resampler; never use source dimensions as CSS display sizes.",
+  "coordinateSystem": "Top-left origin. Props use bottom-center ground anchors. Full-frame layers use top-left.",
+  "assets": {
+    "forest-back": {
+      "file": "forest-back.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "sha256": "e9454ed6590d3f8d9e9d9ab77445fb472d75d2221ae502664a82a209df747f6a",
+      "grid": [
+        1,
+        1
+      ],
+      "visibleBounds": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "alpha": {
+        "fullyTransparentFraction": 0,
+        "partiallyTransparentFraction": 0
+      },
+      "frames": [
+        {
+          "index": 0,
+          "cell": [
+            0,
+            0,
+            1672,
+            941
+          ],
+          "sourceRect": [
+            0,
+            0,
+            1672,
+            941
+          ],
+          "drawSize": [
+            480,
+            270
+          ],
+          "anchor": "top-left",
+          "suggestedDestination": [
+            0,
+            0,
+            480,
+            270
+          ]
+        }
+      ]
+    },
+    "forest-foreground": {
+      "file": "forest-foreground.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "hasAlpha": true,
+      "sha256": "799152d4d01105cb1f479921822bbbf36408b8755d60033215174a73ef1e0c3a",
+      "grid": [
+        1,
+        1
+      ],
+      "visibleBounds": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "alpha": {
+        "fullyTransparentFraction": 0.8184,
+        "partiallyTransparentFraction": 0.1807
+      },
+      "frames": [
+        {
+          "index": 0,
+          "cell": [
+            0,
+            0,
+            1672,
+            941
+          ],
+          "sourceRect": [
+            0,
+            0,
+            1672,
+            941
+          ],
+          "drawSize": [
+            480,
+            270
+          ],
+          "anchor": "top-left",
+          "suggestedDestination": [
+            0,
+            0,
+            480,
+            270
+          ]
+        }
+      ]
+    },
+    "loose-branches": {
+      "file": "loose-branches.png",
+      "sourceSize": [
+        1983,
+        793
+      ],
+      "hasAlpha": true,
+      "sha256": "b74c0d0b80795893826f2b9c5a9ec493f0dd6ee3e0869488493ac511fbd9af8f",
+      "grid": [
+        1,
+        1
+      ],
+      "visibleBounds": [
+        148,
+        188,
+        1719,
+        436
+      ],
+      "alpha": {
+        "fullyTransparentFraction": 0.7603,
+        "partiallyTransparentFraction": 0.2383
+      },
+      "frames": [
+        {
+          "index": 0,
+          "cell": [
+            0,
+            0,
+            1983,
+            793
+          ],
+          "sourceRect": [
+            148,
+            188,
+            1719,
+            436
+          ],
+          "drawSize": [
+            64,
+            16
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            174,
+            202,
+            64,
+            16
+          ]
+        }
+      ],
+      "suggestedGroundAnchor": [
+        206,
+        218
+      ],
+      "proposedInteraction": {
+        "action": "collect-branches",
+        "logicalRect": [
+          174,
+          174,
+          64,
+          44
+        ],
+        "implemented": true
+      }
+    },
+    "fallen-log": {
+      "file": "fallen-log.png",
+      "sourceSize": [
+        2098,
+        749
+      ],
+      "hasAlpha": true,
+      "sha256": "3b0800588c2962b6b660bbee3c3960c88943bbe32a2f4d62517160dfd1b77d38",
+      "grid": [
+        1,
+        1
+      ],
+      "visibleBounds": [
+        173,
+        128,
+        1762,
+        531
+      ],
+      "alpha": {
+        "fullyTransparentFraction": 0.6381,
+        "partiallyTransparentFraction": 0.3614
+      },
+      "frames": [
+        {
+          "index": 0,
+          "cell": [
+            0,
+            0,
+            2098,
+            749
+          ],
+          "sourceRect": [
+            173,
+            128,
+            1762,
+            531
+          ],
+          "drawSize": [
+            100,
+            30
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            263,
+            185,
+            100,
+            30
+          ]
+        }
+      ],
+      "suggestedGroundAnchor": [
+        313,
+        215
+      ],
+      "proposedInteraction": {
+        "action": "collect-deadwood",
+        "logicalRect": [
+          263,
+          171,
+          100,
+          44
+        ],
+        "implemented": true
+      }
+    },
+    "home-marker": {
+      "file": "home-marker.png",
+      "sourceSize": [
+        1024,
+        1536
+      ],
+      "hasAlpha": true,
+      "sha256": "5e36a00a03208d73f6c53dfeb1bbf106d3f22019703914b5d580747e0da8be68",
+      "grid": [
+        1,
+        1
+      ],
+      "visibleBounds": [
+        171,
+        111,
+        683,
+        1345
+      ],
+      "alpha": {
+        "fullyTransparentFraction": 0.7855,
+        "partiallyTransparentFraction": 0.2145
+      },
+      "frames": [
+        {
+          "index": 0,
+          "cell": [
+            0,
+            0,
+            1024,
+            1536
+          ],
+          "sourceRect": [
+            171,
+            111,
+            683,
+            1345
+          ],
+          "drawSize": [
+            32,
+            64
+          ],
+          "anchor": "bottom-center",
+          "suggestedDestination": [
+            112,
+            150,
+            32,
+            64
+          ]
+        }
+      ],
+      "suggestedGroundAnchor": [
+        128,
+        214
+      ],
+      "proposedInteraction": {
+        "action": "return-room",
+        "logicalRect": [
+          106,
+          150,
+          44,
+          64
+        ],
+        "implemented": true
+      }
+    }
+  },
+  "renderOrder": [
+    "forest-back",
+    "home-marker",
+    "fallen-log",
+    "loose-branches",
+    "forest-foreground"
+  ],
+  "validation": {
+    "dimensionsChecked": true,
+    "transparentSpritesChecked": true,
+    "compositionPreviewTested": true,
+    "gameIntegrationTested": true
+  }
+}
