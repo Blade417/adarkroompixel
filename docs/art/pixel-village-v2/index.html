@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>聚落 · 四区七设施</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#11171d;color:#d4c6ad;font:15px/1.6 system-ui;text-align:center}
+main{width:1192px;margin:24px auto}h1{font-size:22px;font-weight:500;margin:0}p{color:#909a9b;margin:8px 0 16px}
+nav{display:flex;gap:12px;justify-content:center;margin-bottom:20px}button{font:inherit;background:#1b242a;color:#bbbdaf;border:1px solid #3a4446;padding:7px 19px;cursor:pointer}button[aria-pressed=true]{color:#f1d49d;border-color:#b59a68;background:#34322b}
+canvas{display:block;width:1152px;height:648px;image-rendering:pixelated}.map{position:relative;width:1152px;height:648px;margin:auto;border:1px solid #343b3f}
+.zone{position:absolute;border:0;background:transparent;padding:0}.zone span{position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);white-space:nowrap;background:#131d24e0;padding:2px 8px;color:#d2bf97;font-size:12px}.zone:focus-visible{outline:1px solid #d2bf97}.options{font-size:13px;color:#b7ad98}output{display:block;margin-top:15px;color:#a2aaa6}.legend{display:flex;justify-content:space-around;color:#8e9897;font-size:12px;margin:10px 0 16px}.legend strong{color:#c4b393;font-weight:500}
+a{color:#c9ad7d}
+</style>
+<main><h1>聚落 · 四区七设施</h1><p>二十间住宅围绕生火间生长；外围四个分区，为原版七种功能建筑各留独立位置。使用实际游戏渲染器。</p>
+<nav aria-label="建设阶段"><button data-count="0">仅生火间</button><button data-count="4">4 间</button><button data-count="8">8 间</button><button data-count="12">12 间</button><button data-count="20">20 间</button></nav>
+<p class="options"><label><input id="facilities" type="checkbox" checked> 显示完整设施示意</label> · 取消后查看七个预留地块 · 示意不解锁玩法、不修改存档</p>
+<div class="map"><canvas width="1152" height="648" aria-label="聚落扩建场景"></canvas></div><output aria-live="polite">载入素材…</output>
+<div class="legend"><span><strong>北 · 狩猎</strong><br>猎屋</span><span><strong>西 · 制作与冶炼</strong><br>工坊 · 炼钢厂 · 军械库</span><span><strong>东 · 生活加工</strong><br>制革坊 · 熏肉房</span><span><strong>南 · 贸易</strong><br>贸易站</span></div>
+<p><a href="/">返回游戏</a> · 铁、煤、硫磺矿保留在外部探索地图 · 住宅仍按 4 + 8 + 8 展开</p></main>
+<script type="module">
+import {loadVillageArt,VillageRenderer} from '/src/pixel/village.ts';
+import {fitFull} from '/src/pixel/fit.ts';
+import {villageLandscape} from '/src/pixel/village-landscape.ts';
+import {PUBLIC_FACILITIES,PUBLIC_ZONES,VILLAGE_SIZE} from '/src/app/village.ts';
+import {uiStrings} from '/src/ui/strings.ts';
+const renderer=new VillageRenderer(document.querySelector('canvas'),await loadVillageArt('mode'));
+const ui=uiStrings('zh'); let huts=20, selected=null;
+function show(count=huts){
+ huts=count;const built=document.querySelector('#facilities').checked;
+ renderer.render(fitFull(1152,648,1,VILLAGE_SIZE),{huts,clearedHuts:huts,population:huts*4,capacity:huts*4,gatherers:huts*4,fire:4,facilities:Object.fromEntries(PUBLIC_FACILITIES.map(f=>[f.id,built?1:0]))},selected,0,true);
+ document.querySelectorAll('button[data-count]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.count)===huts)));
+ document.querySelector('output').textContent=selected?ui(`village.zone.detail.${selected}`):`${huts} 间小屋 · 4 个分区 · 7 处${built?'设施示意':'预留地块'} · 林缘保留 ${villageLandscape(huts).trees.length} 株树木`;
+}
+for(const zone of PUBLIC_ZONES){const button=document.createElement('button');button.className='zone';button.dataset.zone=zone.id;button.setAttribute('aria-label',ui(`village.zone.${zone.id}`));Object.assign(button.style,{left:`${(zone.x-zone.w/2)*2}px`,top:`${(zone.y-zone.h)*2}px`,width:`${zone.w*2}px`,height:`${zone.h*2}px`});const label=document.createElement('span');label.textContent=ui(`village.zone.${zone.id}`);button.append(label);button.addEventListener('click',()=>{selected=zone.id;show();});document.querySelector('.map').append(button);}
+document.querySelector('nav').addEventListener('click',e=>{const button=e.target.closest('button');if(button){selected=null;show(Number(button.dataset.count));}});
+document.querySelector('#facilities').addEventListener('change',()=>show());show();
+</script></html>

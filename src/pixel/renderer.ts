@@ -10,7 +10,7 @@
  */
 import type { ArrivalFigure, ArrivalPose } from './arrival';
 import type { SceneArt } from './assets';
-import type { PixelBuildable } from '../app/building';
+import type { WorkshopId } from './workshop';
 import { WORKSHOP_ANCHORS, WORKSHOP_MANIFEST, WORKSHOP_TARGETS } from './workshop';
 import type { Fit } from './fit';
 import {
@@ -44,7 +44,7 @@ export interface FrameInput {
   arrival: ArrivalPose | null;
   hoverHearth: boolean;
   hoverDoor?: boolean;
-  hoverWorkshop?: PixelBuildable | null;
+  hoverWorkshop?: WorkshopId | null;
   debugAnchors: boolean;
 }
 
@@ -212,7 +212,7 @@ export class Renderer {
     g.globalAlpha = 1;
   }
 
-  private workshopShadow(g: Ctx, id: PixelBuildable): void {
+  private workshopShadow(g: Ctx, id: WorkshopId): void {
     const at = WORKSHOP_ANCHORS[id];
     for (const [dx, dy, rx, ry, opacity] of WORKSHOP_MANIFEST.assets[id].shadows) {
       g.globalAlpha = opacity;

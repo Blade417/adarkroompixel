@@ -45,7 +45,7 @@ describe('English <=> Chinese', () => {
   it('translates the base game and the expansion (which the original never translated)', () => {
     const g = makeGame({ language: 'zh' });
     const c = g.content.events;
-    expect(c.Room[0].title).toBe('游牧部落');
+    expect(c.Room[0].title).toBe('行商');
     expect(c.Executioner['executioner-intro'].title).toBe('残破的战舰');
     expect(c.Executioner['executioner-command'].scenes['5'].text![2]).toBe('说它不会死');
     expect(g.t('the fire is {0}', g.t('roaring'))).toMatch(/火/);

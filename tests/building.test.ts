@@ -21,12 +21,12 @@ describe('pixel construction and its forest effects', () => {
     expect(g.store.num('stores.wood')).toBe(100);
   });
 
-  it('keeps unsupported recipes and their hints out of the current edition', () => {
+  it('keeps advanced recipes hidden until their original material and workshop requirements are met', () => {
     const g = startGame(villageState(), { craftables: PIXEL_BUILDABLES });
-    expect(g.room.options()).toEqual({ build: ['trap', 'cart'], craft: [], buy: [] });
-    expect(g.room.build('hut')).toBe(false);
+    expect(g.room.options()).toEqual({ build: ['trap', 'cart', 'hut'], craft: [], buy: [] });
+    expect(g.room.build('lodge')).toBe(false);
     expect(g.store.num('stores.wood')).toBe(1000);
-    expect(g.notifications.texts().join('\n')).not.toContain('more wanderers');
+    expect(g.notifications.texts().join('\n')).toContain('more wanderers');
   });
 
   it('requires recovery, the room, warmth and no active event', () => {
@@ -60,14 +60,14 @@ describe('pixel construction and its forest effects', () => {
   it('makes the cart affect both gathering points without resetting or shortening cooldowns', () => {
     const g = startGame(villageState({ stores: { wood: 42 } }), { craftables: PIXEL_BUILDABLES });
     const trip = new ForestJourney(g);
-    expect(trip.yieldFor('branches')).toBe(4);
+    expect(trip.yieldFor('branches')).toBe(2);
     expect(new BuilderWorkshop(g).build('cart')).toBe(true);
     trip.travel('outside');
-    expect(trip.yieldFor('branches')).toBe(20);
-    expect(trip.yieldFor('deadwood')).toBe(40);
+    expect(trip.yieldFor('branches')).toBe(10);
+    expect(trip.yieldFor('deadwood')).toBe(20);
     expect(trip.gather('branches')).toBe(true);
     expect(trip.gather('deadwood')).toBe(true);
-    expect(g.store.num('stores.wood')).toBe(72);
+    expect(g.store.num('stores.wood')).toBe(42);
     expect(trip.gather('branches')).toBe(false);
     expect(trip.remaining('branches')).toBe(20_000);
     expect(trip.remaining('deadwood')).toBe(45_000);
@@ -77,9 +77,9 @@ describe('pixel construction and its forest effects', () => {
     const restored = new ForestJourney(next);
     restored.restoreLocation();
     expect(restored.outside).toBe(true);
-    expect(restored.yieldFor('branches')).toBe(20);
+    expect(restored.yieldFor('branches')).toBe(10);
     expect(restored.gather('branches')).toBe(false);
-    expect(next.store.num('stores.wood')).toBe(72);
+    expect(next.store.num('stores.wood')).toBe(42);
   });
 
   it('checks only built traps in the forest and restores the shared 90-second cooldown', () => {

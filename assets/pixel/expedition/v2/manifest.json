@@ -1,0 +1,394 @@
+{
+  "version": 2,
+  "tool": "built-in image_gen.imagegen",
+  "logicalSize": [
+    576,
+    324
+  ],
+  "alphaCut": 0.5,
+  "hands": {
+    "idle": [
+      0.935,
+      0.408
+    ],
+    "attack": [
+      0.94,
+      0.33
+    ],
+    "hurt": [
+      0.705,
+      0.385
+    ]
+  },
+  "sources": {
+    "traveler-body.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "sha256": "3632001f76fed90411a600feecea58d74cd168cb991072fa1b26c9847d4581ef",
+      "transparentFraction": 0.7324492136637369
+    },
+    "weapons.png": {
+      "size": [
+        1774,
+        887
+      ],
+      "hasAlpha": true,
+      "sha256": "d87274691f6b7c4098ff6f9fc113d4c4a60e1857c0043c75e50e512ec14b7d04",
+      "transparentFraction": 0.8768323357936065
+    },
+    "early-enemies.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "sha256": "b66c7065f5339a6239f586c982904b369de5501d7c8fea3ff564f6e15f984e47",
+      "transparentFraction": 0.6341196695963541
+    },
+    "field-battle.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "sha256": "af11a2dff624467f5c8ac91fc862f0d6fbab9272494b4d19d28e92bd233e6e3f",
+      "transparentFraction": 0
+    },
+    "barrens-battle.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "sha256": "0abbc0914c71a35ef5404888233f523a6a80fd6ef2ceadaf09e3009e69459d60",
+      "transparentFraction": 0
+    }
+  },
+  "assets": {
+    "body-idle": {
+      "file": "traveler-body.png",
+      "sourceRect": [
+        91,
+        95,
+        285,
+        447
+      ],
+      "drawSize": [
+        47,
+        74
+      ],
+      "hasAlpha": true
+    },
+    "body-attack": {
+      "file": "traveler-body.png",
+      "sourceRect": [
+        544,
+        136,
+        438,
+        406
+      ],
+      "drawSize": [
+        72,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "body-hurt": {
+      "file": "traveler-body.png",
+      "sourceRect": [
+        1160,
+        143,
+        338,
+        399
+      ],
+      "drawSize": [
+        57,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "map-north": {
+      "file": "traveler-body.png",
+      "sourceRect": [
+        133,
+        612,
+        207,
+        348
+      ],
+      "drawSize": [
+        14,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "map-south": {
+      "file": "traveler-body.png",
+      "sourceRect": [
+        655,
+        614,
+        215,
+        346
+      ],
+      "drawSize": [
+        15,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "map-east": {
+      "file": "traveler-body.png",
+      "sourceRect": [
+        1207,
+        614,
+        218,
+        343
+      ],
+      "drawSize": [
+        15,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "weapon-spear": {
+      "file": "weapons.png",
+      "sourceRect": [
+        25,
+        191,
+        662,
+        68
+      ],
+      "drawSize": [
+        66,
+        7
+      ],
+      "hasAlpha": true
+    },
+    "weapon-iron": {
+      "file": "weapons.png",
+      "sourceRect": [
+        758,
+        161,
+        429,
+        131
+      ],
+      "drawSize": [
+        33,
+        10
+      ],
+      "hasAlpha": true
+    },
+    "weapon-steel": {
+      "file": "weapons.png",
+      "sourceRect": [
+        1261,
+        157,
+        488,
+        139
+      ],
+      "drawSize": [
+        39,
+        11
+      ],
+      "hasAlpha": true
+    },
+    "weapon-rifle": {
+      "file": "weapons.png",
+      "sourceRect": [
+        28,
+        549,
+        694,
+        159
+      ],
+      "drawSize": [
+        45,
+        10
+      ],
+      "hasAlpha": true
+    },
+    "weapon-bolas": {
+      "file": "weapons.png",
+      "sourceRect": [
+        799,
+        517,
+        493,
+        209
+      ],
+      "drawSize": [
+        25,
+        11
+      ],
+      "hasAlpha": true
+    },
+    "bullet": {
+      "file": "weapons.png",
+      "sourceRect": [
+        1503,
+        586,
+        168,
+        55
+      ],
+      "drawSize": [
+        7,
+        2
+      ],
+      "hasAlpha": true
+    },
+    "gaunt-idle": {
+      "file": "early-enemies.png",
+      "sourceRect": [
+        136,
+        44,
+        277,
+        309
+      ],
+      "drawSize": [
+        56,
+        63
+      ],
+      "hasAlpha": true
+    },
+    "gaunt-attack": {
+      "file": "early-enemies.png",
+      "sourceRect": [
+        522,
+        58,
+        440,
+        295
+      ],
+      "drawSize": [
+        94,
+        63
+      ],
+      "hasAlpha": true
+    },
+    "gaunt-hurt": {
+      "file": "early-enemies.png",
+      "sourceRect": [
+        1142,
+        58,
+        277,
+        295
+      ],
+      "drawSize": [
+        59,
+        63
+      ],
+      "hasAlpha": true
+    },
+    "bird-idle": {
+      "file": "early-enemies.png",
+      "sourceRect": [
+        81,
+        383,
+        359,
+        284
+      ],
+      "drawSize": [
+        59,
+        47
+      ],
+      "hasAlpha": true
+    },
+    "bird-attack": {
+      "file": "early-enemies.png",
+      "sourceRect": [
+        534,
+        407,
+        463,
+        261
+      ],
+      "drawSize": [
+        83,
+        47
+      ],
+      "hasAlpha": true
+    },
+    "bird-hurt": {
+      "file": "early-enemies.png",
+      "sourceRect": [
+        1173,
+        367,
+        282,
+        300
+      ],
+      "drawSize": [
+        44,
+        47
+      ],
+      "hasAlpha": true
+    },
+    "twohead-idle": {
+      "file": "early-enemies.png",
+      "sourceRect": [
+        36,
+        681,
+        463,
+        296
+      ],
+      "drawSize": [
+        102,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "twohead-attack": {
+      "file": "early-enemies.png",
+      "sourceRect": [
+        536,
+        693,
+        493,
+        288
+      ],
+      "drawSize": [
+        111,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "twohead-hurt": {
+      "file": "early-enemies.png",
+      "sourceRect": [
+        1105,
+        697,
+        402,
+        280
+      ],
+      "drawSize": [
+        93,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "field-background": {
+      "file": "field-battle.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "barrens-background": {
+      "file": "barrens-battle.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    }
+  }
+}

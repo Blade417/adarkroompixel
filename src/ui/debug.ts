@@ -62,7 +62,8 @@ export class DebugPanel {
       p.set('sample', m);
       return m === info.sample ? `<b>${m}</b>` : `<a href="?${esc(p.toString())}">${m}</a>`;
     }).join(' ');
-    const events = (g.events.content?.Room ?? []).map((e, i) => `<option value="${i}">${esc(e.title)}</option>`).join('');
+    const events = (['Room', 'Outside', 'Global', 'Marketing'] as const).map(group => `<optgroup label="${group}">` +
+      (g.events.content?.[group] ?? []).map((e, i) => `<option value="${group}:${i}">${esc(e.title)}</option>`).join('') + '</optgroup>').join('');
 
     const box = document.createElement('details');
     box.className = 'debug';
@@ -77,7 +78,7 @@ export class DebugPanel {
     });
     box.innerHTML = `
 <summary>调试 debug</summary>
-<div class="dbg-row"><span>木头</span><button type="button" data-dbg="wood:10">+10</button><button type="button" data-dbg="wood:100">+100</button><button type="button" data-dbg="wood:-1">清零</button>
+<div class="dbg-row"><span>木头</span><button type="button" data-dbg="wood:10">+10</button><button type="button" data-dbg="wood:100">+100</button><button type="button" data-dbg="wood:1000">+1000</button><button type="button" data-dbg="wood:-1">清零</button>
 <span>毛皮</span><button type="button" data-dbg="fur:5">+5</button></div>
 <div class="dbg-row"><span>火</span>${levels('fire', 0, 4)}</div>
 <div class="dbg-row"><span>温度</span>${levels('temp', 0, 4)}</div>
@@ -134,7 +135,9 @@ export class DebugPanel {
         this.h.previewArrival();
         break;
       case 'event': {
-        const def = g.events.content?.Room?.[Number(this.evSelect.value)];
+        const [group, index] = this.evSelect.value.split(':');
+        const list = group === 'Room' ? g.events.content.Room : group === 'Outside' ? g.events.content.Outside : group === 'Global' ? g.events.content.Global : g.events.content.Marketing;
+        const def = list[Number(index)];
         if (def && !g.events.active()) g.events.startEvent(def);
         break;
       }

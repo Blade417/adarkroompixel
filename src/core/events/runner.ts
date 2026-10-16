@@ -6,7 +6,7 @@ import { EVENTS } from '../data';
 import type { Game } from '../game';
 import type { TimerId } from '../clock';
 import type { EventButton, EventScene, GameEventDef } from '../types';
-import { Combat } from './combat';
+import { Combat, type CombatSnapshot } from './combat';
 
 /** the `Events` object the content scripts see and fill in */
 export interface ContentEvents {
@@ -29,6 +29,10 @@ export interface ActiveEvent {
   combat: Combat | null;
   /** victory screen of a fight (deathMessage + loot + leave) */
   afterCombat: boolean;
+}
+export interface EventSnapshot {
+  group: string; key: string; sceneName: string; loot: Record<string, number> | null;
+  afterCombat: boolean; combat: CombatSnapshot | null;
 }
 
 export interface ButtonView {
@@ -76,6 +80,34 @@ export class EventRunner {
 
   active(): ActiveEvent | null {
     return this.stack[0] ?? null;
+  }
+
+  snapshot(): EventSnapshot[] {
+    return this.stack.map(ev => {
+      for (const group of ['Global', 'Room', 'Outside', 'Marketing', 'Encounters', 'Setpieces', 'Executioner']) {
+        const entries = Object.entries(this.content[group] as Record<string, GameEventDef>);
+        const entry = entries.find(([, def]) => def === ev.def);
+        if (entry) return { group, key: entry[0], sceneName: ev.sceneName, loot: ev.loot ? { ...ev.loot } : null,
+          afterCombat: ev.afterCombat, combat: ev.combat?.snapshot() ?? null };
+      }
+      throw Error('Cannot save unknown event definition');
+    });
+  }
+
+  resume(saved: EventSnapshot[]): void {
+    for (const ev of this.stack) ev.combat?.clearTimeouts();
+    // Restore scene references directly: onLoad/rewards/loot rolls must NEVER run twice.
+    this.stack = saved.map(entry => {
+      const def = this.content[entry.group]?.[entry.key] as GameEventDef | undefined;
+      if (!def?.scenes[entry.sceneName]) throw Error('Unknown saved expedition scene');
+      const ev: ActiveEvent = { def, sceneName: entry.sceneName, scene: def.scenes[entry.sceneName],
+        loot: entry.loot ? { ...entry.loot } : null, afterCombat: entry.afterCombat, combat: null };
+      if (entry.combat) { ev.combat = new Combat(this.g, this, ev.scene); ev.combat.resume(entry.combat); }
+      return ev;
+    });
+    this.g.keyLock = this.stack.length > 0;
+    this.g.tabNavigation = !this.g.keyLock;
+    this.g.cooldowns.persistEnabled = !this.g.keyLock;
   }
 
   // ------------------------------------------------------------- scheduling

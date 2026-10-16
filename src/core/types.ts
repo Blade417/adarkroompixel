@@ -80,7 +80,7 @@ export type GameEvent =
   | { type: 'combat:end'; won: boolean }
   | { type: 'world:move'; pos: [number, number]; tile: string }
   | { type: 'world:died' }
-  | { type: 'world:home' }
+  | { type: 'world:home'; returned: Record<string, number> }
   | { type: 'world:fight' }
   | { type: 'space:start' }
   | { type: 'space:hit'; hull: number }

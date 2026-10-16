@@ -12,6 +12,7 @@ interface Entry {
   persist: boolean;
   timer: TimerId;
 }
+export type CooldownSnapshot = Record<string, { remaining: number; duration: number }>;
 
 export class Cooldowns {
   private entries = new Map<string, Entry>();
@@ -72,6 +73,20 @@ export class Cooldowns {
 
   clearAll(): void {
     for (const id of [...this.entries.keys()]) this.clear(id);
+  }
+
+  snapshot(prefixes: string[]): CooldownSnapshot {
+    return Object.fromEntries([...this.entries].filter(([id]) => prefixes.some(prefix => id.startsWith(prefix)))
+      .map(([id, e]) => [id, { remaining: this.remaining(id), duration: e.duration }]));
+  }
+
+  resume(saved: CooldownSnapshot): void {
+    for (const [id, e] of Object.entries(saved)) {
+      this.clear(id);
+      if (e.remaining <= 0) continue;
+      const timer = this.clock.setTimeout(() => this.clear(id), e.remaining, true);
+      this.entries.set(id, { endsAt: this.clock.now + e.remaining, duration: e.duration, timer, persist: false });
+    }
   }
 
   private ensureTicker(): void {

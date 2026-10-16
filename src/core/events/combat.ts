@@ -5,7 +5,7 @@
  */
 import { EVENTS, WEAPONS, type Weapon } from '../data';
 import type { Game } from '../game';
-import type { TimerId } from '../clock';
+import type { TimerId, TimerSnapshot } from '../clock';
 import type { EventScene } from '../types';
 import type { EventRunner } from './runner';
 
@@ -27,6 +27,20 @@ export interface CombatAction {
   cooldown: number;
   cost?: Record<string, number>;
 }
+type FighterId = Fighter['id'];
+type CombatTask =
+  | { type: 'strike'; attacker: FighterId; dmg: number | 'stun'; kind: 'melee' | 'ranged' | 'unarmed'; stage: 'impact' | 'finish' }
+  | { type: 'status-clear'; fighter: FighterId; restartEnemy?: boolean }
+  | { type: 'stun-clear'; fighter: FighterId }
+  | { type: 'victory' }
+  | { type: 'explode'; damage: number };
+export interface CombatSnapshot {
+  player: Fighter; enemy: Fighter; fought: boolean; won: boolean; lost: boolean; showFists: boolean;
+  meditateDmg: number; lastSpecial?: string;
+  enemyTimer: TimerSnapshot | null; specialTimers: (TimerSnapshot | null)[];
+  dot: { target: FighterId; damage: number; timer: TimerSnapshot } | null;
+  tasks: { task: CombatTask; timer: TimerSnapshot }[];
+}
 
 export class Combat {
   player: Fighter;
@@ -40,7 +54,8 @@ export class Combat {
   private enemyTimer: TimerId | null = null;
   private specialTimers: TimerId[] = [];
   private dotTimer: TimerId | null = null;
-  private pending: TimerId[] = [];
+  private tasks = new Map<TimerId, CombatTask>();
+  private dot: { target: FighterId; damage: number } | null = null;
   private meditateDmg = 0;
   /** last special used by the immortal wanderer (content reads Events._lastSpecial) */
   lastSpecial: string | undefined;
@@ -174,24 +189,7 @@ export class Combat {
     const r = Math.floor(this.g.rng.random() * 2) + 1;
     this.g.sfx(`WEAPON_${weapon.type.toUpperCase()}_${r}`);
 
-    const finish = () => {
-      if (this.isOver()) return;
-      const enemyHp = this.enemy.hp;
-      const hit = typeof dmg === 'number' && dmg > 0 ? dmg : 0;
-      for (const [k, act] of Object.entries(this.scene.atHealth ?? {})) {
-        const threshold = Number(k);
-        if (enemyHp <= threshold && enemyHp + hit > threshold) {
-          act(this.enemy);
-          this.emitStatus(this.enemy);
-        }
-      }
-      if (enemyHp <= 0 && !this.won) {
-        this.won = true;
-        if (this.scene.explosion) this.explode(this.scene.explosion);
-        else this.winFight();
-      }
-    };
-    this.animate(this.player, this.enemy, dmg, weapon.type === 'ranged' ? 'ranged' : weapon.type === 'unarmed' ? 'unarmed' : 'melee', finish);
+    this.animate(this.player, dmg, weapon.type === 'ranged' ? 'ranged' : weapon.type === 'unarmed' ? 'unarmed' : 'melee');
     return true;
   }
 
@@ -259,7 +257,7 @@ export class Combat {
     } else if (this.g.rng.random() <= toHit) {
       dmg = this.scene.damage ?? 0;
     }
-    this.animate(this.enemy, this.player, dmg, this.scene.ranged ? 'ranged' : 'melee', () => this.checkPlayerDeath());
+    this.animate(this.enemy, dmg, this.scene.ranged ? 'ranged' : 'melee');
   }
 
   /** content hook (Events.setStatus) */
@@ -267,49 +265,74 @@ export class Combat {
     fighter.status = status;
     if (status === 'enraged' && fighter.id === 'enemy') {
       this.startEnemyAttacks(0.5);
-      this.later(() => {
-        fighter.status = 'none';
-        if (!this.isOver()) this.startEnemyAttacks();
-        this.emitStatus(fighter);
-      }, EVENTS.ENRAGE_DURATION);
+      this.schedule({ type: 'status-clear', fighter: fighter.id, restartEnemy: true }, EVENTS.ENRAGE_DURATION, true);
     }
     if (status === 'meditation') {
       this.meditateDmg = 0;
-      this.later(() => {
-        fighter.status = 'none';
-        this.emitStatus(fighter);
-      }, EVENTS.MEDITATE_DURATION);
+      this.schedule({ type: 'status-clear', fighter: fighter.id }, EVENTS.MEDITATE_DURATION, true);
     }
     if (status === 'boost') {
-      this.later(() => {
-        fighter.status = 'none';
-        this.emitStatus(fighter);
-      }, EVENTS.BOOST_DURATION);
+      this.schedule({ type: 'status-clear', fighter: fighter.id }, EVENTS.BOOST_DURATION, true);
     }
     this.emitStatus(fighter);
   }
 
   // ------------------------------------------------------------- resolution
 
-  private later(fn: () => void, ms: number): void {
-    // status timers are raw setTimeouts in the original (unaffected by hyper mode)
-    this.pending.push(this.g.clock.setTimeout(fn, ms, true));
+  private schedule(task: CombatTask, ms: number, exact = false): void {
+    const id = this.g.clock.setTimeout(() => { this.tasks.delete(id); this.runTask(task); }, ms, exact);
+    this.tasks.set(id, task);
   }
 
-  private animate(attacker: Fighter, target: Fighter, dmg: number | 'stun', kind: 'melee' | 'ranged' | 'unarmed', done: () => void): void {
-    const speed = EVENTS.FIGHT_SPEED;
-    if (kind === 'ranged') {
-      this.pending.push(this.g.clock.setTimeout(() => {
-        if (this.isOver()) return;
-        this.damage(attacker, target, dmg, kind);
-        done();
-      }, speed * 2));
-    } else {
-      this.pending.push(this.g.clock.setTimeout(() => {
-        if (this.isOver()) return;
-        this.damage(attacker, target, dmg, kind);
-        this.pending.push(this.g.clock.setTimeout(done, speed));
-      }, speed));
+  private animate(attacker: Fighter, dmg: number | 'stun', kind: 'melee' | 'ranged' | 'unarmed'): void {
+    this.schedule({ type: 'strike', attacker: attacker.id, dmg, kind, stage: 'impact' }, EVENTS.FIGHT_SPEED * (kind === 'ranged' ? 2 : 1));
+  }
+
+  private finishStrike(task: Extract<CombatTask, { type: 'strike' }>): void {
+    if (this.isOver()) return;
+    if (task.attacker === 'enemy') { this.checkPlayerDeath(); return; }
+    const enemyHp = this.enemy.hp, hit = typeof task.dmg === 'number' && task.dmg > 0 ? task.dmg : 0;
+    for (const [k, act] of Object.entries(this.scene.atHealth ?? {})) {
+      const threshold = Number(k);
+      if (enemyHp <= threshold && enemyHp + hit > threshold) { act(this.enemy); this.emitStatus(this.enemy); }
+    }
+    if (enemyHp <= 0 && !this.won) {
+      this.won = true;
+      if (this.scene.explosion) this.explode(this.scene.explosion);
+      else this.winFight();
+    }
+  }
+
+  private runTask(task: CombatTask): void {
+    if (task.type === 'strike') {
+      if (this.isOver()) return;
+      if (task.stage === 'finish') this.finishStrike(task);
+      else {
+        const attacker = this[task.attacker === 'wanderer' ? 'player' : 'enemy'];
+        const target = this[task.attacker === 'wanderer' ? 'enemy' : 'player'];
+        this.damage(attacker, target, task.dmg, task.kind);
+        if (task.kind === 'ranged') this.finishStrike(task);
+        else this.schedule({ ...task, stage: 'finish' }, EVENTS.FIGHT_SPEED);
+      }
+    } else if (task.type === 'status-clear' || task.type === 'stun-clear') {
+      const fighter = this[task.fighter === 'wanderer' ? 'player' : 'enemy'];
+      if (task.type === 'stun-clear') fighter.stunned = false;
+      else { fighter.status = 'none'; if (task.restartEnemy && !this.isOver()) this.startEnemyAttacks(); }
+      this.emitStatus(fighter);
+    } else if (task.type === 'explode') {
+      this.enemy.status = 'none'; this.enemy.chara = '*';
+      this.damage(this.enemy, this.player, task.damage, 'ranged');
+      if (!this.checkPlayerDeath()) this.winFight();
+    } else if (!this.fought) {
+      this.fought = true; this.clearTimeouts();
+      const ev = this.runner.active();
+      if (!ev || ev.combat !== this) return;
+      ev.afterCombat = true;
+      ev.loot = this.runner.rollLoot(this.scene.loot ?? {});
+      if (this.scene.buttons) this.runner.startButtonCooldowns(this.scene.buttons);
+      else this.g.cooldowns.start('event:leaveBtn', EVENTS.LEAVE_COOLDOWN, false);
+      this.g.bus.emit({ type: 'combat:end', won: true });
+      this.g.bus.emit({ type: 'event:update' });
     }
   }
 
@@ -336,6 +359,7 @@ export class Combat {
         if (venomous && !shielded) {
           this.g.clock.clear(this.dotTimer);
           const tick = Math.floor(dmg / 2);
+          this.dot = { target: target.id, damage: tick };
           this.dotTimer = this.g.clock.setInterval(() => this.dotDamage(target, tick), EVENTS.DOT_TICK, true);
         }
         if (shielded) target.status = 'none';
@@ -345,7 +369,7 @@ export class Combat {
     } else if (dmg === 'stun') {
       msg = this.g.t('stunned');
       target.stunned = true;
-      this.later(() => (target.stunned = false), EVENTS.STUN_DURATION);
+      this.schedule({ type: 'stun-clear', fighter: target.id }, EVENTS.STUN_DURATION, true);
     }
     if (energised || venomous) fighter.status = 'none';
     this.float(target.id, msg);
@@ -370,12 +394,7 @@ export class Combat {
     this.clearTimeouts();
     this.enemy.status = 'exploding';
     this.emitStatus(this.enemy);
-    this.pending.push(this.g.clock.setTimeout(() => {
-      this.enemy.status = 'none';
-      this.enemy.chara = '*';
-      this.damage(this.enemy, this.player, dmg, 'ranged');
-      if (!this.checkPlayerDeath()) this.winFight();
-    }, EVENTS.EXPLOSION_DURATION));
+    this.schedule({ type: 'explode', damage: dmg }, EVENTS.EXPLOSION_DURATION);
   }
 
   checkPlayerDeath(): boolean {
@@ -391,19 +410,7 @@ export class Combat {
   }
 
   private winFight(): void {
-    this.g.clock.setTimeout(() => {
-      if (this.fought) return;
-      this.fought = true;
-      this.clearTimeouts();
-      const ev = this.runner.active();
-      if (!ev || ev.combat !== this) return;
-      ev.afterCombat = true;
-      ev.loot = this.runner.rollLoot(this.scene.loot ?? {});
-      if (this.scene.buttons) this.runner.startButtonCooldowns(this.scene.buttons);
-      else this.g.cooldowns.start('event:leaveBtn', EVENTS.LEAVE_COOLDOWN, false);
-      this.g.bus.emit({ type: 'combat:end', won: true });
-      this.g.bus.emit({ type: 'event:update' });
-    }, EVENTS.FIGHT_SPEED);
+    this.schedule({ type: 'victory' }, EVENTS.FIGHT_SPEED);
   }
 
   clearTimeouts(): void {
@@ -411,6 +418,40 @@ export class Combat {
     this.specialTimers.forEach((t) => this.g.clock.clear(t));
     this.specialTimers = [];
     this.g.clock.clear(this.dotTimer);
+    for (const id of this.tasks.keys()) this.g.clock.clear(id);
+    this.tasks.clear();
+  }
+
+  snapshot(): CombatSnapshot {
+    const clock = this.g.clock, dotTimer = clock.snapshot(this.dotTimer);
+    return structuredClone({ player: this.player, enemy: this.enemy, fought: this.fought, won: this.won, lost: this.lost,
+      showFists: this.showFists, meditateDmg: this.meditateDmg, lastSpecial: this.lastSpecial,
+      enemyTimer: clock.snapshot(this.enemyTimer), specialTimers: this.specialTimers.map(id => clock.snapshot(id)),
+      dot: this.dot && dotTimer ? { ...this.dot, timer: dotTimer } : null,
+      tasks: [...this.tasks].flatMap(([id, task]) => { const timer = clock.snapshot(id); return timer ? [{ task, timer }] : []; }) });
+  }
+
+  resume(saved: CombatSnapshot): void {
+    this.clearTimeouts();
+    this.player = structuredClone(saved.player); this.enemy = structuredClone(saved.enemy);
+    this.fought = saved.fought; this.won = saved.won; this.lost = saved.lost;
+    this.showFists = saved.showFists; this.meditateDmg = saved.meditateDmg; this.lastSpecial = saved.lastSpecial;
+    const clock = this.g.clock;
+    if (saved.enemyTimer) this.enemyTimer = clock.resume(() => this.enemyAttack(), saved.enemyTimer);
+    this.specialTimers = saved.specialTimers.flatMap((timer, i) => {
+      const special = this.scene.specials?.[i];
+      return special && timer ? [clock.resume(() => {
+        const text = special.action(this.enemy); if (text) this.float('enemy', String(text)); this.emitStatus(this.enemy);
+      }, timer)] : [];
+    });
+    if (saved.dot) {
+      this.dot = { target: saved.dot.target, damage: saved.dot.damage };
+      this.dotTimer = clock.resume(() => this.dotDamage(this[this.dot!.target === 'wanderer' ? 'player' : 'enemy'], this.dot!.damage), saved.dot.timer);
+    }
+    for (const { task, timer } of saved.tasks) {
+      const id = clock.resume(() => { this.tasks.delete(id); this.runTask(task); }, timer);
+      this.tasks.set(id, task);
+    }
   }
 
   // ------------------------------------------------------------- view helpers

@@ -1,0 +1,29 @@
+# 图像生成提示词
+
+使用内置 `image_gen.imagegen`，项目源图原样复制。前三份透明背景；后两份不透明。旧旅人与野兽仅作角色/画风参考。
+
+## body
+
+Create a production sprite atlas for a dark survival pixel-art game. The referenced hooded traveler is STYLE AND CHARACTER reference only. Draw a NEW atlas with NO WEAPONS ANYWHERE. Same slate gray tattered hood, faceless black face, brown backpack and boots, earth-tone pixel clusters. Transparent background, zero ground or glow. EXACT 3 columns by 2 rows, equal cells, generous transparent gutters, each figure fully inside own cell. Top row: same side-view traveler facing RIGHT, idle with right hand slightly forward at chest level; attack with right arm extended horizontally right and fist closed; hurt recoiling backward, hand still visible. All top row heads at same height and feet at same baseline, character size identical, standing about 70% cell height. Bottom row smaller top-down travel poses north/back, south/front, east/right. Absolutely NO spear sword gun staff or handheld objects. No letters, no labels, no UI, no grids. Pixel-art with crisp outlines, subdued blue gray/brown, same readable silhouette as reference. This atlas supplies the base BODY layer; separate equipment will be attached by runtime.
+
+## weapons
+
+Create a transparent pixel art EQUIPMENT atlas, dark survival RPG, muted worn wood, bone, dark iron and gray steel. Exactly 3 columns x 2 rows, six equal cells, wide transparent gutters. ONLY isolated objects, no hands, no characters, no background, no shadows or glow, no text. Each weapon is drawn horizontally, grip on LEFT, damaging end points RIGHT. Row1 left: a long rough wooden bone-tipped spear, thin shaft and ivory head. Row1 center: short chipped dark iron sword with brown leather handle and plain crossguard. Row1 right: longer clean pale steel sword with brown grip, noticeably brighter than iron. Row2 left: old long wooden-stock powder rifle, butt left barrel right, readable trigger and no bayonet. Row2 center: a bolas throwing weapon, two rounded dark stones tied by looping brown rope. Row2 right: one isolated small brass bullet pointing right. Keep all six objects distinct and uncut within their own cell with generous padding. Crisp deliberate pixel clusters with dark outlines, appropriate for resampling to spear64px long, swords30px long, rifle43px long. No decorative frames.
+
+## enemies
+
+Create a transparent production ENEMY sprite atlas for a somber survival pixel-art game. Match reference beast's pixel density, subdued earth tones and crisp dark outlines; do not repeat that wolf. EXACTLY 3 columns x 3 rows, equal cells, wide empty gutters, no cell overlap, all creatures face LEFT. Columns are idle, attacking left, recoiling hurt. Row1: one gaunt hostile human male in torn dusty brown-gray clothes, bony arms and sunken face, bare empty hands, hunched threatening posture. Row2: one strange flightless bird, gray green scaled legs, crooked beak, ragged feathers, slightly larger than a chicken, attack with beak extended left; NO mammal head. Row3: one two-headed quadruped creature, mottled brown-gray hide, TWO clearly distinct necks and heads on ONE shared four-legged body, one large head and one smaller trembling head, NOT two separate animals. Each row same creature in three poses, feet baseline aligned, all subjects fully inside their cells. True transparent background; no ground, no labels, no blood, no glow. Generous gutters 15% each cell. Retain original recognizable anatomy in each pose.
+
+## field
+
+Create an empty side-view battle-stage BACKGROUND for a dark survival pixel-art game, 16:9 wide landscape. Windswept desolate grassland under cold overcast dusk sky, dry gray olive grasses and distant low hills, bleak empty wilderness, no forest canopy. Ground is nearly horizontal, large empty dirt clearing across entire central foreground for game sprites, playable ground baseline about 80% image height, distant horizon around upper third. Sparse tufts and pebbles on side edges, strong readable atmospheric depth, restrained desaturated gray-green and brown palette. Crisp deliberate pixel clusters and dark outlines, retro survival RPG art. No people, no animals, no buildings, no text, no UI. Do not include any character shadows. Opaque background.
+
+## barrens
+
+Create an empty side-view battle-stage BACKGROUND for a dark survival pixel-art game, 16:9 wide landscape. Cold barren rocky wasteland under overcast dusk sky, pale weathered stones, dry dust and distant jagged low ridges, desaturated gray-brown and ochre palette. No forest, no grassland. Ground nearly horizontal, large empty dirt clearing across the entire central foreground for battle sprites, playable ground baseline about 80% image height, distant horizon upper third. Foreground rocks only at far side edges, readable atmospheric depth. Crisp deliberate pixel clusters, dark outlines, retro survival RPG art. No people, animals, ruins, buildings, text, UI or character shadows. Opaque background.
+
+## 敌人修订
+
+首稿双头生物的攻击姿态误有三颗头。编辑目标为首稿图集，透明背景；最终使用 early-enemies.png，首稿未加入项目或打包。实际编辑提示词：
+
+Edit this enemy sprite atlas with one tightly scoped correction. Preserve dimensions, transparent background, positions and scale of all nine sprites. Preserve all six sprites in the top two rows exactly. In the BOTTOM CENTER attacking two-headed quadruped, there are accidentally THREE heads: two small heads above and one large snarling head at front left. REMOVE the upper-left small head and its neck completely, restoring transparent space or continuous back/mane where appropriate. Keep exactly TWO heads: the large lower front-left snarling head and the upper-right smaller head, both attached to this ONE body. Preserve its paws, four legs, tail and leftward leap. Do not change either other bottom-row sprite: each already has two heads. Do not add text or background.

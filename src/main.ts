@@ -11,9 +11,12 @@ import { loadSceneArt, standInPieces } from './pixel/assets';
 import { chooseMode, fitFull, fitNarrow, STACKED_STAGE_SHARE, type Fit } from './pixel/fit';
 import { OpeningProgress } from './app/opening';
 import { ForestJourney, type PixelPlace } from './app/forest';
-import { PIXEL_BUILDABLES } from './app/building';
+import { PIXEL_RECIPES } from './app/building';
 import { ForestRenderer, loadForestArt } from './pixel/forest';
 import { SceneControls } from './ui/scene-controls';
+import { VillageControls } from './ui/village-controls';
+import { rememberVillageClearing, villageView, VILLAGE_SIZE } from './app/village';
+import { VillageRenderer, loadVillageArt } from './pixel/village';
 import { uiStrings } from './ui/strings';
 import { roomView, type RoomView } from './pixel/mapping';
 import { Renderer } from './pixel/renderer';
@@ -21,6 +24,8 @@ import { SAMPLE_MODES, type SampleMode } from './pixel/resample';
 import { DebugPanel } from './ui/debug';
 import { Hud, type HudHost } from './ui/hud';
 import { HEADER_H, hudLayout } from './ui/layout';
+import { Expedition } from './app/expedition';
+import { ExpeditionPanel } from './ui/expedition';
 
 const params = new URLSearchParams(location.search);
 const DEBUG = params.has('debug');
@@ -40,7 +45,7 @@ const hasSave = (() => {
 
 document.documentElement.lang = prefs.language === 'zh' ? 'zh-CN' : 'en';
 
-const game = new Game({ content: browserContent, storage, language: prefs.language, dictionaries: { zh: zhDictionaries }, craftables: PIXEL_BUILDABLES });
+const game = new Game({ content: browserContent, storage, language: prefs.language, dictionaries: { zh: zhDictionaries }, craftables: PIXEL_RECIPES });
 const audio = new AudioManager((key) => {
   const path = game.content.audio[key];
   return path ? audioUrl(path) : undefined;
@@ -51,11 +56,13 @@ game.bus.on((e) => audio.handle(e));
 const watcher = new ArrivalWatcher();
 const opening = new OpeningProgress(game);
 const journey = new ForestJourney(game);
+const expedition = new Expedition(game);
 const player = new ArrivalPlayer();
 const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 let reduce = reducedMotion(prefs.motion, motionQuery.matches);
 let renderer: Renderer | null = null;
 let forestRenderer: ForestRenderer | null = null;
+let villageRenderer: VillageRenderer | null = null;
 let fit: Fit | null = null;
 /** devicePixelRatio of the current layout (zoom or a move to another screen changes it) */
 let layoutDpr = 0;
@@ -125,9 +132,15 @@ const host: HudHost = {
     return true;
   },
   get forestReady() { return forestRenderer !== null; },
+  get villageReady() { return villageRenderer !== null; },
+  get expeditionOpen() { return expedition.opened; },
+  openExpedition() {
+    if (!hud.canInteract() || player.playing) return false;
+    return expedition.open();
+  },
   hasWorkshopArt(id) { return Boolean(renderer?.sceneArt.workshop[id]); },
   travel(place: PixelPlace) {
-    if (!hud.canInteract() || player.playing || (place === 'outside' && !forestRenderer)) return false;
+    if (!hud.canInteract() || player.playing || (place === 'outside' && !forestRenderer) || (place === 'village' && !villageRenderer)) return false;
     const moved = journey.travel(place);
     if (moved) { hud.canvas.focus({ preventScroll: true }); layout(); }
     return moved;
@@ -136,11 +149,15 @@ const host: HudHost = {
 
 const app = document.getElementById('app')!;
 const hud = new Hud(app, game, host, journey);
+const expeditionPanel = new ExpeditionPanel(app, expedition, () => { layout(); requestAnimationFrame(() => hud.canvas.focus({ preventScroll: true })); });
 const sceneControls = new SceneControls(hud.canvas.parentElement!, journey, uiStrings(game.i18n.lang),
   () => hud.canInteract() && !player.playing, place => host.travel(place));
+const villageControls = new VillageControls(hud.canvas.parentElement!, journey, uiStrings(game.i18n.lang),
+  () => hud.canInteract() && !player.playing, place => host.travel(place), (zone, opener) => hud.openDistrict(zone, opener));
 hud.setReduced(reduce);
 // the room behind the title is the saved one; its clock only runs after Begin / Continue
 game.start();
+expedition.restore();
 
 motionQuery.addEventListener('change', updateMotion);
 
@@ -157,16 +174,26 @@ function layout(): void {
   const { w, h } = hud.stageSize();
   // Keep the return marker in the forest and the door plus furnace in the unlocked room.
   const focus = journey.outside ? 240 : journey.unlocked ? 224 : undefined;
-  const f = stacked ? fitNarrow(w, vh * STACKED_STAGE_SHARE, dpr, focus) : fitFull(w, h, dpr);
+  const village = journey.place === 'village';
+  // The overview uses the full map, so its status and log need space outside both edges.
+  const f = village ? fitFull(w, Math.max(1, h - 112), dpr, VILLAGE_SIZE) :
+    stacked ? fitNarrow(w, vh * STACKED_STAGE_SHARE, dpr, focus) : fitFull(w, h, dpr);
+  if (village && !stacked) f.top += 56;
   // snap the canvas' page position (not only its offset in the stage) to device pixels
   const r = hud.stage.getBoundingClientRect();
   f.left = Math.round((r.left + f.left) * dpr) / dpr - r.left;
   if (!stacked) f.top = Math.round((r.top + f.top) * dpr) / dpr - r.top;
   fit = f;
   renderer.resize(f);
-  hud.applyLayout(hudLayout(f, w, h));
+  const hudFit = hudLayout(f, w, h);
+  if (journey.place === 'village') {
+    hudFit.band = f.top + f.cssH + 16;
+    hudFit.bandH = Math.max(0, h - hudFit.band);
+  }
+  hud.applyLayout(hudFit);
   hud.placeHearth(f);
   sceneControls.layout(f);
+  villageControls.layout(f);
 }
 
 window.addEventListener('resize', layout);
@@ -199,7 +226,9 @@ function frame(now: number): void {
   last = now;
   if (dt > 0 && dt < 1000) fps += (1000 / dt - fps) * 0.05;
   let live = false;
-  if (hud.begun && !game.over) {
+  if (expedition.opened && game.active === 'world' && dt > 1500) expedition.paused = true;
+  if (hud.begun && !game.over && !(expedition.opened && (expedition.paused || hud.overlayOpen || document.hidden))) {
+    rememberVillageClearing(game);
     if (dt > 1000) {
       // the tab was hidden: the world kept going; catch up in one-second steps, without animating it
       game.clock.run(Math.min(dt, MAX_CATCH_UP), 1000);
@@ -210,18 +239,20 @@ function frame(now: number): void {
     opening.update();
   }
   const view = currentView();
-  if (watcher.observe(game.room.builderLevel, live && !journey.outside) && !reduce) player.start(now);
-  const nextSceneKey = `${game.active}|${journey.unlocked}`;
+  if (watcher.observe(game.room.builderLevel, live && !journey.away) && !reduce) player.start(now);
+  const nextSceneKey = `${journey.place}|${journey.unlocked}`;
   if (sceneLayoutKey !== nextSceneKey) {
     sceneLayoutKey = nextSceneKey;
-    app.dataset.place = journey.outside ? 'outside' : 'room';
+    app.dataset.place = journey.place;
     layout();
   }
   // a DPR change without a resize (another screen) has no reliable event everywhere: poll it
   if (renderer && (window.devicePixelRatio || 1) !== layoutDpr) layout();
   if (renderer) {
     const pose = player.pose(now);
-    if (journey.outside && forestRenderer && fit) {
+    if (journey.place === 'village' && villageRenderer && fit) {
+      villageRenderer.render(fit, villageView(game), villageControls.highlighted, now, reduce);
+    } else if (journey.outside && forestRenderer && fit) {
       forestRenderer.render(fit, journey, sceneControls.highlighted, now, reduce);
     } else renderer.render({
       view,
@@ -233,11 +264,13 @@ function frame(now: number): void {
       hoverWorkshop: hud.highlightedWorkshop,
       debugAnchors: anchors
     });
-    hud.frame(now, view, !journey.outside && pose !== null);
+    hud.frame(now, view, !journey.away && pose !== null);
   } else {
     hud.frame(now, view, false);
   }
   sceneControls.frame(now, forestRenderer !== null);
+  villageControls.frame(villageView(game), hud.begun && villageRenderer !== null);
+  expeditionPanel.frame(now, !hud.begun || hud.overlayOpen, reduce);
   requestAnimationFrame(frame);
 }
 
@@ -245,22 +278,31 @@ const persist = (): void => {
   if (hud.begun && !game.over) game.saveNow();
 };
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') persist();
+  if (document.visibilityState === 'hidden') {
+    if (expedition.opened && game.active === 'world') expedition.paused = true;
+    persist();
+  }
 });
 window.addEventListener('pagehide', persist);
 
 // ---------------------------------------------------------------- start
 
 async function boot(): Promise<void> {
-  const [art, forestArt] = await Promise.all([loadSceneArt(sample), loadForestArt(sample).catch(error => {
+  const [art, forestArt, villageArt] = await Promise.all([loadSceneArt(sample), loadForestArt(sample).catch(error => {
     console.warn('[forest] Art could not load', error);
+    return null;
+  }), loadVillageArt(sample).catch(error => {
+    console.warn('[village] Art could not load', error);
     return null;
   })]);
   renderer = new Renderer(hud.canvas, art);
   if (forestArt) {
     forestRenderer = new ForestRenderer(hud.canvas, forestArt);
-    journey.restoreLocation();
   }
+  if (villageArt) villageRenderer = new VillageRenderer(hud.canvas, villageArt);
+  if (game.active !== 'world') journey.restoreLocation();
+  if (journey.place === 'village' && !villageRenderer) journey.travel('room');
+  if (journey.outside && !forestRenderer) journey.travel('room');
   document.documentElement.style.setProperty('--base', art.base);
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', art.base);
   layout();

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "emberveil-village-concept-v1",
+  "created": "2026-10-16",
+  "status": "concept-review-only-not-runtime-assets",
+  "generator": "built-in image_gen.imagegen",
+  "targetPlatform": "desktop-first-mobile-adaptation-deferred",
+  "current": {
+    "file": "village-concept-v2.png",
+    "size": [1536, 1024],
+    "bytes": 3190720,
+    "sha256": "7532d32496954116b049dd58cd334bae95e7e233be74693ffb83e2e412954d07",
+    "sourceCopyHashVerified": true,
+    "manualResidentialCount": 20,
+    "centralHouseCount": 1,
+    "functionalAreasCount": 4
+  },
+  "previous": {
+    "file": "village-concept-v1.png",
+    "size": [1536, 1024],
+    "sha256": "55840b0cef89843cc82e5c4902266640bfc7c5cc2c659247effbb5a07bf4573f",
+    "manualResidentialCount": 18
+  },
+  "residentialReviewMarkers": [
+    [492,205],[946,181],[1117,154],[622,285],[863,278],
+    [1175,318],[335,383],[486,405],[622,384],[881,386],
+    [1057,378],[330,595],[507,546],[653,590],[936,596],
+    [1074,560],[1230,585],[414,720],[577,732],[1013,730]
+  ],
+  "markerPolicy": "Approximate roof centers on the 1536x1024 concept for manual review only. Not runtime ground anchors or authoritative interaction bounds.",
+  "limitations": [
+    "flattened concept image, not separated sprites",
+    "not a verified 480x270 pixel-grid asset",
+    "organic composition is not an exact implementation of the approved 4+8+8 anchor plan",
+    "no runtime or browser gameplay changes"
+  ]
+}

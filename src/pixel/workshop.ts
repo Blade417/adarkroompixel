@@ -1,5 +1,4 @@
 import manifest from '../../assets/pixel/workshop/v2/manifest.json';
-import type { PixelBuildable } from '../app/building';
 import { ctx2d, makeCanvas } from './paint';
 import { resample, type SampleMode } from './resample';
 import type { Point, Rect } from './layout';
@@ -7,21 +6,22 @@ import type { Sprite } from './sprites';
 import { toCss, type Fit } from './fit';
 
 export const WORKSHOP_MANIFEST = manifest;
-export const WORKSHOP_IDS: readonly PixelBuildable[] = ['cart', 'trap'];
-export type WorkshopArt = Partial<Record<PixelBuildable, Sprite>>;
+export const WORKSHOP_IDS = ['cart', 'trap'] as const;
+export type WorkshopId = typeof WORKSHOP_IDS[number];
+export type WorkshopArt = Partial<Record<WorkshopId, Sprite>>;
 export const WORKSHOP_ANCHORS = Object.fromEntries(WORKSHOP_IDS.map(id => {
   const [x, y] = manifest.assets[id].groundAnchor;
   return [id, { x, y }];
-})) as Record<PixelBuildable, Point>;
+})) as Record<WorkshopId, Point>;
 export const WORKSHOP_TARGETS = Object.fromEntries(WORKSHOP_IDS.map(id => {
   const [x, y, w, h] = manifest.assets[id].interactionRect;
   return [id, { x, y, w, h }];
-})) as Record<PixelBuildable, Rect>;
+})) as Record<WorkshopId, Rect>;
 
 const urls = import.meta.glob('../../assets/pixel/workshop/v2/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 
 /** Keep small-screen tap areas separate when the props are closer than 44 CSS pixels. */
-export function workshopHitRects(fit: Fit): Record<PixelBuildable, Rect> {
+export function workshopHitRects(fit: Fit): Record<WorkshopId, Rect> {
   let right = 0;
   return Object.fromEntries(WORKSHOP_IDS.map(id => {
     const r = WORKSHOP_TARGETS[id], p = toCss(fit, r.x, r.y);
@@ -29,7 +29,7 @@ export function workshopHitRects(fit: Fit): Record<PixelBuildable, Rect> {
     const x = Math.max(p.x, right);
     right = x + w + 2;
     return [id, { x, y: Math.max(0, Math.min(p.y, fit.cssH - h)), w, h }];
-  })) as Record<PixelBuildable, Rect>;
+  })) as Record<WorkshopId, Rect>;
 }
 
 /** Keep the generated originals intact and bake their alpha-bounded regions once. */

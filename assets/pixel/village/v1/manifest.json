@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "tool": "built-in image_gen",
+  "reference": "docs/art/pixel-village-v1/village-concept-v2.png",
+  "logicalSize": [480, 270],
+  "alphaCut": 0.5,
+  "sourceHashes": {
+    "terrain.png": "820f2c4e8dddbe59ce172e707815e0b069144267d72de077651dd86626f87570",
+    "hearth-house.png": "dd97bb1416b5425e019cbfb5222fa37728e84a2dde13825082869cb481fa5426",
+    "cottages.png": "7ad6f81ebab66adeee8ee4e656d7c4868d539b18304bebfcf3134d16cd9543d9"
+  },
+  "assets": {
+    "terrain": { "file": "terrain.png", "sourceRect": [0, 0, 1672, 941], "drawSize": [480, 270], "hasAlpha": false },
+    "hearth": { "file": "hearth-house.png", "sourceRect": [160, 94, 1241, 847], "drawSize": [64, 44], "hasAlpha": true },
+    "hut0": { "file": "cottages.png", "sourceRect": [98, 44, 595, 434], "drawSize": [38, 28], "hasAlpha": true },
+    "hut1": { "file": "cottages.png", "sourceRect": [817, 53, 614, 417], "drawSize": [38, 26], "hasAlpha": true },
+    "hut2": { "file": "cottages.png", "sourceRect": [131, 549, 578, 410], "drawSize": [38, 27], "hasAlpha": true },
+    "hut3": { "file": "cottages.png", "sourceRect": [845, 558, 590, 396], "drawSize": [38, 26], "hasAlpha": true }
+  }
+}

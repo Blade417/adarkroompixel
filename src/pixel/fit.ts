@@ -35,8 +35,8 @@ export const STACKED_STAGE_SHARE = 0.58;
 
 const snap = (cssPx: number, dpr: number): number => Math.round(cssPx * dpr) / dpr;
 
-export function fullScale(boxW: number, boxH: number, dpr: number): number {
-  return Math.max(1, Math.floor(Math.min((boxW * dpr) / VIEW_W, (boxH * dpr) / VIEW_H)));
+export function fullScale(boxW: number, boxH: number, dpr: number, size = { w: VIEW_W, h: VIEW_H }): number {
+  return Math.max(1, Math.floor(Math.min((boxW * dpr) / size.w, (boxH * dpr) / size.h)));
 }
 
 export function chooseMode(viewW: number, viewH: number, dpr: number): LayoutMode {
@@ -46,14 +46,14 @@ export function chooseMode(viewW: number, viewH: number, dpr: number): LayoutMod
 }
 
 /** the whole frame, centred in a box (overlay layout) */
-export function fitFull(boxW: number, boxH: number, dpr: number): Fit {
-  const scale = fullScale(boxW, boxH, dpr);
-  const backingW = VIEW_W * scale;
-  const backingH = VIEW_H * scale;
+export function fitFull(boxW: number, boxH: number, dpr: number, size = { w: VIEW_W, h: VIEW_H }): Fit {
+  const scale = fullScale(boxW, boxH, dpr, size);
+  const backingW = size.w * scale;
+  const backingH = size.h * scale;
   return {
     mode: 'overlay',
     scale,
-    crop: { x: 0, y: 0, w: VIEW_W, h: VIEW_H },
+    crop: { x: 0, y: 0, w: size.w, h: size.h },
     backingW,
     backingH,
     cssW: backingW / dpr,

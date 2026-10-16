@@ -13,6 +13,7 @@ interface Timer {
   interval: number | null;
   fn: () => void;
 }
+export interface TimerSnapshot { remaining: number; interval: number | null }
 
 export class Clock {
   now = 0;
@@ -50,6 +51,18 @@ export class Clock {
   remaining(id: TimerId | null | undefined): number {
     const t = id != null ? this.timers.get(id) : undefined;
     return t ? Math.max(0, t.due - this.now) : 0;
+  }
+
+  snapshot(id: TimerId | null | undefined): TimerSnapshot | null {
+    const t = id == null ? undefined : this.timers.get(id);
+    return t ? { remaining: Math.max(0, t.due - this.now), interval: t.interval } : null;
+  }
+
+  /** Restore already-scaled residual time; never applies hyper scaling a second time. */
+  resume(fn: () => void, saved: TimerSnapshot): TimerId {
+    const id = this.nextId++;
+    this.timers.set(id, { id, due: this.now + saved.remaining, interval: saved.interval, fn });
+    return id;
   }
 
   get pending(): number {

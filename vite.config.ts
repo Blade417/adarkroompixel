@@ -8,7 +8,13 @@ export default defineConfig({
     outDir: 'dist',
     target: 'es2022',
     // keep small art sheets as files so they stay inspectable in the build output
-    assetsInlineLimit: 0
+    assetsInlineLimit: 0,
+    rolldownOptions: {
+      input: {
+        game: 'index.html',
+        expedition: 'docs/art/pixel-expedition-v1/index.html'
+      }
+    }
   },
   server: { port: 5174 },
   preview: { port: 4174 },

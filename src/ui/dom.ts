@@ -8,8 +8,8 @@ export function esc(s: unknown): string {
     .replace(/"/g, '&quot;');
 }
 
-export function num(n: number, lang: string): string {
-  return Math.floor(n).toLocaleString(lang === 'zh' ? 'zh-CN' : 'en-US');
+export function num(n: number, lang: string, fractionDigits = 0): string {
+  return (fractionDigits ? n : Math.floor(n)).toLocaleString(lang === 'zh' ? 'zh-CN' : 'en-US', { maximumFractionDigits: fractionDigits });
 }
 
 /** replace innerHTML only when the markup actually changed (keeps hover / focus stable) */

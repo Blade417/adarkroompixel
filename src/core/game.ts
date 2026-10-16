@@ -104,6 +104,9 @@ export class Game {
     this.space = new Space(this);
     this.events = new EventRunner(this);
     this.content = loadContent(this, opts.content);
+    this.bus.on(e => {
+      if (['world:move', 'world:home', 'world:died', 'combat:attack', 'combat:end', 'event:scene', 'event:update'].includes(e.type)) this.requestSave();
+    });
   }
 
   // ------------------------------------------------------------- startup (Engine.init)
@@ -131,6 +134,15 @@ export class Game {
     this.incomeTimer = this.clock.setTimeout(() => this.collectIncome(), 1000);
     this.travelTo('room');
     this.room.refreshOptions();
+    const expedition = s.get('runtime.expedition');
+    if (expedition?.version === 1 && expedition.world?.state) {
+      this.path.init();
+      this.world.resume(expedition.world);
+      this.active = 'world';
+      this.events.resume(expedition.events);
+      this.cooldowns.resume(expedition.cooldowns);
+      this.music('MUSIC_WORLD');
+    }
   }
 
   /** advance game time */
@@ -358,6 +370,10 @@ export class Game {
   saveNow(): void {
     if (this.over) return;
     if (this.path.initialized) this.store.set('outfit', { ...this.path.outfit }, true);
+    const world = this.active === 'world' ? this.world.snapshot() : null;
+    if (world) this.store.set('runtime.expedition', { version: 1, world, events: this.events.snapshot(),
+      cooldowns: this.cooldowns.snapshot(['combat:', 'event:']) }, true);
+    else this.store.remove('runtime.expedition', true);
     this.storage.setItem(SAVE_KEY, JSON.stringify(this.store.state));
   }
 

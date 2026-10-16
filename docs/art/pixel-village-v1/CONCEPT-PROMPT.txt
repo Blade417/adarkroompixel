@@ -1,0 +1,24 @@
+Use case: stylized-concept.
+Asset type: finished pixel-art game environment concept for Emberveil Pixel, a dark forest survival settlement, landscape 3:2 composition.
+
+Inputs and roles:
+Image 1 is the EDIT TARGET: the approved overhead settlement layout screenshot. Completely redraw its schematic map into polished game environment art while preserving its central-hearth, concentric-expansion spatial concept. REMOVE all website chrome, UI, numbers, labels, dashed placeholders and text. Do not copy its simple geometric illustration style.
+Image 2 is a STYLE REFERENCE only: the existing side-view dark conifer forest game screenshot. Match its cold blue-grey mist, restrained desaturated palette, crisp pixel clusters and bleak woodland.
+Image 3 is a STYLE AND BUILDING REFERENCE only: the existing hearth-room interior screenshot. The central exterior building must feel like the outside of that old timber room: heavy weathered wooden walls, steep dark shingle roof, stone hearth chimney, sturdy wooden doorway and a small muted amber window. Keep the camera consistent with the new overhead map, not the screenshots' side view.
+
+Primary request:
+Create ONE complete, coherent overhead village concept with a clearly identifiable larger HEARTH HOUSE exactly at the center, surrounded by TWENTY modest residential huts. The settlement grows in three loose, irregular bands: FOUR huts close to the central house, EIGHT in the middle band, EIGHT in the outer band. Keep all roofs individually legible and all buildings grounded. Keep house sizes relatively consistent within the same camera; outer huts must not shrink into tiny distant silhouettes. Use 3-4 subtly different hut shapes, roof directions, weathering and small yards to avoid cloned repetition. These are all humble homes of equal status.
+
+Camera:
+High-angle near-top-down orthographic game camera, roughly 65-75 degrees downward. Show rooftops, a modest amount of front wall and doorways, and clearly readable land between buildings. No horizon, no vanishing point, no diamond isometric grid, no circular floating diorama. Show the entire settlement bounded by a generous natural forest edge.
+
+Composition:
+The central hearth house anchors four branching dirt paths and worn, gently irregular ring paths. Paths should grow organically around cottages, old stumps, rocks and retained tree clusters; never perfect circular racetracks, straight spokes of a mechanical mandala, or a fenced modern subdivision.
+Preserve breathing room, small shared spaces, branch paths, local firewood stacks and worn footprints. Avoid filling every gap. A few tiny cloaked residents walking along the paths establish scale and life without becoming the subject.
+At the outer path junctions, include FOUR clearly DIFFERENT modest communal structures that do not look like residential cottages: a low hunting shelter with hanging pelts near the north tree line, a rough carpenter/work yard with lumber and a workbench on the west, a stone-and-timber processing shed with a subdued chimney on the east, and a simple canvas trade stall with crates by the southern forest exit. These suggest future functional buildings in a mature-village concept; they are separate from the twenty homes. No invented church, castle, watchtower, walls, plaza fountain or fantasy ornaments.
+South path continues out into the existing forest. Frame all sides with dark clustered conifers, underbrush, patches of bare earth and muted grey stones, with subtle blue-grey mist at the forest margins. Forest is still visibly present inside the settlement. No blanket snow and no bright lush lawns.
+
+Style and mood:
+Handcrafted, readable 2D pixel art with deliberately visible square pixel clusters, clean stepped silhouettes, a restrained palette and materially convincing old wood, stone and dark shingles. Concept resolution is larger than runtime sprites; maintain coherent pixel density throughout. No smooth painted rendering, no vector illustration, no glossy 3D rendering, no blur used to hide detail, no photorealism, no excessive dithering.
+Cold muted blue-grey forest and grey-brown roofs, very subdued moss/olive ground; small restrained amber windows and central hearth glow bring life to a bleak setting. The center is slightly warmer and more inhabited, the outer edge cooler and quieter. Some residential windows remain dark to suggest spare capacity. No oversaturated teal-and-orange lighting and no neon green. The central house is the brightest focal point without a giant halo, huge bonfire, magical effect or sunset.
+Output ONLY the final art, edge to edge. No text, labels, title, frame, watermark, legend or UI. This is concept art for visual review, not a sprite sheet.

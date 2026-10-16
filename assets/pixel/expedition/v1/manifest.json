@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "status": "forest-slice",
+  "tool": "built-in image_gen.imagegen",
+  "logicalSize": [
+    576,
+    324
+  ],
+  "alphaCut": 0.5,
+  "sourceHashes": {
+    "forest-battle.png": "e97b7faf4d567a8ab08b54564301a833687f48d50a8afacd58b515fff42f85ec",
+    "traveler.png": "b634ffe9bfd058d613105a4fd989657ee8dc9f7169c7f281ec270d2d9dc2dc71",
+    "beast.png": "4130a61bd873655850a4c9405fa701fe1244add8f10aadba59ca6653a7542c6d"
+  },
+  "sources": {
+    "forest-battle.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "fullyTransparentFraction": 0,
+      "partiallyTransparentFraction": 0
+    },
+    "traveler.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "fullyTransparentFraction": 0.8014507293701172,
+      "partiallyTransparentFraction": 0.1985492706298828
+    },
+    "beast.png": {
+      "size": [
+        2172,
+        724
+      ],
+      "hasAlpha": true,
+      "fullyTransparentFraction": 0.7608290599595047,
+      "partiallyTransparentFraction": 0.23885298067824548
+    }
+  },
+  "assets": {
+    "background": {
+      "file": "forest-battle.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "player-idle": {
+      "file": "traveler.png",
+      "sourceRect": [
+        97,
+        90,
+        263,
+        486
+      ],
+      "drawSize": [
+        40,
+        74
+      ],
+      "hasAlpha": true
+    },
+    "player-attack": {
+      "file": "traveler.png",
+      "sourceRect": [
+        536,
+        234,
+        587,
+        342
+      ],
+      "drawSize": [
+        91,
+        53
+      ],
+      "hasAlpha": true
+    },
+    "player-hurt": {
+      "file": "traveler.png",
+      "sourceRect": [
+        1160,
+        176,
+        320,
+        400
+      ],
+      "drawSize": [
+        50,
+        62
+      ],
+      "hasAlpha": true
+    },
+    "map-north": {
+      "file": "traveler.png",
+      "sourceRect": [
+        185,
+        716,
+        131,
+        235
+      ],
+      "drawSize": [
+        13,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "map-south": {
+      "file": "traveler.png",
+      "sourceRect": [
+        704,
+        726,
+        132,
+        227
+      ],
+      "drawSize": [
+        14,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "map-east": {
+      "file": "traveler.png",
+      "sourceRect": [
+        1225,
+        736,
+        127,
+        215
+      ],
+      "drawSize": [
+        14,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "beast-idle": {
+      "file": "beast.png",
+      "sourceRect": [
+        30,
+        222,
+        597,
+        358
+      ],
+      "drawSize": [
+        85,
+        51
+      ],
+      "hasAlpha": true
+    },
+    "beast-attack": {
+      "file": "beast.png",
+      "sourceRect": [
+        754,
+        201,
+        669,
+        380
+      ],
+      "drawSize": [
+        90,
+        51
+      ],
+      "hasAlpha": true
+    },
+    "beast-hurt": {
+      "file": "beast.png",
+      "sourceRect": [
+        1612,
+        201,
+        506,
+        381
+      ],
+      "drawSize": [
+        68,
+        51
+      ],
+      "hasAlpha": true
+    }
+  }
+}

@@ -29,6 +29,9 @@ export function nodeContent(): ContentSources {
 export function nodeZhDictionaries(): Dictionary[] {
   return [
     parseLegacyStrings(read('lang/zh_cn/strings.js')),
-    JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/zh-extra.json'), 'utf8'))
+    JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/zh-extra.json'), 'utf8')),
+    JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/zh-village.json'), 'utf8')),
+    JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/zh-events.json'), 'utf8')),
+    JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/zh-expedition.json'), 'utf8'))
   ];
 }

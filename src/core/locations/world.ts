@@ -9,6 +9,10 @@ export interface Expedition {
   mask: boolean[][];
   [flag: string]: any;
 }
+export interface WorldSnapshot {
+  state: Expedition; curPos: Pos; health: number; water: number; foodMove: number; waterMove: number;
+  fightMove: number; starvation: boolean; thirst: boolean; danger: boolean; usedOutposts: Record<string, boolean>;
+}
 
 const DIRS = {
   north: [0, -1] as Pos,
@@ -244,6 +248,18 @@ export class World {
     this.curPos = [WORLD.VILLAGE_POS[0], WORLD.VILLAGE_POS[1]];
     this.dead = false;
     this.g.music('MUSIC_WORLD');
+  }
+
+  snapshot(): WorldSnapshot | null {
+    if (!this.state || this.dead) return null;
+    return structuredClone({ state: this.state, curPos: this.curPos, health: this.health, water: this.water,
+      foodMove: this.foodMove, waterMove: this.waterMove, fightMove: this.fightMove, starvation: this.starvation,
+      thirst: this.thirst, danger: this.danger, usedOutposts: this.usedOutposts });
+  }
+
+  resume(saved: WorldSnapshot): void {
+    Object.assign(this, structuredClone(saved));
+    this.dead = false;
   }
 
   getDistance(from: Pos = this.curPos, to: Pos = WORLD.VILLAGE_POS): number {
@@ -546,10 +562,11 @@ export class World {
       this.g.fabricator.init();
       this.g.notify(null, this.g.t('builder knows the strange device when she sees it. takes it for herself real quick. doesn’t ask where it came from.'));
     }
+    const returned = { ...this.g.path.outfit };
     this.redeemBlueprints();
     this.state = null;
     this.returnOutfit();
-    this.g.bus.emit({ type: 'world:home' });
+    this.g.bus.emit({ type: 'world:home', returned });
     this.g.tabNavigation = true;
     this.g.setActive('path');
   }

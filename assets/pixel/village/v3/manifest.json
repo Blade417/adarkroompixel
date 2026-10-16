@@ -1,0 +1,19 @@
+{
+  "version": 3,
+  "tool": "built-in image_gen",
+  "logicalSize": [576, 324],
+  "alphaCut": 0.5,
+  "sourceHashes": {
+    "public-zones.png": "f53702e0d2c611b081be8d94fcd188d1464d5407511864c9a1c0e6224f0782c7",
+    "public-annexes.png": "641d0e30459f77c5924a6de5b53458a71d89fc478eb6b5e3dd4f6d3b5bb8d8ab"
+  },
+  "assets": {
+    "lodge": { "file": "public-zones.png", "sourceRect": [72, 99, 656, 382], "drawSize": [58, 34], "hasAlpha": true },
+    "workshop": { "file": "public-zones.png", "sourceRect": [796, 86, 686, 422], "drawSize": [60, 37], "hasAlpha": true },
+    "tannery": { "file": "public-zones.png", "sourceRect": [46, 580, 698, 337], "drawSize": [58, 28], "hasAlpha": true },
+    "trade": { "file": "public-zones.png", "sourceRect": [805, 574, 686, 337], "drawSize": [64, 31], "hasAlpha": true },
+    "smokehouse": { "file": "public-annexes.png", "sourceRect": [60, 64, 675, 436], "drawSize": [54, 35], "hasAlpha": true },
+    "steelworks": { "file": "public-annexes.png", "sourceRect": [812, 55, 675, 445], "drawSize": [42, 28], "hasAlpha": true },
+    "armoury": { "file": "public-annexes.png", "sourceRect": [55, 576, 724, 380], "drawSize": [42, 22], "hasAlpha": true }
+  }
+}

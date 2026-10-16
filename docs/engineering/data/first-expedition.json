@@ -1,0 +1,1502 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Read-only preparation snapshot. Runtime uses core and original scripts; hooks are intentionally not executable here.",
+  "sourceHashes": {
+    "src/core/data.ts": "b57e2cec1def14bb345f2782fd893fb2c29dfa1d02d714738d491539047fd3b1",
+    "src/core/locations/path.ts": "35d429e3f651a4b1f543fc37ee1de8a9d455cf75347ffc08a75126ef46a9982d",
+    "src/core/locations/world.ts": "451e9a57bc3f00674045af29f8234c06633a85809437861a33acb1d7fa984e31",
+    "src/core/events/combat.ts": "bbf332dbaa4039cb5f79c8a30d5cffe8cce515b0269824694c4f4eff736ca80e",
+    "src/core/events/runner.ts": "65fc0cea85949e6954500bcce5e03bb58c841e4c80389366e144f31de8efea82",
+    "original/script/events/encounters.js": "5e86058d765ea4fe7364ab385d83480c6392cab3a570b1d0b03f8b0b203390b6",
+    "original/script/events/setpieces.js": "876d21f55c9ff9daea581a7f81304caaa78f058752fc53e8c2e4aefd8d953064"
+  },
+  "rules": {
+    "world": {
+      "RADIUS": 30,
+      "VILLAGE_POS": [
+        30,
+        30
+      ],
+      "STICKINESS": 0.5,
+      "LIGHT_RADIUS": 2,
+      "BASE_WATER": 10,
+      "MOVES_PER_FOOD": 2,
+      "MOVES_PER_WATER": 1,
+      "DEATH_COOLDOWN": 120,
+      "FIGHT_CHANCE": 0.2,
+      "BASE_HEALTH": 10,
+      "BASE_HIT_CHANCE": 0.8,
+      "MEAT_HEAL": 8,
+      "MEDS_HEAL": 20,
+      "HYPO_HEAL": 30,
+      "FIGHT_DELAY": 3
+    },
+    "path": {
+      "DEFAULT_BAG_SPACE": 10
+    },
+    "tiles": {
+      "VILLAGE": "A",
+      "IRON_MINE": "I",
+      "COAL_MINE": "C",
+      "SULPHUR_MINE": "S",
+      "FOREST": ";",
+      "FIELD": ",",
+      "BARRENS": ".",
+      "ROAD": "#",
+      "HOUSE": "H",
+      "CAVE": "V",
+      "TOWN": "O",
+      "CITY": "Y",
+      "OUTPOST": "P",
+      "SHIP": "W",
+      "BOREHOLE": "B",
+      "BATTLEFIELD": "F",
+      "SWAMP": "M",
+      "CACHE": "U",
+      "EXECUTIONER": "X"
+    },
+    "terrainProbabilities": {
+      ";": 0.15,
+      ",": 0.35,
+      ".": 0.5
+    },
+    "weights": {
+      "bone spear": 2,
+      "iron sword": 3,
+      "steel sword": 5,
+      "rifle": 5,
+      "bullets": 0.1,
+      "energy cell": 0.2,
+      "laser rifle": 5,
+      "plasma rifle": 5,
+      "bolas": 0.5
+    },
+    "defaultItemWeight": 1,
+    "weapons": {
+      "fists": {
+        "verb": "punch",
+        "type": "unarmed",
+        "damage": 1,
+        "cooldown": 2
+      },
+      "bone spear": {
+        "verb": "stab",
+        "type": "melee",
+        "damage": 2,
+        "cooldown": 2
+      },
+      "iron sword": {
+        "verb": "swing",
+        "type": "melee",
+        "damage": 4,
+        "cooldown": 2
+      },
+      "steel sword": {
+        "verb": "slash",
+        "type": "melee",
+        "damage": 6,
+        "cooldown": 2
+      },
+      "bayonet": {
+        "verb": "thrust",
+        "type": "melee",
+        "damage": 8,
+        "cooldown": 2
+      },
+      "rifle": {
+        "verb": "shoot",
+        "type": "ranged",
+        "damage": 5,
+        "cooldown": 1,
+        "cost": {
+          "bullets": 1
+        }
+      },
+      "laser rifle": {
+        "verb": "blast",
+        "type": "ranged",
+        "damage": 8,
+        "cooldown": 1,
+        "cost": {
+          "energy cell": 1
+        }
+      },
+      "grenade": {
+        "verb": "lob",
+        "type": "ranged",
+        "damage": 15,
+        "cooldown": 5,
+        "cost": {
+          "grenade": 1
+        }
+      },
+      "bolas": {
+        "verb": "tangle",
+        "type": "ranged",
+        "damage": "stun",
+        "cooldown": 15,
+        "cost": {
+          "bolas": 1
+        }
+      },
+      "plasma rifle": {
+        "verb": "disintegrate",
+        "type": "ranged",
+        "damage": 12,
+        "cooldown": 1,
+        "cost": {
+          "energy cell": 1
+        }
+      },
+      "energy blade": {
+        "verb": "slice",
+        "type": "melee",
+        "damage": 10,
+        "cooldown": 2
+      },
+      "disruptor": {
+        "verb": "stun",
+        "type": "ranged",
+        "damage": "stun",
+        "cooldown": 15
+      }
+    },
+    "combat": {
+      "TIME_RANGE": [
+        3,
+        6
+      ],
+      "FIGHT_SPEED": 100,
+      "EAT_COOLDOWN": 5,
+      "MEDS_COOLDOWN": 7,
+      "HYPO_COOLDOWN": 7,
+      "SHIELD_COOLDOWN": 10,
+      "STIM_COOLDOWN": 10,
+      "LEAVE_COOLDOWN": 1,
+      "STUN_DURATION": 4000,
+      "ENERGISE_MULTIPLIER": 4,
+      "EXPLOSION_DURATION": 3000,
+      "ENRAGE_DURATION": 4000,
+      "MEDITATE_DURATION": 5000,
+      "BOOST_DURATION": 3000,
+      "BOOST_DAMAGE": 10,
+      "DOT_TICK": 1000
+    }
+  },
+  "landmarks": {
+    "P": {
+      "num": 0,
+      "minRadius": 0,
+      "maxRadius": 0,
+      "scene": "outpost",
+      "label": "An&nbsp;Outpost"
+    },
+    "I": {
+      "num": 1,
+      "minRadius": 5,
+      "maxRadius": 5,
+      "scene": "ironmine",
+      "label": "Iron&nbsp;Mine"
+    },
+    "C": {
+      "num": 1,
+      "minRadius": 10,
+      "maxRadius": 10,
+      "scene": "coalmine",
+      "label": "Coal&nbsp;Mine"
+    },
+    "S": {
+      "num": 1,
+      "minRadius": 20,
+      "maxRadius": 20,
+      "scene": "sulphurmine",
+      "label": "Sulphur&nbsp;Mine"
+    },
+    "H": {
+      "num": 10,
+      "minRadius": 0,
+      "maxRadius": 45,
+      "scene": "house",
+      "label": "An&nbsp;Old&nbsp;House"
+    },
+    "V": {
+      "num": 5,
+      "minRadius": 3,
+      "maxRadius": 10,
+      "scene": "cave",
+      "label": "A&nbsp;Damp&nbsp;Cave"
+    },
+    "O": {
+      "num": 10,
+      "minRadius": 10,
+      "maxRadius": 20,
+      "scene": "town",
+      "label": "An&nbsp;Abandoned&nbsp;Town"
+    },
+    "Y": {
+      "num": 20,
+      "minRadius": 20,
+      "maxRadius": 45,
+      "scene": "city",
+      "label": "A&nbsp;Ruined&nbsp;City"
+    },
+    "W": {
+      "num": 1,
+      "minRadius": 28,
+      "maxRadius": 28,
+      "scene": "ship",
+      "label": "A&nbsp;Crashed&nbsp;Starship"
+    },
+    "B": {
+      "num": 10,
+      "minRadius": 15,
+      "maxRadius": 45,
+      "scene": "borehole",
+      "label": "A&nbsp;Borehole"
+    },
+    "F": {
+      "num": 5,
+      "minRadius": 18,
+      "maxRadius": 45,
+      "scene": "battlefield",
+      "label": "A&nbsp;Battlefield"
+    },
+    "M": {
+      "num": 1,
+      "minRadius": 15,
+      "maxRadius": 45,
+      "scene": "swamp",
+      "label": "A&nbsp;Murky&nbsp;Swamp"
+    },
+    "X": {
+      "num": 1,
+      "minRadius": 28,
+      "maxRadius": 28,
+      "scene": "executioner",
+      "label": "A&nbsp;Ravaged&nbsp;Battleship"
+    }
+  },
+  "availabilityProbe": {
+    "distances": [
+      1,
+      10,
+      11,
+      20,
+      21,
+      30
+    ],
+    "terrains": [
+      ";",
+      ",",
+      "."
+    ],
+    "note": "Samples from actual isAvailable callbacks, not continuous range definitions."
+  },
+  "encounters": [
+    {
+      "title": "A Snarling Beast",
+      "availabilitySamples": [
+        {
+          "distance": 1,
+          "terrain": ";"
+        },
+        {
+          "distance": 10,
+          "terrain": ";"
+        }
+      ],
+      "scenes": {
+        "start": {
+          "enemy": "snarling beast",
+          "health": 5,
+          "damage": 1,
+          "hit": 0.8,
+          "attackDelaySeconds": 1,
+          "ranged": false,
+          "notification": "a snarling beast leaps out of the underbrush",
+          "loot": {
+            "fur": {
+              "min": 1,
+              "max": 3,
+              "chance": 1
+            },
+            "meat": {
+              "min": 1,
+              "max": 3,
+              "chance": 1
+            },
+            "teeth": {
+              "min": 1,
+              "max": 3,
+              "chance": 0.8
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A Gaunt Man",
+      "availabilitySamples": [
+        {
+          "distance": 1,
+          "terrain": "."
+        },
+        {
+          "distance": 10,
+          "terrain": "."
+        }
+      ],
+      "scenes": {
+        "start": {
+          "enemy": "gaunt man",
+          "health": 6,
+          "damage": 2,
+          "hit": 0.8,
+          "attackDelaySeconds": 2,
+          "ranged": false,
+          "notification": "a gaunt man approaches, a crazed look in his eye",
+          "loot": {
+            "cloth": {
+              "min": 1,
+              "max": 3,
+              "chance": 0.8
+            },
+            "teeth": {
+              "min": 1,
+              "max": 2,
+              "chance": 0.8
+            },
+            "leather": {
+              "min": 1,
+              "max": 2,
+              "chance": 0.5
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A Strange Bird",
+      "availabilitySamples": [
+        {
+          "distance": 1,
+          "terrain": ","
+        },
+        {
+          "distance": 10,
+          "terrain": ","
+        }
+      ],
+      "scenes": {
+        "start": {
+          "enemy": "strange bird",
+          "health": 4,
+          "damage": 3,
+          "hit": 0.8,
+          "attackDelaySeconds": 2,
+          "ranged": false,
+          "notification": "a strange looking bird speeds across the plains",
+          "loot": {
+            "scales": {
+              "min": 1,
+              "max": 3,
+              "chance": 0.8
+            },
+            "teeth": {
+              "min": 1,
+              "max": 2,
+              "chance": 0.5
+            },
+            "meat": {
+              "min": 1,
+              "max": 3,
+              "chance": 0.8
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A Two-Headed Creature",
+      "availabilitySamples": [
+        {
+          "distance": 1,
+          "terrain": ","
+        },
+        {
+          "distance": 10,
+          "terrain": ","
+        }
+      ],
+      "scenes": {
+        "start": {
+          "enemy": "two-headed creature",
+          "health": 10,
+          "damage": 2,
+          "hit": 0.5,
+          "attackDelaySeconds": 3,
+          "ranged": false,
+          "notification": "a two-headed creature appears, the smaller head trembling",
+          "loot": {
+            "fur": {
+              "min": 2,
+              "max": 4,
+              "chance": 1
+            },
+            "teeth": {
+              "min": 2,
+              "max": 3,
+              "chance": 0.8
+            },
+            "meat": {
+              "min": 2,
+              "max": 3,
+              "chance": 0.8
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A Shivering Man",
+      "availabilitySamples": [
+        {
+          "distance": 11,
+          "terrain": "."
+        },
+        {
+          "distance": 20,
+          "terrain": "."
+        }
+      ],
+      "scenes": {
+        "start": {
+          "enemy": "shivering man",
+          "health": 20,
+          "damage": 5,
+          "hit": 0.5,
+          "attackDelaySeconds": 1,
+          "ranged": false,
+          "notification": "a shivering man approaches and attacks with surprising strength",
+          "loot": {
+            "cloth": {
+              "min": 1,
+              "max": 1,
+              "chance": 0.2
+            },
+            "teeth": {
+              "min": 1,
+              "max": 2,
+              "chance": 0.8
+            },
+            "leather": {
+              "min": 1,
+              "max": 1,
+              "chance": 0.2
+            },
+            "medicine": {
+              "min": 1,
+              "max": 3,
+              "chance": 0.7
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A Man-Eater",
+      "availabilitySamples": [
+        {
+          "distance": 11,
+          "terrain": ";"
+        },
+        {
+          "distance": 20,
+          "terrain": ";"
+        }
+      ],
+      "scenes": {
+        "start": {
+          "enemy": "man-eater",
+          "health": 25,
+          "damage": 3,
+          "hit": 0.8,
+          "attackDelaySeconds": 1,
+          "ranged": false,
+          "notification": "a large creature attacks, claws freshly bloodied",
+          "loot": {
+            "fur": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "meat": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "teeth": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.8
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A Scavenger",
+      "availabilitySamples": [
+        {
+          "distance": 11,
+          "terrain": "."
+        },
+        {
+          "distance": 20,
+          "terrain": "."
+        }
+      ],
+      "scenes": {
+        "start": {
+          "enemy": "scavenger",
+          "health": 30,
+          "damage": 4,
+          "hit": 0.8,
+          "attackDelaySeconds": 2,
+          "ranged": false,
+          "notification": "a scavenger draws close, hoping for an easy score",
+          "loot": {
+            "cloth": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.8
+            },
+            "leather": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.8
+            },
+            "iron": {
+              "min": 1,
+              "max": 5,
+              "chance": 0.5
+            },
+            "medicine": {
+              "min": 1,
+              "max": 2,
+              "chance": 0.1
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A Huge Lizard",
+      "availabilitySamples": [
+        {
+          "distance": 11,
+          "terrain": ","
+        },
+        {
+          "distance": 20,
+          "terrain": ","
+        }
+      ],
+      "scenes": {
+        "start": {
+          "enemy": "lizard",
+          "health": 20,
+          "damage": 5,
+          "hit": 0.8,
+          "attackDelaySeconds": 2,
+          "ranged": false,
+          "notification": "the grass thrashes wildly as a huge lizard pushes through",
+          "loot": {
+            "scales": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.8
+            },
+            "teeth": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.5
+            },
+            "meat": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.8
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A Feral Terror",
+      "availabilitySamples": [
+        {
+          "distance": 21,
+          "terrain": ";"
+        },
+        {
+          "distance": 30,
+          "terrain": ";"
+        }
+      ],
+      "scenes": {
+        "start": {
+          "enemy": "feral terror",
+          "health": 45,
+          "damage": 6,
+          "hit": 0.8,
+          "attackDelaySeconds": 1,
+          "ranged": false,
+          "notification": "a beast, wilder than imagining, erupts out of the foliage",
+          "loot": {
+            "fur": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "meat": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "teeth": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.8
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A Soldier",
+      "availabilitySamples": [
+        {
+          "distance": 21,
+          "terrain": "."
+        },
+        {
+          "distance": 30,
+          "terrain": "."
+        }
+      ],
+      "scenes": {
+        "start": {
+          "enemy": "soldier",
+          "health": 50,
+          "damage": 8,
+          "hit": 0.8,
+          "attackDelaySeconds": 2,
+          "ranged": true,
+          "notification": "a soldier opens fire from across the desert",
+          "loot": {
+            "cloth": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.8
+            },
+            "bullets": {
+              "min": 1,
+              "max": 5,
+              "chance": 0.5
+            },
+            "rifle": {
+              "min": 1,
+              "max": 1,
+              "chance": 0.2
+            },
+            "medicine": {
+              "min": 1,
+              "max": 2,
+              "chance": 0.1
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "A Sniper",
+      "availabilitySamples": [
+        {
+          "distance": 21,
+          "terrain": ","
+        },
+        {
+          "distance": 30,
+          "terrain": ","
+        }
+      ],
+      "scenes": {
+        "start": {
+          "enemy": "sniper",
+          "health": 30,
+          "damage": 15,
+          "hit": 0.8,
+          "attackDelaySeconds": 4,
+          "ranged": true,
+          "notification": "a shot rings out, from somewhere in the long grass",
+          "loot": {
+            "cloth": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.8
+            },
+            "bullets": {
+              "min": 1,
+              "max": 5,
+              "chance": 0.5
+            },
+            "rifle": {
+              "min": 1,
+              "max": 1,
+              "chance": 0.2
+            },
+            "medicine": {
+              "min": 1,
+              "max": 2,
+              "chance": 0.1
+            }
+          }
+        }
+      }
+    }
+  ],
+  "firstTripSetpieces": {
+    "house": {
+      "title": "An Old House",
+      "scenes": {
+        "start": {
+          "text": [
+            "an old house remains here, once white siding yellowed and peeling.",
+            "the door hangs open."
+          ],
+          "notification": "the remains of an old house stand as a monument to simpler times",
+          "buttons": {
+            "enter": {
+              "text": "go inside",
+              "nextScene": {
+                "1": "occupied",
+                "0.25": "medicine",
+                "0.5": "supplies"
+              },
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave",
+              "nextScene": "end",
+              "hooks": []
+            }
+          }
+        },
+        "supplies": {
+          "text": [
+            "the house is abandoned, but not yet picked over.",
+            "still a few drops of water in the old well."
+          ],
+          "loot": {
+            "cured meat": {
+              "min": 1,
+              "max": 10,
+              "chance": 0.8
+            },
+            "leather": {
+              "min": 1,
+              "max": 10,
+              "chance": 0.2
+            },
+            "cloth": {
+              "min": 1,
+              "max": 10,
+              "chance": 0.5
+            }
+          },
+          "buttons": {
+            "leave": {
+              "text": "leave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          },
+          "hooks": [
+            "onLoad"
+          ]
+        },
+        "medicine": {
+          "text": [
+            "the house has been ransacked.",
+            "but there is a cache of medicine under the floorboards."
+          ],
+          "loot": {
+            "medicine": {
+              "min": 2,
+              "max": 5,
+              "chance": 1
+            }
+          },
+          "buttons": {
+            "leave": {
+              "text": "leave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          },
+          "hooks": [
+            "onLoad"
+          ]
+        },
+        "occupied": {
+          "enemy": "squatter",
+          "health": 10,
+          "damage": 3,
+          "hit": 0.8,
+          "attackDelaySeconds": 2,
+          "ranged": false,
+          "notification": "a man charges down the hall, a rusty blade in his hand",
+          "loot": {
+            "cured meat": {
+              "min": 1,
+              "max": 10,
+              "chance": 0.8
+            },
+            "leather": {
+              "min": 1,
+              "max": 10,
+              "chance": 0.2
+            },
+            "cloth": {
+              "min": 1,
+              "max": 10,
+              "chance": 0.5
+            }
+          },
+          "buttons": {
+            "leave": {
+              "text": "leave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          },
+          "hooks": [
+            "onLoad"
+          ]
+        }
+      }
+    },
+    "cave": {
+      "title": "A Damp Cave",
+      "scenes": {
+        "start": {
+          "text": [
+            "the mouth of the cave is wide and dark.",
+            "can't see what's inside."
+          ],
+          "notification": "the earth here is split, as if bearing an ancient wound",
+          "buttons": {
+            "enter": {
+              "text": "go inside",
+              "cost": {
+                "torch": 1
+              },
+              "nextScene": {
+                "1": "a3",
+                "0.3": "a1",
+                "0.6": "a2"
+              },
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave",
+              "nextScene": "end",
+              "hooks": []
+            }
+          }
+        },
+        "a1": {
+          "enemy": "beast",
+          "health": 5,
+          "damage": 1,
+          "hit": 0.8,
+          "attackDelaySeconds": 1,
+          "ranged": false,
+          "notification": "a startled beast defends its home",
+          "loot": {
+            "fur": {
+              "min": 1,
+              "max": 10,
+              "chance": 1
+            },
+            "teeth": {
+              "min": 1,
+              "max": 5,
+              "chance": 0.8
+            }
+          },
+          "buttons": {
+            "continue": {
+              "text": "continue",
+              "nextScene": {
+                "1": "b2",
+                "0.5": "b1"
+              },
+              "cooldown": 1,
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          }
+        },
+        "a2": {
+          "text": [
+            "the cave narrows a few feet in.",
+            "the walls are moist and moss-covered"
+          ],
+          "buttons": {
+            "continue": {
+              "text": "squeeze",
+              "nextScene": {
+                "1": "b3",
+                "0.5": "b2"
+              },
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "hooks": []
+            }
+          }
+        },
+        "a3": {
+          "text": [
+            "the remains of an old camp sits just inside the cave.",
+            "bedrolls, torn and blackened, lay beneath a thin layer of dust."
+          ],
+          "loot": {
+            "cured meat": {
+              "min": 1,
+              "max": 5,
+              "chance": 1
+            },
+            "torch": {
+              "min": 1,
+              "max": 5,
+              "chance": 0.5
+            },
+            "leather": {
+              "min": 1,
+              "max": 5,
+              "chance": 0.3
+            }
+          },
+          "buttons": {
+            "continue": {
+              "text": "continue",
+              "nextScene": {
+                "1": "b4",
+                "0.5": "b3"
+              },
+              "cooldown": 1,
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          }
+        },
+        "b1": {
+          "text": [
+            "the body of a wanderer lies in a small cavern.",
+            "rot's been to work on it, and some of the pieces are missing.",
+            "can't tell what left it here."
+          ],
+          "loot": {
+            "iron sword": {
+              "min": 1,
+              "max": 1,
+              "chance": 1
+            },
+            "cured meat": {
+              "min": 1,
+              "max": 5,
+              "chance": 0.8
+            },
+            "torch": {
+              "min": 1,
+              "max": 3,
+              "chance": 0.5
+            },
+            "medicine": {
+              "min": 1,
+              "max": 2,
+              "chance": 0.1
+            }
+          },
+          "buttons": {
+            "continue": {
+              "text": "continue",
+              "nextScene": {
+                "1": "c1"
+              },
+              "cooldown": 1,
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          }
+        },
+        "b2": {
+          "text": [
+            "the torch sputters and dies in the damp air",
+            "the darkness is absolute"
+          ],
+          "notification": "the torch goes out",
+          "buttons": {
+            "continue": {
+              "text": "continue",
+              "cost": {
+                "torch": 1
+              },
+              "nextScene": {
+                "1": "c1"
+              },
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "hooks": []
+            }
+          }
+        },
+        "b3": {
+          "enemy": "beast",
+          "health": 5,
+          "damage": 1,
+          "hit": 0.8,
+          "attackDelaySeconds": 1,
+          "ranged": false,
+          "notification": "a startled beast defends its home",
+          "loot": {
+            "fur": {
+              "min": 1,
+              "max": 3,
+              "chance": 1
+            },
+            "teeth": {
+              "min": 1,
+              "max": 2,
+              "chance": 0.8
+            }
+          },
+          "buttons": {
+            "continue": {
+              "text": "continue",
+              "nextScene": {
+                "1": "c2"
+              },
+              "cooldown": 1,
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          }
+        },
+        "b4": {
+          "enemy": "cave lizard",
+          "health": 6,
+          "damage": 3,
+          "hit": 0.8,
+          "attackDelaySeconds": 2,
+          "ranged": false,
+          "notification": "a cave lizard attacks",
+          "loot": {
+            "scales": {
+              "min": 1,
+              "max": 3,
+              "chance": 1
+            },
+            "teeth": {
+              "min": 1,
+              "max": 2,
+              "chance": 0.8
+            }
+          },
+          "buttons": {
+            "continue": {
+              "text": "continue",
+              "nextScene": {
+                "1": "c2"
+              },
+              "cooldown": 1,
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          }
+        },
+        "c1": {
+          "enemy": "beast",
+          "health": 10,
+          "damage": 3,
+          "hit": 0.8,
+          "attackDelaySeconds": 2,
+          "ranged": false,
+          "notification": "a large beast charges out of the dark",
+          "loot": {
+            "fur": {
+              "min": 1,
+              "max": 3,
+              "chance": 1
+            },
+            "teeth": {
+              "min": 1,
+              "max": 3,
+              "chance": 1
+            }
+          },
+          "buttons": {
+            "continue": {
+              "text": "continue",
+              "nextScene": {
+                "1": "end2",
+                "0.5": "end1"
+              },
+              "cooldown": 1,
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          }
+        },
+        "c2": {
+          "enemy": "lizard",
+          "health": 10,
+          "damage": 4,
+          "hit": 0.8,
+          "attackDelaySeconds": 2,
+          "ranged": false,
+          "notification": "a giant lizard shambles forward",
+          "loot": {
+            "scales": {
+              "min": 1,
+              "max": 3,
+              "chance": 1
+            },
+            "teeth": {
+              "min": 1,
+              "max": 3,
+              "chance": 1
+            }
+          },
+          "buttons": {
+            "continue": {
+              "text": "continue",
+              "nextScene": {
+                "1": "end3",
+                "0.7": "end2"
+              },
+              "cooldown": 1,
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          }
+        },
+        "end1": {
+          "text": [
+            "the nest of a large animal lies at the back of the cave."
+          ],
+          "loot": {
+            "meat": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "fur": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "scales": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "teeth": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "cloth": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.5
+            }
+          },
+          "buttons": {
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          },
+          "hooks": [
+            "onLoad"
+          ]
+        },
+        "end2": {
+          "text": [
+            "a small supply cache is hidden at the back of the cave."
+          ],
+          "loot": {
+            "cloth": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "leather": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "iron": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "cured meat": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "steel": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.5
+            },
+            "bolas": {
+              "min": 1,
+              "max": 3,
+              "chance": 0.3
+            },
+            "medicine": {
+              "min": 1,
+              "max": 4,
+              "chance": 0.15
+            }
+          },
+          "buttons": {
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          },
+          "hooks": [
+            "onLoad"
+          ]
+        },
+        "end3": {
+          "text": [
+            "an old case is wedged behind a rock, covered in a thick layer of dust."
+          ],
+          "loot": {
+            "steel sword": {
+              "min": 1,
+              "max": 1,
+              "chance": 1
+            },
+            "bolas": {
+              "min": 1,
+              "max": 3,
+              "chance": 0.5
+            },
+            "medicine": {
+              "min": 1,
+              "max": 3,
+              "chance": 0.3
+            }
+          },
+          "buttons": {
+            "leave": {
+              "text": "leave cave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          },
+          "hooks": [
+            "onLoad"
+          ]
+        }
+      }
+    },
+    "ironmine": {
+      "title": "The Iron Mine",
+      "scenes": {
+        "start": {
+          "text": [
+            "an old iron mine sits here, tools abandoned and left to rust.",
+            "bleached bones are strewn about the entrance. many, deeply scored with jagged grooves.",
+            "feral howls echo out of the darkness."
+          ],
+          "notification": "the path leads to an abandoned mine",
+          "buttons": {
+            "enter": {
+              "text": "go inside",
+              "cost": {
+                "torch": 1
+              },
+              "nextScene": {
+                "1": "enter"
+              },
+              "hooks": []
+            },
+            "leave": {
+              "text": "leave",
+              "nextScene": "end",
+              "hooks": []
+            }
+          }
+        },
+        "enter": {
+          "enemy": "beastly matriarch",
+          "health": 10,
+          "damage": 4,
+          "hit": 0.8,
+          "attackDelaySeconds": 2,
+          "ranged": false,
+          "notification": "a large creature lunges, muscles rippling in the torchlight",
+          "loot": {
+            "teeth": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            },
+            "scales": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.8
+            },
+            "cloth": {
+              "min": 5,
+              "max": 10,
+              "chance": 0.5
+            }
+          },
+          "buttons": {
+            "leave": {
+              "text": "leave",
+              "nextScene": {
+                "1": "cleared"
+              },
+              "cooldown": 1,
+              "hooks": []
+            }
+          }
+        },
+        "cleared": {
+          "text": [
+            "the beast is dead.",
+            "the mine is now safe for workers."
+          ],
+          "notification": "the iron mine is clear of dangers",
+          "buttons": {
+            "leave": {
+              "text": "leave",
+              "nextScene": "end",
+              "hooks": []
+            }
+          },
+          "hooks": [
+            "onLoad"
+          ]
+        }
+      }
+    },
+    "outpost": {
+      "title": "An Outpost",
+      "scenes": {
+        "start": {
+          "text": [
+            "a safe place in the wilds."
+          ],
+          "notification": "a safe place in the wilds.",
+          "loot": {
+            "cured meat": {
+              "min": 5,
+              "max": 10,
+              "chance": 1
+            }
+          },
+          "buttons": {
+            "leave": {
+              "text": "leave",
+              "nextScene": "end",
+              "cooldown": 1,
+              "hooks": []
+            }
+          },
+          "hooks": [
+            "onLoad"
+          ]
+        }
+      }
+    }
+  },
+  "firstTripEnemyIds": [
+    "beast",
+    "beastly matriarch",
+    "cave lizard",
+    "gaunt man",
+    "lizard",
+    "snarling beast",
+    "squatter",
+    "strange bird",
+    "two-headed creature"
+  ],
+  "exclusions": [
+    "coal-mine interior",
+    "town interior",
+    "distance > 10 encounters",
+    "later setpieces",
+    "new-game-plus cache"
+  ],
+  "caveat": "An unrestricted world can reach excluded content. Those routes need explicit UI handling or full asset coverage before release."
+}

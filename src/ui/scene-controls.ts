@@ -58,7 +58,7 @@ export class SceneControls {
   }
 
   frame(now: number, ready: boolean): void {
-    const available = this.enabled() && ready;
+    const available = this.enabled() && ready && this.journey.place !== 'village';
     const place = available ? this.journey.outside ? 'outside' : this.journey.unlocked ? 'room' : '' : '';
     if (place !== this.place) { this.hovered = null; this.messageUntil = 0; }
     this.place = place;

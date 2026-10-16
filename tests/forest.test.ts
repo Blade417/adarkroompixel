@@ -51,16 +51,16 @@ describe('the near-forest trip', () => {
     expect(trip.gather('branches')).toBe(true);
     expect(trip.gather('branches')).toBe(false);
     expect(trip.gather('deadwood')).toBe(true);
-    expect(g.store.num('stores.wood')).toBe(12);
+    expect(g.store.num('stores.wood')).toBe(6);
     trip.travel('room'); trip.travel('outside');
     expect(trip.gather('deadwood')).toBe(false);
     g.tick(FORAGE.branches.seconds * 1000);
     expect(trip.gather('branches')).toBe(true);
     expect(trip.gather('deadwood')).toBe(false);
-    expect(g.store.num('stores.wood')).toBe(16);
+    expect(g.store.num('stores.wood')).toBe(8);
     trip.travel('room');
     expect(g.room.tendFire()).toBe(true);
-    expect(g.store.num('stores.wood')).toBe(15);
+    expect(g.store.num('stores.wood')).toBe(7);
   });
 
   it('restores the forest and remaining cooldown from an exported save', () => {
@@ -72,12 +72,12 @@ describe('the near-forest trip', () => {
     expect(restored.importCode(code)).toBe(true); restored.start();
     const next = new ForestJourney(restored); next.restoreLocation();
     expect(next.outside).toBe(true);
-    expect(restored.store.num('stores.wood')).toBe(4);
+    expect(restored.store.num('stores.wood')).toBe(2);
     expect(next.remaining('branches')).toBeGreaterThanOrEqual(14_500);
     expect(next.gather('branches')).toBe(false);
     restored.tick(15_000);
     expect(next.gather('branches')).toBe(true);
-    expect(restored.store.num('stores.wood')).toBe(8);
+    expect(restored.store.num('stores.wood')).toBe(4);
   });
 
   it('blocks travel and gathering during events and keeps room time running outside', () => {

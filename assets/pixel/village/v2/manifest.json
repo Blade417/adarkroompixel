@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "tool": "built-in image_gen",
+  "logicalSize": [480, 270],
+  "alphaCut": 0.5,
+  "sourceHashes": {
+    "ground.png": "461430dacad47183a7a24266ccf12d869d1fa35942d1e00195746e54f718fa73",
+    "trees.png": "3d77cd908c11216773847dcf85b0cd261fe159447371149bcde5c41a450abc96"
+  },
+  "assets": {
+    "terrain": { "file": "ground.png", "sourceRect": [0, 0, 1672, 941], "drawSize": [480, 270], "hasAlpha": false },
+    "tree0": { "file": "trees.png", "sourceRect": [113, 36, 322, 735], "drawSize": [18, 41], "hasAlpha": true },
+    "tree1": { "file": "trees.png", "sourceRect": [591, 185, 378, 590], "drawSize": [26, 41], "hasAlpha": true },
+    "tree2": { "file": "trees.png", "sourceRect": [79, 819, 455, 659], "drawSize": [31, 45], "hasAlpha": true },
+    "tree3": { "file": "trees.png", "sourceRect": [655, 1066, 269, 408], "drawSize": [19, 29], "hasAlpha": true }
+  }
+}

@@ -13,7 +13,12 @@ import { toCss, type Fit } from '../pixel/fit';
 import { BUILDER_TARGET, HEARTH_TARGET } from '../pixel/layout';
 import type { ForestJourney, PixelPlace } from '../app/forest';
 import { BuilderWorkshop, type PixelBuildable } from '../app/building';
-import { WORKSHOP_IDS, workshopHitRects } from '../pixel/workshop';
+import { PUBLIC_ZONES, type PublicZoneId } from '../app/village';
+import { SETTLEMENT_TABS, settlementRows, type SettlementTab } from './settlement';
+import { EventOutcome } from '../app/event-outcome';
+import { settlementGoal } from '../app/progression';
+import { goalContents } from './economy';
+import { WORKSHOP_IDS, workshopHitRects, type WorkshopId } from '../pixel/workshop';
 import { esc, isInteractive, isTyping, num, Patch } from './dom';
 import { layoutVars, type HudLayout } from './layout';
 import { uiStrings, type Ui, type UiKey } from './strings';
@@ -37,7 +42,10 @@ export interface HudHost {
   /** stop the stranger's arrival if it is playing; true when it was */
   skipArrival(): boolean;
   readonly forestReady: boolean;
-  hasWorkshopArt(id: PixelBuildable): boolean;
+  readonly villageReady: boolean;
+  readonly expeditionOpen: boolean;
+  openExpedition(): boolean;
+  hasWorkshopArt(id: WorkshopId): boolean;
   travel(place: PixelPlace): boolean;
 }
 
@@ -89,20 +97,28 @@ export class Hud {
   private readonly confirmBox: HTMLElement;
   private readonly sr: HTMLElement;
   private readonly workshop: BuilderWorkshop;
+  private readonly eventOutcome: EventOutcome;
   private readonly buildLayer: HTMLElement;
   private readonly buildCard: HTMLElement;
   private readonly buildList: HTMLElement;
   private readonly buildWood: HTMLElement;
   private readonly buildResult: HTMLElement;
   private readonly builderTarget: HTMLElement;
-  private readonly roomProps = new Map<PixelBuildable, HTMLButtonElement>();
-  private hoveredProp: PixelBuildable | null = null;
+  private readonly roomProps = new Map<WorkshopId, HTMLButtonElement>();
+  private hoveredProp: WorkshopId | null = null;
   private compactPropTargets = false;
   private readonly buildLaunch: HTMLElement;
   private readonly fieldTools: HTMLElement;
   private readonly trapButton: HTMLButtonElement;
   private readonly trapResult: HTMLElement;
   private buildReturn: HTMLElement | null = null;
+  private buildTab: SettlementTab = 'build';
+  private buildZone: PublicZoneId | null = null;
+  private readonly buildTabs: HTMLElement;
+  private readonly goalGuide: HTMLElement;
+  private readonly goalTitle: HTMLElement;
+  private readonly goalBody: HTMLElement;
+  private readonly goalAction: HTMLButtonElement;
 
   private denyText = '';
   private denyUntil = 0;
@@ -127,7 +143,8 @@ export class Hud {
     private readonly forest: ForestJourney
   ) {
     this.ui = uiStrings(g.i18n.lang);
-    this.workshop = new BuilderWorkshop(g);
+    this.workshop = new BuilderWorkshop(g, forest);
+    this.eventOutcome = new EventOutcome(g);
     root.innerHTML = this.template();
     const q = <T extends HTMLElement>(sel: string): T => {
       const el = root.querySelector<T>(sel);
@@ -162,6 +179,11 @@ export class Hud {
     this.buildLayer = q('.build-layer');
     this.buildCard = q('.build-card');
     this.buildList = q('.build-list');
+    this.buildTabs = q('.settlement-tabs');
+    this.goalGuide = q('.progress-guide');
+    this.goalTitle = q('.goal-title');
+    this.goalBody = q('.goal-body');
+    this.goalAction = q<HTMLButtonElement>('.goal-action');
     this.buildWood = q('.build-wood');
     this.buildResult = q('.build-result');
     this.builderTarget = q('.builder-target');
@@ -206,6 +228,7 @@ export class Hud {
   <button type="button" class="icon gear" data-act="settings" aria-label="${u('settings.open')}" aria-haspopup="dialog" title="${u('settings.title')}">${GEAR_SVG}</button></div>
 </header>
 <main class="stage">
+  <aside class="progress-guide" hidden><details><summary><span>${u('goal.label')}</span> · <strong class="goal-title"></strong></summary><div class="goal-body"></div><button type="button" class="recipe-use goal-action" data-act="goal"></button></details></aside>
   <div class="canvas-box">
     <canvas class="scene" role="img" tabindex="-1" aria-label="${u('scene.label')}"></canvas>
     <button type="button" class="hearth-target" data-act="tend" aria-label="${u('dock.label')}" aria-describedby="hearth-hint" aria-keyshortcuts="F"></button>
@@ -222,8 +245,8 @@ export class Hud {
 </main>
 <div class="layer build-layer" hidden>
   <div class="card build-card" role="dialog" aria-modal="true" aria-labelledby="build-title" tabindex="-1">
-    <p class="kicker">${u('build.title')}</p><h2 id="build-title">${u('build.open')}</h2>
-    <p class="build-intro">${u('build.intro')}</p><p class="build-wood"></p><div class="build-list"></div>
+    <div class="settlement-heading"><p class="kicker">${u('build.title')}</p><h2 id="build-title">${u('build.open')}</h2>
+    <p class="build-intro">${u('build.intro')}</p><nav class="settlement-tabs" aria-label="${u('settlement.tabs')}"></nav><p class="build-wood"></p></div><div class="build-list"></div>
     <p class="build-result" role="status"></p>
     <div class="set-actions end"><button type="button" class="btn" data-act="build-close">${u('build.close')}</button></div>
   </div>
@@ -324,7 +347,7 @@ export class Hud {
       (this.hovering || this.tendBtn.matches(':focus-visible') || (!this.touchedHearth && performance.now() < this.guideUntil));
   }
 
-  get highlightedWorkshop(): PixelBuildable | null {
+  get highlightedWorkshop(): WorkshopId | null {
     if (!this.canInteract() || this.arrivalPlaying || this.g.active !== 'room') return null;
     for (const [id, target] of this.roomProps) {
       if (!target.hidden && (this.hoveredProp === id || target.matches(':focus-visible'))) return id;
@@ -345,13 +368,13 @@ export class Hud {
 
   /** the room itself takes input (hover highlight, hearth clicks) */
   canInteract(): boolean {
-    return this.begun && !this.overlayOpen && !this.g.events.active();
+    return this.begun && !this.overlayOpen && !this.g.events.active() && !this.host.expeditionOpen;
   }
 
   // ------------------------------------------------------------------ the shared fire action
 
   tend(_source: TendSource): boolean {
-    if (!this.begun || this.overlayOpen || this.arrivalPlaying || this.g.active !== 'room') return false;
+    if (!this.canInteract() || this.arrivalPlaying || this.g.active !== 'room') return false;
     this.touchedHearth = true;
     const g = this.g;
     if (g.events.active()) {
@@ -401,14 +424,17 @@ export class Hud {
 
   frame(now: number, view: RoomView, arrival: boolean): void {
     this.arrivalPlaying = arrival;
+    this.syncModal();
     this.renderTabs();
     this.renderStores();
     this.renderHearth(now);
     this.renderEvent();
     this.renderBuilding();
+    this.renderGoal();
     if (this.skipHint.hidden === arrival) this.skipHint.hidden = !arrival;
     this.renderScene(view, arrival);
-    const title = this.begun ? `${this.g.title()} · ${this.ui('app.title')}` : this.ui('app.title');
+    const placeTitle = this.forest.place === 'village' ? this.ui('village.name') : this.forest.outside ? this.ui('forest.name') : this.g.title();
+    const title = this.begun ? `${placeTitle} · ${this.ui('app.title')}` : this.ui('app.title');
     if (title !== this.last.title) document.title = this.last.title = title;
   }
 
@@ -417,13 +443,18 @@ export class Hud {
     const html = g
       .tabs()
       .map((id) => {
-        const name = esc(g.title(id));
-        if (id === g.active) return `<li><span class="tab on" aria-current="page">${name}</span></li>`;
+        const name = esc(id === 'outside' ? this.ui('forest.name') : g.title(id));
+        if (id === 'path') return this.host.expeditionOpen ? `<li><span class="tab on" aria-current="page">${name}</span></li>` : `<li><button type="button" class="tab" data-act="tab:path">${name}</button></li>`;
+        if (this.host.expeditionOpen) return `<li><button type="button" class="tab" data-act="tab:${id}" disabled>${name}</button></li>`;
+        if (id === this.forest.place) return `<li><span class="tab on" aria-current="page">${name}</span></li>`;
         if (id === 'room' || (id === 'outside' && this.host.forestReady)) return `<li><button type="button" class="tab" data-act="tab:${id}">${name}</button></li>`;
         return `<li><button type="button" class="tab soon" data-act="tab:${id}" aria-disabled="true">${name}<span class="badge">${esc(this.ui('tab.soon'))}</span></button></li>`;
       })
       .join('');
-    this.patch.set(this.tabList, html);
+    const village = this.forest.villageUnlocked ? this.forest.place === 'village' ?
+      `<li><span class="tab on" aria-current="page">${esc(this.ui('village.name'))}</span></li>` :
+      `<li><button type="button" class="tab" data-act="tab:village" ${this.host.villageReady && !this.host.expeditionOpen ? '' : 'disabled'}>${esc(this.ui('village.name'))}</button></li>` : '';
+    this.patch.set(this.tabList, html + village);
   }
 
   private renderStores(): void {
@@ -441,6 +472,40 @@ export class Hud {
     const empty = rows.length === 0;
     if (this.storesBox.hidden !== empty) this.storesBox.hidden = empty;
     this.patch.set(this.storesList, rows.join(''));
+  }
+
+  private renderGoal(): void {
+    this.goalGuide.hidden = !this.begun || this.overlayOpen || this.arrivalPlaying || Boolean(this.g.events.active()) || this.host.expeditionOpen;
+    if (this.goalGuide.hidden) return;
+    const goal = settlementGoal(this.g), title = this.ui(goal.title);
+    if (this.goalTitle.textContent !== title) this.goalTitle.textContent = title;
+    this.patch.set(this.goalBody, goalContents(this.g, this.ui, goal));
+    this.goalAction.hidden = goal.target === 'none';
+    if (goal.target !== 'none') {
+      const text = this.ui(`goal.action.${goal.target}` as UiKey);
+      if (this.goalAction.textContent !== text) this.goalAction.textContent = text;
+    }
+  }
+
+  private followGoal(opener: HTMLElement): void {
+    if (!this.begun || this.arrivalPlaying || this.g.events.active() || this.overlayOpen) return;
+    const goal = settlementGoal(this.g);
+    this.closeBuilding(false);
+    if (goal.target === 'none') return;
+    if (goal.target === 'expedition') { this.host.openExpedition(); return; }
+    if (goal.target === 'fire') {
+      if (this.forest.away) this.host.travel('room');
+      this.tendBtn.focus(); return;
+    }
+    if (goal.target === 'forest' || goal.target === 'home') {
+      this.host.travel(goal.target === 'forest' ? 'outside' : 'room'); return;
+    }
+    if (goal.target === 'workers') {
+      if (this.forest.place !== 'village' && !this.host.travel('village')) return;
+    } else if (!this.workshop.atSettlement && !this.host.travel('room')) return;
+    this.openBuilding(opener);
+    this.buildTab = goal.target;
+    this.renderBuilding(); this.buildCard.focus();
   }
 
   private costText(cost: Record<string, number> | undefined): string {
@@ -479,7 +544,7 @@ export class Hud {
   }
 
   private renderHearth(now: number): void {
-    const outside = this.forest.outside;
+    const outside = this.forest.away;
     this.tendBtn.hidden = outside;
     if (outside) { this.charge.parentElement!.hidden = true; this.hearthFeedback.hidden = true; return; }
     const s = this.tendState(now);
@@ -510,6 +575,15 @@ export class Hud {
   }
 
   private renderScene(view: RoomView, arrival: boolean): void {
+    if (this.forest.place === 'village') {
+      const huts = this.g.outside.huts, population = this.g.outside.population;
+      const key = `village|${huts}|${population}`;
+      if (key !== this.sceneKey) {
+        this.sceneKey = key;
+        this.canvas.setAttribute('aria-label', this.ui('village.scene', huts, population, this.g.outside.maxPopulation()));
+      }
+      return;
+    }
     if (this.forest.outside) {
       const branches = this.forest.remaining('branches') > 0, deadwood = this.forest.remaining('deadwood') > 0;
       const key = `forest|${branches}|${deadwood}`;
@@ -538,7 +612,8 @@ export class Hud {
   // ------------------------------------------------------------------ construction
 
   private openBuilding(opener: HTMLElement, recipe?: PixelBuildable): void {
-    if (!this.canInteract() || this.arrivalPlaying || this.g.active !== 'room' || !this.workshop.available) return;
+    if (!this.canInteract() || this.arrivalPlaying || !this.workshop.atSettlement || !this.workshop.available) return;
+    this.buildTab = !recipe && this.forest.place === 'village' ? 'overview' : 'build'; this.buildZone = null;
     this.buildReturn = opener;
     this.buildResult.textContent = '';
     this.buildLayer.hidden = false;
@@ -546,6 +621,16 @@ export class Hud {
     this.syncModal();
     const focus = recipe ? this.buildList.querySelector<HTMLElement>(`#recipe-${recipe}`) : this.buildCard;
     (focus ?? this.buildCard).focus();
+  }
+
+  openDistrict(zone: PublicZoneId, opener: HTMLElement): void {
+    if (this.forest.place !== 'village' || !this.canInteract() || this.arrivalPlaying || !this.workshop.available) return;
+    this.openBuilding(opener);
+    this.buildZone = zone;
+    const facilities = PUBLIC_ZONES.find(z => z.id === zone)!.facilities;
+    const built = facilities.some(id => this.g.store.num(`game.buildings["${id}"]`) > 0);
+    this.buildTab = built ? zone === 'trade' ? 'buy' : zone === 'craft' && this.g.store.num('game.buildings.workshop') > 0 ? 'craft' : 'workers' : 'build';
+    this.renderBuilding(); this.buildCard.focus();
   }
 
   private closeBuilding(restore = true): void {
@@ -561,11 +646,13 @@ export class Hud {
   private renderBuilding(): void {
     const g = this.g;
     const inRoom = g.active === 'room';
-    const visible = this.begun && inRoom && this.workshop.available;
+    const visible = this.begun && this.workshop.atSettlement && this.workshop.available;
     this.buildLaunch.hidden = !visible;
+    this.buildLaunch.textContent = this.ui(this.forest.place === 'village' ? 'settlement.open' : 'build.open');
+    this.buildLaunch.setAttribute('aria-label', this.ui(this.forest.place === 'village' ? 'settlement.open' : 'build.talk'));
     // At subpixel mobile scaling, leave the space around the small trap to its 44px touch target.
     // The top-bar entry still reaches the builder without overlapping that object.
-    this.builderTarget.hidden = !visible || this.arrivalPlaying || (this.compactPropTargets && this.forest.trapCount > 0);
+    this.builderTarget.hidden = !visible || !inRoom || this.arrivalPlaying || (this.compactPropTargets && this.forest.trapCount > 0);
     for (const [id, target] of this.roomProps) {
       const count = g.store.num(`game.buildings.${id}`);
       target.hidden = !this.begun || !inRoom || count === 0 || this.arrivalPlaying || !this.host.hasWorkshopArt(id);
@@ -587,24 +674,10 @@ export class Hud {
     } else if (this.trapResult.textContent) this.trapResult.textContent = '';
     if (this.buildLayer.hidden) return;
 
-    const options = this.workshop.options();
-    const rows = options.map(id => {
-      const item = CRAFTABLES[id], cost = g.room.costOf(id), count = g.room.count(id, item);
-      const maxed = g.room.isMaxed(id);
-      const cold = g.room.temperature <= 1;
-      const missing = Object.fromEntries(Object.entries(cost).map(([key, amount]) =>
-        [key, Math.max(0, amount - g.store.num(`stores["${key}"]`))]).filter(([, amount]) => Number(amount) > 0));
-      const short = !g.room.canAfford(cost);
-      const status = maxed ? this.ui(id === 'cart' ? 'build.done' : 'build.maximum') :
-        cold ? this.ui('build.cold') : short ? this.ui('build.missing', this.costText(missing)) : '';
-      return `<section class="build-row" aria-labelledby="recipe-${id}">` +
-        `<div class="recipe-title"><h3 id="recipe-${id}" tabindex="-1">${esc(g.t(id))}</h3><span>${esc(this.ui('build.count', count))}</span></div>` +
-        `<p>${esc(this.ui(id === 'cart' ? 'build.cart.desc' : 'build.trap.desc'))}</p>` +
-        `<div class="recipe-action"><span class="recipe-cost">${maxed ? '' : esc(this.costText(cost))}</span>` +
-        `<button type="button" class="btn" data-act="build:${id}"${maxed || cold || short ? ' disabled' : ''}>${esc(maxed ? status : this.ui('build.make', g.t(id)))}</button></div>` +
-        `<p class="recipe-status">${maxed ? '' : esc(status)}</p>` +
-        (count > 0 ? `<button type="button" class="recipe-use" data-act="use:${id}">${esc(this.ui(id === 'cart' ? 'props.cart.use' : 'props.trap.use'))}</button>` : '') + '</section>';
-    }).join('');
+    this.patch.set(this.buildTabs, SETTLEMENT_TABS.map(tab => `<button type="button" data-act="settlement-tab:${tab}" aria-pressed="${this.buildTab === tab}">${esc(this.ui(`settlement.tab.${tab}`))}</button>`).join('') +
+      (this.buildZone ? `<button type="button" data-act="settlement-all">${esc(this.ui('settlement.all'))}</button>` : ''));
+    this.buildCard.querySelector('h2')!.textContent = this.buildZone ? this.ui(`village.zone.${this.buildZone}`) : this.ui('settlement.title');
+    const rows = settlementRows(g, this.workshop, this.buildTab, this.buildZone, this.forest.place === 'village', this.ui, cost => this.costText(cost));
     const active = document.activeElement as HTMLElement | null;
     const focusAct = active && this.buildList.contains(active) ? active.dataset.act : undefined;
     const woodText = this.ui('build.wood', num(g.store.num('stores.wood'), g.i18n.lang));
@@ -613,15 +686,17 @@ export class Hud {
     if (focusAct && !this.buildList.contains(document.activeElement)) {
       const replacement = [...this.buildList.querySelectorAll<HTMLButtonElement>('button')]
         .find(button => button.dataset.act === focusAct && !button.disabled);
-      (replacement ?? this.buildCard.querySelector<HTMLElement>('[data-act="build-close"]'))?.focus({ preventScroll: true });
+      const recipe = /^(?:build|craft|buy):(.+)$/.exec(focusAct)?.[1].replaceAll(' ', '-');
+      const heading = recipe ? [...this.buildList.querySelectorAll<HTMLElement>('h3[id]')]
+        .find(element => element.id === `recipe-${recipe}`) : undefined;
+      (replacement ?? heading ?? this.buildCard)?.focus({ preventScroll: true });
     }
   }
 
   private makeBuilding(id: string): void {
-    if (this.buildLayer.hidden || this.g.events.active() || this.arrivalPlaying || this.g.active !== 'room') return;
-    if (id !== 'trap' && id !== 'cart') return;
+    if (this.buildLayer.hidden || this.g.events.active() || this.arrivalPlaying || !this.workshop.atSettlement) return;
     if (this.workshop.build(id as PixelBuildable)) {
-      this.buildResult.textContent = this.ui('build.success', this.g.t(id));
+      this.buildResult.textContent = this.ui(['cart', 'trap'].includes(id) ? 'build.success' : 'settlement.built', this.g.t(id));
       this.renderBuilding();
     }
   }
@@ -653,26 +728,30 @@ export class Hud {
     const scene = ev.scene;
     const paras = (scene.text ?? []).filter(Boolean).map((p) => `<p>${esc(p)}</p>`).join('');
     const caption = scene.notification ? `<p class="caption">${esc(scene.notification)}</p>` : '';
+    const invitation = g.content.events.Marketing.includes(ev.def) ? `<p class="caption">${esc(this.ui('event.invitation'))}</p>` : '';
     const choices = g.events
       .buttons()
       .map((b, i) => {
         const cost = this.costText(b.cost);
+        const reward = this.costText(scene.buttons?.[b.id]?.reward);
         const cooling = g.cooldowns.isCooling('event:' + b.id);
         return (
           `<button type="button" class="choice" data-act="event:${esc(b.id)}"${cooling ? ` data-cd="event:${esc(b.id)}"` : ''}${b.enabled ? '' : ' aria-disabled="true"'}>` +
           (i < 9 ? `<kbd aria-hidden="true">${i + 1}</kbd>` : '') +
-          `<span class="lbl">${esc(b.text)}</span>${cost ? `<span class="cost">${esc(cost)}</span>` : ''}${cooling ? '<i class="cd"></i>' : ''}</button>`
+          `<span class="lbl">${esc(b.text)}</span>${cost ? `<span class="cost">${esc(this.ui('event.cost', cost))}</span>` : ''}${reward ? `<span class="reward">${esc(this.ui('event.gain', reward))}</span>` : ''}${cooling ? '<i class="cd"></i>' : ''}</button>`
         );
       })
       .join('');
     return (
       `<p class="kicker">${esc(this.ui('event.label'))}</p><h2 id="ev-title">${esc(ev.def.title)}</h2>` +
-      `<div class="ev-body" id="ev-body">${paras}${caption}</div><div class="choices">${choices}</div>`
+      `<div class="ev-body" id="ev-body">${paras}${caption}${invitation}</div>` +
+      (this.eventOutcome.changes.length ? `<p class="event-changes" role="status">${esc(this.ui('event.changes', this.eventOutcome.changes.map(c => `${c.kind === 'population' ? this.ui('event.population') : g.t(c.id)} ${c.amount > 0 ? '+' : '−'}${num(Math.abs(c.amount), g.i18n.lang)}`).join(' · ')))}</p>` : '') +
+      `<div class="choices">${choices}</div>`
     );
   }
 
   private renderEvent(): void {
-    const ev = this.g.events.active();
+    const ev = this.host.expeditionOpen ? null : this.g.events.active();
     const layer = this.eventLayer;
     if (!ev) {
       if (!layer.hidden) {
@@ -713,7 +792,8 @@ export class Hud {
   }
 
   private pressEvent(id: string): void {
-    this.g.events.click(id);
+    if (!this.begun || this.overlayOpen) return;
+    this.eventOutcome.choose(id);
   }
 
   // ------------------------------------------------------------------ title & settings
@@ -782,7 +862,7 @@ export class Hud {
     const building = !this.buildLayer.hidden;
     const under = settings || title || event || building;
     this.header.inert = under;
-    this.stage.inert = under;
+    this.stage.inert = under || this.host.expeditionOpen;
     this.titleLayer.inert = settings;
     this.eventLayer.inert = settings || title;
     this.buildLayer.inert = settings || title || event;
@@ -841,13 +921,18 @@ export class Hud {
     const kind = i < 0 ? act : act.slice(0, i);
     const arg = i < 0 ? '' : act.slice(i + 1);
     switch (kind) {
+      case 'goal':
+        // The overview lives inside the construction modal; close it before following a suggestion.
+        if (!this.buildLayer.hidden && !this.g.events.active()) this.closeBuilding(false);
+        this.followGoal(el);
+        break;
       case 'prop':
         if (arg === 'cart' || arg === 'trap') this.openBuilding(el, arg);
         break;
       case 'use':
-        if (!this.buildLayer.hidden && !this.g.events.active() && (arg === 'cart' || arg === 'trap') && this.g.store.num(`game.buildings.${arg}`) > 0) {
+        if (!this.buildLayer.hidden && !this.g.events.active() && (arg === 'cart' || arg === 'trap' || arg === 'hut') && this.g.store.num(`game.buildings.${arg}`) > 0 && (arg !== 'hut' || this.host.villageReady)) {
           this.closeBuilding(false);
-          this.host.travel('outside');
+          this.host.travel(arg === 'hut' ? 'village' : 'outside');
         }
         break;
       case 'build-open':
@@ -859,6 +944,29 @@ export class Hud {
       case 'build':
         this.makeBuilding(arg);
         break;
+      case 'settlement-tab':
+        if (!this.buildLayer.hidden && SETTLEMENT_TABS.includes(arg as SettlementTab)) { this.buildTab = arg as SettlementTab; this.buildResult.textContent = ''; this.renderBuilding(); }
+        break;
+      case 'settlement-all':
+        if (!this.buildLayer.hidden) { this.buildZone = null; this.renderBuilding(); }
+        break;
+      case 'facility':
+        if (!this.buildLayer.hidden && this.g.store.num(`game.buildings["${arg}"]`) > 0) {
+          if (this.forest.place !== 'village') { this.closeBuilding(false); this.host.travel('village'); }
+          else { this.buildTab = arg === 'trading post' ? 'buy' : arg === 'workshop' ? 'craft' : 'workers'; this.renderBuilding(); }
+        }
+        break;
+      case 'craft':
+      case 'buy':
+        if (!this.buildLayer.hidden && !this.arrivalPlaying && (kind === 'craft' ? this.workshop.craft(arg) : this.workshop.buy(arg))) {
+          this.buildResult.textContent = this.ui(kind === 'buy' ? 'settlement.bought' : 'build.success', this.g.t(arg)); this.renderBuilding();
+        }
+        break;
+      case 'worker': {
+        const split = arg.lastIndexOf(':'), job = arg.slice(0, split), amount = Number(arg.slice(split + 1));
+        if (!this.buildLayer.hidden && !this.arrivalPlaying && this.workshop.assign(job, amount)) this.renderBuilding();
+        break;
+      }
       case 'traps':
         this.checkTraps();
         break;
@@ -909,7 +1017,8 @@ export class Hud {
         this.pressEvent(arg);
         break;
       case 'tab':
-        if (this.canInteract() && !this.arrivalPlaying && (arg === 'room' || arg === 'outside')) this.host.travel(arg);
+        if (arg === 'path' && this.canInteract() && !this.arrivalPlaying) this.host.openExpedition();
+        else if (this.canInteract() && !this.arrivalPlaying && (arg === 'room' || arg === 'outside' || arg === 'village')) this.host.travel(arg);
         else this.deny(this.ui('tab.soon'));
         break;
     }
@@ -941,7 +1050,7 @@ export class Hud {
       }
       return;
     }
-    if (e.repeat || isTyping(e.target) || this.overlayOpen) return;
+    if (e.repeat || isTyping(e.target) || this.overlayOpen || this.host.expeditionOpen) return;
     if (this.g.events.active()) {
       const n = digitOf(e.code);
       const b = n ? this.g.events.buttons()[n - 1] : undefined;
