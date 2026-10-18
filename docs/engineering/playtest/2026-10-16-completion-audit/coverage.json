@@ -1,0 +1,288 @@
+{
+  "eventGroups": {
+    "Global": 1,
+    "Room": 10,
+    "Outside": 6,
+    "Marketing": 1,
+    "Encounters": 11,
+    "Setpieces": 13,
+    "Executioner": 6
+  },
+  "setpieceScenes": 115,
+  "staticEnemyIds": [
+    "ancient beast",
+    "automated turret",
+    "beast",
+    "beastly matriarch",
+    "bird",
+    "broken medic",
+    "cave lizard",
+    "chief",
+    "chitinous horror",
+    "chitinous queen",
+    "commando",
+    "defence turret",
+    "deformed",
+    "feral terror",
+    "frail man",
+    "gaunt man",
+    "immortal wanderer",
+    "lizard",
+    "lizards",
+    "madman",
+    "malformed experiment",
+    "man",
+    "man-eater",
+    "mechanical guard",
+    "mechanical quadruped",
+    "murderous robot",
+    "old man",
+    "operative",
+    "rats",
+    "researcher",
+    "scavenger",
+    "shivering man",
+    "snarling beast",
+    "sniper",
+    "soldier",
+    "squatter",
+    "squatters",
+    "strange bird",
+    "tentacles",
+    "thug",
+    "two-headed creature",
+    "unruly welder",
+    "unstable automaton",
+    "unstable prototype",
+    "veteran",
+    "vigilante",
+    "youth"
+  ],
+  "dedicatedEncounterArt": [
+    "snarling beast",
+    "gaunt man",
+    "strange bird",
+    "two-headed creature"
+  ],
+  "reusedEnemyArt": [
+    "beast"
+  ],
+  "weapons": [
+    "fists",
+    "bone spear",
+    "iron sword",
+    "steel sword",
+    "bayonet",
+    "rifle",
+    "laser rifle",
+    "grenade",
+    "bolas",
+    "plasma rifle",
+    "energy blade",
+    "disruptor"
+  ],
+  "dedicatedWeaponArt": [
+    "bone spear",
+    "iron sword",
+    "steel sword",
+    "rifle",
+    "bolas"
+  ],
+  "fabricatorRecipes": [
+    "energy blade",
+    "fluid recycler",
+    "cargo drone",
+    "kinetic armour",
+    "disruptor",
+    "hypo",
+    "stim",
+    "plasma rifle",
+    "glowstone"
+  ],
+  "villageBuildings": [
+    "trap",
+    "cart",
+    "hut",
+    "lodge",
+    "trading post",
+    "tannery",
+    "smokehouse",
+    "workshop",
+    "steelworks",
+    "armoury"
+  ],
+  "landmarkTypes": [
+    {
+      "symbol": "P",
+      "scene": "outpost"
+    },
+    {
+      "symbol": "I",
+      "scene": "ironmine"
+    },
+    {
+      "symbol": "C",
+      "scene": "coalmine"
+    },
+    {
+      "symbol": "S",
+      "scene": "sulphurmine"
+    },
+    {
+      "symbol": "H",
+      "scene": "house"
+    },
+    {
+      "symbol": "V",
+      "scene": "cave"
+    },
+    {
+      "symbol": "O",
+      "scene": "town"
+    },
+    {
+      "symbol": "Y",
+      "scene": "city"
+    },
+    {
+      "symbol": "W",
+      "scene": "ship"
+    },
+    {
+      "symbol": "B",
+      "scene": "borehole"
+    },
+    {
+      "symbol": "F",
+      "scene": "battlefield"
+    },
+    {
+      "symbol": "M",
+      "scene": "swamp"
+    },
+    {
+      "symbol": "X",
+      "scene": "executioner"
+    },
+    {
+      "symbol": "U",
+      "scene": "cache"
+    }
+  ],
+  "scope": "Counts establish content presence and art mapping, not end-to-end playability.",
+  "upstreamContent": [
+    {
+      "file": "script/events/global.js",
+      "identical": true
+    },
+    {
+      "file": "script/events/room.js",
+      "identical": true
+    },
+    {
+      "file": "script/events/outside.js",
+      "identical": true
+    },
+    {
+      "file": "script/events/encounters.js",
+      "identical": true
+    },
+    {
+      "file": "script/events/setpieces.js",
+      "identical": true
+    },
+    {
+      "file": "script/events/marketing.js",
+      "identical": true
+    },
+    {
+      "file": "script/events/executioner.js",
+      "identical": true
+    }
+  ],
+  "upstreamWeaponsMatch": true,
+  "upstreamWeaponRulesMatch": true,
+  "worldConstantComparison": {
+    "RADIUS": {
+      "upstream": 30,
+      "pixel": 30,
+      "equal": true
+    },
+    "VILLAGE_POS": {
+      "upstream": [
+        30,
+        30
+      ],
+      "pixel": [
+        30,
+        30
+      ],
+      "equal": true
+    },
+    "STICKINESS": {
+      "upstream": 0.5,
+      "pixel": 0.5,
+      "equal": true
+    },
+    "LIGHT_RADIUS": {
+      "upstream": 2,
+      "pixel": 2,
+      "equal": true
+    },
+    "BASE_WATER": {
+      "upstream": 10,
+      "pixel": 10,
+      "equal": true
+    },
+    "MOVES_PER_FOOD": {
+      "upstream": 2,
+      "pixel": 2,
+      "equal": true
+    },
+    "MOVES_PER_WATER": {
+      "upstream": 1,
+      "pixel": 1,
+      "equal": true
+    },
+    "DEATH_COOLDOWN": {
+      "upstream": 120,
+      "pixel": 120,
+      "equal": true
+    },
+    "FIGHT_CHANCE": {
+      "upstream": 0.2,
+      "pixel": 0.2,
+      "equal": true
+    },
+    "BASE_HEALTH": {
+      "upstream": 10,
+      "pixel": 10,
+      "equal": true
+    },
+    "BASE_HIT_CHANCE": {
+      "upstream": 0.8,
+      "pixel": 0.8,
+      "equal": true
+    },
+    "MEAT_HEAL": {
+      "upstream": 8,
+      "pixel": 8,
+      "equal": true
+    },
+    "MEDS_HEAL": {
+      "upstream": 20,
+      "pixel": 20,
+      "equal": true
+    },
+    "HYPO_HEAL": {
+      "upstream": 30,
+      "pixel": 30,
+      "equal": true
+    },
+    "FIGHT_DELAY": {
+      "upstream": 3,
+      "pixel": 3,
+      "equal": true
+    }
+  }
+}

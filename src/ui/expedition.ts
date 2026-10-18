@@ -1,5 +1,6 @@
 import './expedition.css';
 import { Expedition } from '../app/expedition';
+import { sitePresentation } from '../app/expedition-art';
 import { TILE, WEAPONS, WORLD } from '../core/data';
 import type { Direction } from '../core/locations/world';
 import type { ExpeditionRenderer } from '../pixel/expedition';
@@ -145,7 +146,9 @@ export class ExpeditionPanel {
     const landmark = g.world.LANDMARKS[tile.replace(/!$/, '')];
     const place = landmark ? g.t(landmark.label.replaceAll('&nbsp;', ' ')) : tile === TILE.FOREST ? t('森林', 'Forest') : tile === TILE.FIELD ? t('草原', 'Fields') : tile === TILE.BARRENS ? t('荒地', 'Barrens') : tile === TILE.ROAD ? t('道路', 'Road') : t('村庄', 'Village');
     setText('.exp-place', world ? `${place} · ${t('距村', 'Distance')} ${g.world.getDistance()}` : t('聚落林缘', 'Village outskirts'));
-    this.canvas.setAttribute('aria-label', combat ? `${t('战斗', 'Combat')}: ${g.t(ev?.scene.enemyName ?? ev?.scene.enemy ?? '')}` : `${t('远行地图', 'Expedition map')} · ${place}`);
+    const site = sitePresentation(g);
+    const sceneLabel = site ? g.t(ev!.def.title) : place;
+    this.canvas.setAttribute('aria-label', combat ? `${sceneLabel} · ${t('战斗', 'Combat')}: ${g.t(ev?.scene.enemyName ?? ev?.scene.enemy ?? '')}` : `${site ? t('地点场景', 'Location scene') : t('远行地图', 'Expedition map')} · ${sceneLabel}`);
     const health = this.root.querySelector<HTMLElement>('.exp-health')!;
     health.hidden = !combat;
     if (combat) this.patch.set(health, `<div>${t('旅行者', 'Wanderer')} ${g.world.health} / ${g.world.getMaxHealth()}<progress max="${g.world.getMaxHealth()}" value="${g.world.health}"></progress></div><div>${name(ev!.scene.enemyName ?? ev!.scene.enemy ?? '')} ${combat.enemy.hp} / ${combat.enemy.maxHp}${combat.enemy.stunned ? ' · ' + t('击晕', 'Stunned') : ''}<progress max="${combat.enemy.maxHp}" value="${combat.enemy.hp}"></progress></div>`);

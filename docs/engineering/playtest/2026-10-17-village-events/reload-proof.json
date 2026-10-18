@@ -1,0 +1,19 @@
+{
+  "before": {
+    "population": 10,
+    "workers": {
+      "hunter": 5,
+      "tanner": 3,
+      "trapper": 0
+    }
+  },
+  "after": {
+    "population": 10,
+    "workers": {
+      "hunter": 5,
+      "tanner": 3,
+      "trapper": 0
+    }
+  },
+  "errors": []
+}

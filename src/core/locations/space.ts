@@ -4,7 +4,7 @@
  */
 import { ASTEROID_CHARS, SPACE, altitudeName } from '../data';
 import type { Game } from '../game';
-import type { TimerId } from '../clock';
+import type { TimerId, TimerSnapshot } from '../clock';
 
 export interface Asteroid {
   id: number;
@@ -17,6 +17,16 @@ export interface Asteroid {
   /** ms to fall from -40 to HEIGHT + 40 */
   duration: number;
   born: number;
+}
+
+export interface SpaceSnapshot {
+  version: 1;
+  hull: number; altitude: number; shipX: number; shipY: number;
+  asteroids: (Omit<Asteroid, 'born'> & { age: number })[];
+  nextAsteroidId: number;
+  lastMoveAge: number | null;
+  timers: TimerSnapshot[];
+  spawn: TimerSnapshot | null;
 }
 
 export class Space {
@@ -52,6 +62,7 @@ export class Space {
   }
 
   onArrival(): void {
+    this.stopTimers();
     this.done = false;
     this.g.keyLock = false;
     this.hull = this.g.ship.hull;
@@ -73,6 +84,41 @@ export class Space {
     this.timers.push(clock.setInterval(() => this.frame(), SPACE.FRAME_MS, true));
     this.createAsteroid();
   }
+
+  snapshot(): SpaceSnapshot | null {
+    if (this.done) return null;
+    return {
+      version: 1, hull: this.hull, altitude: this.altitude, shipX: this.shipX, shipY: this.shipY,
+      asteroids: this.asteroids.map(({ born, ...a }) => ({ ...a, age: this.g.clock.now - born })),
+      nextAsteroidId: this.nextAsteroidId,
+      lastMoveAge: this.lastMove === null ? null : this.g.clock.now - this.lastMove,
+      timers: this.timers.map(id => this.g.clock.snapshot(id)!), spawn: this.g.clock.snapshot(this.spawnTimer)
+    };
+  }
+
+  /** Restore residual timers and falling rocks without spawning a new wave or resetting hull. */
+  resume(saved: SpaceSnapshot): void {
+    this.stopTimers();
+    this.done = false;
+    this.hull = saved.hull; this.altitude = saved.altitude;
+    this.shipX = saved.shipX; this.shipY = saved.shipY;
+    this.asteroids = saved.asteroids.map(({ age, ...a }) => ({ ...a, born: this.g.clock.now - age }));
+    this.nextAsteroidId = saved.nextAsteroidId;
+    this.lastMove = saved.lastMoveAge === null ? null : this.g.clock.now - saved.lastMoveAge;
+    this.clearInput();
+    const actions = [() => this.endGame(), () => { if (this.altitude <= 60) this.altitude++; }, () => this.frame()];
+    this.timers = saved.timers.map((timer, i) => this.g.clock.resume(actions[i], timer));
+    if (saved.spawn) this.spawnTimer = this.g.clock.resume(() => this.createAsteroid(), saved.spawn);
+    this.g.music('MUSIC_SPACE');
+  }
+
+  clearInput(): void {
+    this.input = { up: false, down: false, left: false, right: false };
+    this.target = null;
+  }
+
+  /** Used when the owning game is disposed; it must not leave ascent timers alive. */
+  stop(): void { this.stopTimers(); this.clearInput(); }
 
   private frame(): void {
     if (this.done) return;
@@ -135,6 +181,7 @@ export class Space {
       }
       if (!this.done) {
         this.spawnTimer = this.g.clock.setTimeout(() => this.createAsteroid(), 1000 - this.altitude * 10, true);
+        this.g.requestSave();
       }
     }
   }

@@ -48,8 +48,8 @@ export class ForestJourney {
   travel(place: PixelPlace): boolean {
     if (this.game.over || this.game.keyLock || this.game.events.active() ||
       (place !== 'room' && !this.unlocked) || (place === 'village' && !this.villageUnlocked)) return false;
-    if (this.place === place) return false;
     const corePlace = place === 'village' ? 'outside' : place;
+    if (this.place === place && this.game.active === corePlace) return false;
     if (this.game.active !== corePlace && !this.game.travelTo(corePlace)) return false;
     this.game.store.set('game.pixel.location', place);
     return true;

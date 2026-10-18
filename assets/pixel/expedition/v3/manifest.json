@@ -1,0 +1,429 @@
+{
+  "version": 3,
+  "tool": "built-in image_gen.imagegen",
+  "logicalSize": [
+    576,
+    324
+  ],
+  "alphaCut": 0.5,
+  "anchor": "bottom-center",
+  "poseOrder": [
+    "idle",
+    "attack",
+    "hurt"
+  ],
+  "enemyLayout": "five columns (enemy identity), three rows (pose)",
+  "sources": {
+    "landmarks.png": {
+      "size": [
+        2172,
+        724
+      ],
+      "hasAlpha": true,
+      "sha256": "08dfc32a4e3d877944a9fc5aac090261d81ee73e15b0ced52c8f2a1d721edc24",
+      "transparentFraction": 0.5356305261337159
+    },
+    "site-enemies.png": {
+      "size": [
+        1619,
+        971
+      ],
+      "hasAlpha": true,
+      "sha256": "c8a50c38e19294aa9fec3d49bb1b357c8b0aaae017ceba17e2f1c78da5f56d7a",
+      "transparentFraction": 0.6387339071492046
+    },
+    "house-battle.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "sha256": "3458a89fad22bf2b9336cae7e3c6380ec5c758064308c354cc3d26dd7e750e9f",
+      "transparentFraction": 0
+    },
+    "cave-battle.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "sha256": "9d7dfd20ba6e1bd0a601828a458c414b9223d1b0e216733be6a7fe0af0e27192",
+      "transparentFraction": 0
+    },
+    "mine-battle.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "sha256": "9838aaaeafca3f9781d643b70d69042ede27b803aec6bf3cc12ac888db32694d",
+      "transparentFraction": 0
+    }
+  },
+  "assets": {
+    "landmark-house": {
+      "file": "landmarks.png",
+      "sourceRect": [
+        16,
+        140,
+        529,
+        457
+      ],
+      "drawSize": [
+        24,
+        21
+      ],
+      "hasAlpha": true
+    },
+    "site-house": {
+      "file": "landmarks.png",
+      "sourceRect": [
+        16,
+        140,
+        529,
+        457
+      ],
+      "drawSize": [
+        144,
+        124
+      ],
+      "hasAlpha": true
+    },
+    "landmark-cave": {
+      "file": "landmarks.png",
+      "sourceRect": [
+        564,
+        125,
+        505,
+        479
+      ],
+      "drawSize": [
+        24,
+        23
+      ],
+      "hasAlpha": true
+    },
+    "site-cave": {
+      "file": "landmarks.png",
+      "sourceRect": [
+        564,
+        125,
+        505,
+        479
+      ],
+      "drawSize": [
+        144,
+        137
+      ],
+      "hasAlpha": true
+    },
+    "landmark-mine": {
+      "file": "landmarks.png",
+      "sourceRect": [
+        1090,
+        144,
+        512,
+        452
+      ],
+      "drawSize": [
+        24,
+        21
+      ],
+      "hasAlpha": true
+    },
+    "site-mine": {
+      "file": "landmarks.png",
+      "sourceRect": [
+        1090,
+        144,
+        512,
+        452
+      ],
+      "drawSize": [
+        144,
+        127
+      ],
+      "hasAlpha": true
+    },
+    "landmark-outpost": {
+      "file": "landmarks.png",
+      "sourceRect": [
+        1615,
+        180,
+        539,
+        418
+      ],
+      "drawSize": [
+        24,
+        19
+      ],
+      "hasAlpha": true
+    },
+    "site-outpost": {
+      "file": "landmarks.png",
+      "sourceRect": [
+        1615,
+        180,
+        539,
+        418
+      ],
+      "drawSize": [
+        144,
+        112
+      ],
+      "hasAlpha": true
+    },
+    "squatter-idle": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        58,
+        144,
+        196,
+        198
+      ],
+      "drawSize": [
+        63,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "squatter-attack": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        21,
+        419,
+        275,
+        192
+      ],
+      "drawSize": [
+        92,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "squatter-hurt": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        80,
+        684,
+        186,
+        216
+      ],
+      "drawSize": [
+        55,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "cave-lizard-idle": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        317,
+        185,
+        290,
+        158
+      ],
+      "drawSize": [
+        68,
+        37
+      ],
+      "hasAlpha": true
+    },
+    "cave-lizard-attack": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        302,
+        443,
+        317,
+        170
+      ],
+      "drawSize": [
+        69,
+        37
+      ],
+      "hasAlpha": true
+    },
+    "cave-lizard-hurt": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        326,
+        717,
+        278,
+        180
+      ],
+      "drawSize": [
+        57,
+        37
+      ],
+      "hasAlpha": true
+    },
+    "lizard-idle": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        641,
+        162,
+        302,
+        179
+      ],
+      "drawSize": [
+        76,
+        45
+      ],
+      "hasAlpha": true
+    },
+    "lizard-attack": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        634,
+        423,
+        322,
+        190
+      ],
+      "drawSize": [
+        76,
+        45
+      ],
+      "hasAlpha": true
+    },
+    "lizard-hurt": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        648,
+        707,
+        302,
+        186
+      ],
+      "drawSize": [
+        73,
+        45
+      ],
+      "hasAlpha": true
+    },
+    "site-beast-idle": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        981,
+        154,
+        254,
+        187
+      ],
+      "drawSize": [
+        75,
+        55
+      ],
+      "hasAlpha": true
+    },
+    "site-beast-attack": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        965,
+        432,
+        279,
+        186
+      ],
+      "drawSize": [
+        82,
+        55
+      ],
+      "hasAlpha": true
+    },
+    "site-beast-hurt": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        983,
+        701,
+        257,
+        195
+      ],
+      "drawSize": [
+        72,
+        55
+      ],
+      "hasAlpha": true
+    },
+    "matriarch-idle": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        1274,
+        112,
+        317,
+        230
+      ],
+      "drawSize": [
+        91,
+        66
+      ],
+      "hasAlpha": true
+    },
+    "matriarch-attack": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        1254,
+        411,
+        342,
+        210
+      ],
+      "drawSize": [
+        107,
+        66
+      ],
+      "hasAlpha": true
+    },
+    "matriarch-hurt": {
+      "file": "site-enemies.png",
+      "sourceRect": [
+        1299,
+        667,
+        294,
+        233
+      ],
+      "drawSize": [
+        83,
+        66
+      ],
+      "hasAlpha": true
+    },
+    "house-background": {
+      "file": "house-battle.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "cave-background": {
+      "file": "cave-battle.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "mine-background": {
+      "file": "mine-battle.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # 首次远行美术规格（待制作）
 
-最新交付：[v2 武器分层与四种早期敌人](../../../assets/pixel/expedition/v2/README.md)。本入口现可试玩森林、草原、荒地；完整地块、地标及深区内容仍按以下工作单推进。
+最新交付：[v3 早期地点与五类敌人](../../../assets/pixel/expedition/v3/README.md)，接在正式主游戏；[v2 武器分层与四种早期野外敌人](../../../assets/pixel/expedition/v2/README.md)继续复用。本独立入口可试玩森林、草原、荒地；完整地块、行走帧及深区内容仍按以下工作单推进。
 
 2026-10-16。延续已有冷灰、暗棕、低饱和像素画风；桌面优先。现已新增[独立森林可玩样片](http://127.0.0.1:5184/docs/art/pixel-expedition-v1/)，使用[首批实际素材](../../../assets/pixel/expedition/v1/README.md)验证装包、移动、战斗、拾取与归村。下面保留完整目标规格；样片尚未交付的项目仍为待制作。完整规则与实现范围见[工程准备](../../engineering/phase7-expedition-preparation.md)与[样片验收](../../engineering/phase7-expedition-slice.md)。
 

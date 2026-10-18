@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-18",
+  "origin": "http://127.0.0.1:5498",
+  "syntheticQA": true,
+  "checks": {
+    "newGameFireFeedback": true,
+    "baseRecipes": 3,
+    "lockedBlueprintRecipes": 6,
+    "energyBlade": {
+      "owned": 1,
+      "alloyBefore": 20,
+      "alloyAfter": 19
+    },
+    "shipReinforcement": {
+      "hullBefore": 1,
+      "hullAfter": 2,
+      "alloyBefore": 19,
+      "alloyAfter": 18
+    },
+    "reload": {
+      "shipRestored": true,
+      "hull": 2,
+      "thrusters": 2,
+      "alloy": 18,
+      "energyBlade": 1
+    }
+  },
+  "consoleWarningsAndErrors": [],
+  "scope": "Current production smoke check only. Does not repeat full ascent, all expedition branches, natural progression or audio listening."
+}

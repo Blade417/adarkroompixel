@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-16",
+  "origin": "http://127.0.0.1:5493",
+  "syntheticQA": true,
+  "tests": 205,
+  "consoleWarningsAndErrors": [],
+  "fabrication": {
+    "baseRecipes": 3,
+    "blueprintRecipes": 6,
+    "totalRecipesManufactured": 9,
+    "alloyBefore": 20,
+    "alloyAfter": 8,
+    "hypos": 5
+  },
+  "shipUpgrade": {
+    "alloyBefore": 17,
+    "alloyAfter": 15,
+    "hull": [
+      1,
+      2
+    ],
+    "engine": [
+      2,
+      3
+    ]
+  },
+  "ascentReload": {
+    "altitude": 15,
+    "hull": 2,
+    "x": 478,
+    "y": 350,
+    "paused": true
+  },
+  "crash": {
+    "tested": true,
+    "retry": true,
+    "cooldownAcceleratedViaVisibleDebug": true
+  },
+  "normalEnding": {
+    "fullRealtimeAscent": true,
+    "score": 1316,
+    "total": 1816,
+    "reloadPreserved": true,
+    "nextGenerationConfirmed": true,
+    "inheritedWood": 58,
+    "inheritedStores": 24
+  },
+  "beaconEnding": {
+    "resumedAtSecond": 58,
+    "score": 1800,
+    "total": 2300,
+    "outroParagraphs": 4
+  },
+  "viewports": [
+    {
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "width": 1280,
+      "height": 900
+    }
+  ],
+  "unverified": [
+    "natural new game to ending",
+    "all deep and Executioner branches",
+    "audio listening",
+    "final painted artwork"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-16",
+  "pixelCommit": "50798dd",
+  "upstreamCommit": "1fada46",
+  "pixelUrl": "http://127.0.0.1:5490/",
+  "originalLocalUrl": "http://127.0.0.1:5491/?lang=zh_cn",
+  "syntheticFixture": true,
+  "pixelWarningsAndErrors": [],
+  "combatReload": {
+    "playerHealth": 13,
+    "enemyHealth": 10,
+    "water": 20,
+    "bullets": 4,
+    "paused": true
+  },
+  "returnReceipt": {
+    "cured meat": 3,
+    "bullets": -2
+  },
+  "unverified": [
+    "natural full playthrough",
+    "all deep landmark branches",
+    "ascent browser controls and ending",
+    "audio listening"
+  ]
+}

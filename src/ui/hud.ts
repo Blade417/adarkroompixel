@@ -44,6 +44,8 @@ export interface HudHost {
   readonly forestReady: boolean;
   readonly villageReady: boolean;
   readonly expeditionOpen: boolean;
+  readonly endgameOpen: boolean;
+  openEndgame(place: 'fabricator' | 'ship'): boolean;
   openExpedition(): boolean;
   hasWorkshopArt(id: WorkshopId): boolean;
   travel(place: PixelPlace): boolean;
@@ -368,7 +370,7 @@ export class Hud {
 
   /** the room itself takes input (hover highlight, hearth clicks) */
   canInteract(): boolean {
-    return this.begun && !this.overlayOpen && !this.g.events.active() && !this.host.expeditionOpen;
+    return this.begun && !this.g.over && !this.overlayOpen && !this.g.events.active() && !this.host.expeditionOpen;
   }
 
   // ------------------------------------------------------------------ the shared fire action
@@ -433,7 +435,7 @@ export class Hud {
     this.renderGoal();
     if (this.skipHint.hidden === arrival) this.skipHint.hidden = !arrival;
     this.renderScene(view, arrival);
-    const placeTitle = this.forest.place === 'village' ? this.ui('village.name') : this.forest.outside ? this.ui('forest.name') : this.g.title();
+    const placeTitle = this.host.endgameOpen ? this.g.over ? this.g.t('Space') : this.g.title() : this.forest.place === 'village' ? this.ui('village.name') : this.forest.outside ? this.ui('forest.name') : this.g.title();
     const title = this.begun ? `${placeTitle} · ${this.ui('app.title')}` : this.ui('app.title');
     if (title !== this.last.title) document.title = this.last.title = title;
   }
@@ -444,16 +446,18 @@ export class Hud {
       .tabs()
       .map((id) => {
         const name = esc(id === 'outside' ? this.ui('forest.name') : g.title(id));
+        if (g.active === 'space' || g.over) return `<li><button type="button" class="tab" disabled>${name}</button></li>`;
         if (id === 'path') return this.host.expeditionOpen ? `<li><span class="tab on" aria-current="page">${name}</span></li>` : `<li><button type="button" class="tab" data-act="tab:path">${name}</button></li>`;
         if (this.host.expeditionOpen) return `<li><button type="button" class="tab" data-act="tab:${id}" disabled>${name}</button></li>`;
-        if (id === this.forest.place) return `<li><span class="tab on" aria-current="page">${name}</span></li>`;
+        if (id === (this.host.endgameOpen ? g.active : this.forest.place)) return `<li><span class="tab on" aria-current="page">${name}</span></li>`;
+        if (id === 'fabricator' || id === 'ship') return `<li><button type="button" class="tab" data-act="tab:${id}">${name}</button></li>`;
         if (id === 'room' || (id === 'outside' && this.host.forestReady)) return `<li><button type="button" class="tab" data-act="tab:${id}">${name}</button></li>`;
         return `<li><button type="button" class="tab soon" data-act="tab:${id}" aria-disabled="true">${name}<span class="badge">${esc(this.ui('tab.soon'))}</span></button></li>`;
       })
       .join('');
     const village = this.forest.villageUnlocked ? this.forest.place === 'village' ?
       `<li><span class="tab on" aria-current="page">${esc(this.ui('village.name'))}</span></li>` :
-      `<li><button type="button" class="tab" data-act="tab:village" ${this.host.villageReady && !this.host.expeditionOpen ? '' : 'disabled'}>${esc(this.ui('village.name'))}</button></li>` : '';
+      `<li><button type="button" class="tab" data-act="tab:village" ${this.host.villageReady && !this.host.expeditionOpen && g.active !== 'space' && !g.over ? '' : 'disabled'}>${esc(this.ui('village.name'))}</button></li>` : '';
     this.patch.set(this.tabList, html + village);
   }
 
@@ -475,7 +479,7 @@ export class Hud {
   }
 
   private renderGoal(): void {
-    this.goalGuide.hidden = !this.begun || this.overlayOpen || this.arrivalPlaying || Boolean(this.g.events.active()) || this.host.expeditionOpen;
+    this.goalGuide.hidden = !this.begun || this.overlayOpen || this.arrivalPlaying || Boolean(this.g.events.active()) || this.host.expeditionOpen || this.host.endgameOpen;
     if (this.goalGuide.hidden) return;
     const goal = settlementGoal(this.g), title = this.ui(goal.title);
     if (this.goalTitle.textContent !== title) this.goalTitle.textContent = title;
@@ -861,8 +865,8 @@ export class Hud {
     const event = !this.eventLayer.hidden;
     const building = !this.buildLayer.hidden;
     const under = settings || title || event || building;
-    this.header.inert = under;
-    this.stage.inert = under || this.host.expeditionOpen;
+    this.header.inert = under || this.g.over;
+    this.stage.inert = under || this.host.expeditionOpen || this.host.endgameOpen;
     this.titleLayer.inert = settings;
     this.eventLayer.inert = settings || title;
     this.buildLayer.inert = settings || title || event;
@@ -1018,6 +1022,7 @@ export class Hud {
         break;
       case 'tab':
         if (arg === 'path' && this.canInteract() && !this.arrivalPlaying) this.host.openExpedition();
+        else if ((arg === 'fabricator' || arg === 'ship') && this.canInteract() && !this.arrivalPlaying) this.host.openEndgame(arg);
         else if (this.canInteract() && !this.arrivalPlaying && (arg === 'room' || arg === 'outside' || arg === 'village')) this.host.travel(arg);
         else this.deny(this.ui('tab.soon'));
         break;

@@ -105,7 +105,7 @@ export class Game {
     this.events = new EventRunner(this);
     this.content = loadContent(this, opts.content);
     this.bus.on(e => {
-      if (['world:move', 'world:home', 'world:died', 'combat:attack', 'combat:end', 'event:scene', 'event:update'].includes(e.type)) this.requestSave();
+      if (['world:move', 'world:home', 'world:died', 'combat:attack', 'combat:end', 'event:scene', 'event:update', 'space:hit', 'space:crash'].includes(e.type)) this.requestSave();
     });
   }
 
@@ -142,6 +142,9 @@ export class Game {
       this.events.resume(expedition.events);
       this.cooldowns.resume(expedition.cooldowns);
       this.music('MUSIC_WORLD');
+    } else if (s.get('runtime.space')?.version === 1) {
+      this.active = 'space';
+      this.space.resume(s.get('runtime.space'));
     }
   }
 
@@ -340,6 +343,7 @@ export class Game {
     this.store.set('playStats.score', score, true);
     this.store.set('previous.stores', this.prestigeStores(true), true);
     this.store.set('previous.score', total, true);
+    this.store.set('previous.ending', { score, total, expansion }, true);
     this.stop();
     this.music('MUSIC_ENDING');
     this.deleteSave(true);
@@ -351,6 +355,7 @@ export class Game {
     this.room.stop();
     this.outside.stop();
     this.events.stop();
+    this.space.stop();
     this.clock.clear(this.incomeTimer);
     this.clock.clear(this.saveTimer);
     this.saveTimer = null;
@@ -374,6 +379,9 @@ export class Game {
     if (world) this.store.set('runtime.expedition', { version: 1, world, events: this.events.snapshot(),
       cooldowns: this.cooldowns.snapshot(['combat:', 'event:']) }, true);
     else this.store.remove('runtime.expedition', true);
+    const space = this.active === 'space' ? this.space.snapshot() : null;
+    if (space) this.store.set('runtime.space', space, true);
+    else this.store.remove('runtime.space', true);
     this.storage.setItem(SAVE_KEY, JSON.stringify(this.store.state));
   }
 

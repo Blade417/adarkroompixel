@@ -1,5 +1,6 @@
 import manifest from '../../assets/pixel/expedition/v1/manifest.json';
 import equipmentManifest from '../../assets/pixel/expedition/v2/manifest.json';
+import siteManifest from '../../assets/pixel/expedition/v3/manifest.json';
 import treeManifest from '../../assets/pixel/village/v2/manifest.json';
 import houseManifest from '../../assets/pixel/village/v1/manifest.json';
 import { ctx2d, hash, makeCanvas } from './paint';
@@ -7,6 +8,7 @@ import { resample } from './resample';
 import type { ExpeditionView } from '../app/expedition';
 import { TILE, WORLD } from '../core/data';
 import { EARLY_ENCOUNTERS, WEAPON_ART } from '../app/expedition-catalog';
+import { landmarkArt, SITE_ENEMY_ART, sitePresentation } from '../app/expedition-art';
 
 export type ExpeditionArt = Record<string, HTMLCanvasElement>;
 type SpriteSpec = { file: string; sourceRect: number[]; drawSize: number[]; hasAlpha: boolean };
@@ -14,6 +16,7 @@ const urls = import.meta.glob([
   '../../assets/pixel/expedition/v1/forest-battle.png',
   '../../assets/pixel/expedition/v1/beast.png', '../../assets/pixel/village/v2/trees.png',
   '../../assets/pixel/expedition/v2/*.png',
+  '../../assets/pixel/expedition/v3/*.png',
   '../../assets/pixel/village/v1/hearth-house.png'
 ], { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 
@@ -21,6 +24,7 @@ export async function loadExpeditionArt(): Promise<ExpeditionArt> {
   const specs: Record<string, SpriteSpec> = {
     ...Object.fromEntries(Object.entries(manifest.assets).filter(([id]) => id === 'background' || id.startsWith('beast-'))),
     ...equipmentManifest.assets,
+    ...siteManifest.assets,
     tree: { ...treeManifest.assets.tree0, drawSize: [13, 25] },
     village: { ...houseManifest.assets.hearth, drawSize: [27, 19] }
   };
@@ -70,6 +74,7 @@ export class ExpeditionRenderer {
     this.bind(slice);
     const combat = slice.game.events.active()?.combat;
     if (combat) this.battle(slice, reduced);
+    else if (sitePresentation(slice.game)) this.site(slice);
     else if (slice.game.active === 'world') this.map(slice);
     else {
       this.g.drawImage(this.art[slice.phase === 'pack' ? slice.encounter.background : 'background'], 0, 0);
@@ -80,6 +85,15 @@ export class ExpeditionRenderer {
     }
     this.display.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.display.drawImage(this.scene, 0, 0, this.canvas.width, this.canvas.height);
+  }
+  private site(slice: ExpeditionView): void {
+    const place = sitePresentation(slice.game)!;
+    this.g.drawImage(this.art[place.background], 0, 0);
+    if (place.overlay) {
+      const landmark = this.art[place.overlay];
+      this.g.drawImage(landmark, Math.round(420 - landmark.width / 2), 257 - landmark.height);
+    }
+    this.drawPlayer(145, 257, 'idle', slice.displayWeapon);
   }
   private drawPlayer(x: number, ground: number, pose: 'idle' | 'attack' | 'hurt', weapon: string, throwing = false): { x: number; y: number } {
     const g = this.g, sprite = this.art['body-' + pose];
@@ -130,10 +144,17 @@ export class ExpeditionRenderer {
       const visited = terrain.endsWith('!');
       const landmark = game.world.LANDMARKS[terrain.replace(/!$/, '')];
       if (landmark || terrain === TILE.OUTPOST) {
-        g.fillStyle = terrain === TILE.OUTPOST ? '#7c9a77' : visited ? '#747a6b' : '#b8a17b';
-        g.fillRect(sx + 3, sy + 3, 18, 18);
-        g.fillStyle = '#172024'; g.font = 'bold 14px monospace'; g.textAlign = 'center';
-        g.fillText(terrain[0], sx + 12, sy + 17);
+        const iconId = landmarkArt(terrain), icon = iconId ? this.art[iconId] : null;
+        if (icon) {
+          g.save(); if (visited) g.globalAlpha = .65;
+          g.drawImage(icon, sx + Math.round((24 - icon.width) / 2), sy + 23 - icon.height);
+          g.restore();
+        } else {
+          g.fillStyle = visited ? '#747a6b' : '#b8a17b';
+          g.fillRect(sx + 3, sy + 3, 18, 18);
+          g.fillStyle = '#172024'; g.font = 'bold 14px monospace'; g.textAlign = 'center';
+          g.fillText(terrain[0], sx + 12, sy + 17);
+        }
         if (visited) { g.fillStyle = '#c5cea0'; g.fillRect(sx + 18, sy + 18, 3, 3); }
       } else if (terrain === TILE.ROAD) {
         g.fillStyle = '#99815c'; g.fillRect(sx + 9, sy, 6, 24); g.fillRect(sx, sy + 9, 24, 6);
@@ -153,13 +174,14 @@ export class ExpeditionRenderer {
   }
   private battle(slice: ExpeditionView, reduced: boolean): void {
     const g = this.g, game = slice.game, combat = game.events.active()!.combat!, now = game.clock.now;
-    // The cave's generic beast reuses the same creature rig; its stats/name stay scene-driven.
-    const catalog = EARLY_ENCOUNTERS.find(e => e.id === (combat.scene.enemy === 'beast' ? 'snarling beast' : combat.scene.enemy));
-    g.drawImage(this.art[catalog?.background ?? slice.encounter.background], 0, 0);
+    const catalog = EARLY_ENCOUNTERS.find(e => e.id === combat.scene.enemy);
+    const place = sitePresentation(game);
+    g.drawImage(this.art[place?.background ?? catalog?.background ?? slice.encounter.background], 0, 0);
     g.fillStyle = '#0c14172b'; g.fillRect(0, 0, 576, 324);
     const pAttack = now - (slice.lastStrike?.time ?? -Infinity) < 320 || now - this.playerAction < 220, eAttack = now - this.enemyAction < 220;
     const pHurt = now - this.playerHit < 250, eHurt = now - this.enemyHit < 250;
-    const enemy = catalog ? this.art[`${catalog.art}-${eHurt ? 'hurt' : eAttack ? 'attack' : 'idle'}`] : null;
+    const rig = SITE_ENEMY_ART[combat.scene.enemy ?? ''] ?? catalog?.art;
+    const enemy = rig ? this.art[`${rig}-${eHurt ? 'hurt' : eAttack ? 'attack' : 'idle'}`] : null;
     g.fillStyle = '#050a0d80';
     g.beginPath(); g.ellipse(145, 258, 23, 5, 0, 0, Math.PI * 2); g.fill();
     g.beginPath(); g.ellipse(420, 258, 34, 6, 0, 0, Math.PI * 2); g.fill();

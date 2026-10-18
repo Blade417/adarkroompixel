@@ -32,6 +32,7 @@ export function nodeZhDictionaries(): Dictionary[] {
     JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/zh-extra.json'), 'utf8')),
     JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/zh-village.json'), 'utf8')),
     JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/zh-events.json'), 'utf8')),
-    JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/zh-expedition.json'), 'utf8'))
+    JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/zh-expedition.json'), 'utf8')),
+    JSON.parse(fs.readFileSync(path.join(ROOT, 'src/i18n/zh-endgame.json'), 'utf8'))
   ];
 }
