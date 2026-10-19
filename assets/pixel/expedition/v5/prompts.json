@@ -1,0 +1,81 @@
+{
+  "mode": "built-in image_gen.imagegen",
+  "styleReference": "assets/pixel/expedition/v4/miners.png",
+  "records": [
+    {
+      "id": "city-military",
+      "prompt": "Create a production sprite atlas for Emberveil Pixel, matching the reference gritty muted brown olive post-apocalyptic painted pixel RPG characters. Crisp pixel clusters, readable at 64px tall. Transparent RGBA background, no ground shadows, no labels, no panels, no text. Exactly 3 rows: idle, attacking toward the LEFT, recoiling hurt; identical character outfit across rows. Each entire figure including weapons remains INSIDE its own equal-sized cell, generous 15 percent transparent gutters all sides, no overlap between cells. Full bodies with feet visible, face toward left in three-quarter side view. Exactly FOUR columns: column1 sniper in dusty hood and coat with long scoped rifle (held compactly or aimed left, not beyond cell); column2 masked commando with dark olive tactical clothing and compact rifle; column3 very frail thin adult man in ragged grey shirt, empty hands; column4 elderly man in worn hospital clothes wielding a tiny scalpel. 4 columns by 3 rows, twelve separated sprites.",
+      "generatedBasename": "exec-ce122330-dc89-4ede-beae-97e12caf9375.png",
+      "accepted": true
+    },
+    {
+      "id": "city-survivors",
+      "prompt": "Create a production sprite atlas for Emberveil Pixel, matching the reference gritty muted brown olive post-apocalyptic painted pixel RPG characters. Crisp pixel clusters, readable at 64px tall. Transparent RGBA background, no ground shadows, no labels, no panels, no text. Exactly 3 rows: idle, attacking toward the LEFT, recoiling hurt; identical character outfit across rows. Each entire figure including weapons remains INSIDE its own equal-sized cell, generous 15 percent transparent gutters all sides, no overlap between cells. Full bodies with feet visible, face toward left in three-quarter side view. Exactly THREE columns: column1 young ADULT male scavenger in patched vest with short knife, not a child; column2 GROUP of three elderly squatters in worn tan garments huddled shoulder-to-shoulder, all three full bodies within each cell, attacking as a group; column3 deformed hunched ADULT man with an oversized asymmetrical shoulder and crooked limbs in torn hospital gown, fantasy mutation, no gore. 3 columns by 3 rows, nine separated sprites. Group of squatters should have similar height but wider than single figures.",
+      "generatedBasename": "exec-33a97c54-dbed-4da4-bf58-742ba9c6da84.png",
+      "accepted": false,
+      "notes": "Replaced knife with original tree branch using built-in edit; use edited source."
+    },
+    {
+      "id": "city-survivors-edit",
+      "prompt": "Edit this sprite atlas for production use. Remove the ENTIRE brown and black gradient backdrop, replacing it with truly TRANSPARENT alpha across every empty gap and outside every character. Keep all nine full figures and their current exact positions, sizes, and styles. IMPORTANT: in the LEFT column only (young adult male), replace the silver KNIFE in all three poses with a short crude TREE BRANCH wooden club, matching original gameplay. The middle column must stay three elderly squatters grouped, right column stay hunched mutated adult. Do not crop, add frames or shadows, do not change other characters, preserve full silhouettes and transparent gaps. Output transparent RGBA PNG.",
+      "generatedBasename": "exec-add4459c-9aa5-4705-87af-c5f3ab07f7df.png",
+      "accepted": true,
+      "notes": "Original tree branch restored. True alpha inspected, transparent RGB fringe is not baked background."
+    },
+    {
+      "id": "city-creatures",
+      "prompt": "Create a production sprite atlas for Emberveil Pixel, matching the reference gritty muted brown olive post-apocalyptic painted pixel RPG characters. Crisp pixel clusters, readable at 64px tall. Transparent RGBA background, no ground shadows, no labels, no panels, no text. Exactly 3 rows: idle, attacking toward the LEFT, recoiling hurt; identical character outfit across rows. Each entire figure including weapons remains INSIDE its own equal-sized cell, generous 15 percent transparent gutters all sides, no overlap between cells. Full bodies with feet visible, face toward left in three-quarter side view. Exactly FOUR columns: column1 PACK of three small grey-green monitor lizards, grouped side-by-side facing left, all three clearly visible per pose; column2 single enormous dark rust brown carrion bird with hooked beak, idle folded wings, attack half-raised wings with beak thrust left, hurt hunched wings, NO flying outside cell; column3 SWARM of six large grey rats with compact tails all fully contained inside cell; column4 low tangled mass of dark swamp-green tentacles with central shadowy eye, one tentacle strikes left in attack but stays in cell, fantasy horror without gore. 4 columns by 3 rows, twelve distinct separated sprites.",
+      "generatedBasename": "exec-3b732a6a-98ba-4299-86c9-dd5689141f5b.png",
+      "accepted": true,
+      "notes": "Only lizards and bird columns accepted; rat/tentacle column extents touch in attack row."
+    },
+    {
+      "id": "city-swarms",
+      "prompt": "Generate a transparent RGBA sprite sheet with EXACTLY TWO columns and THREE rows. Each cell isolated with huge EMPTY transparent margins of 20 percent all sides, especially a VERY WIDE blank center gutter. Pixel RPG gritty muted olive-brown style matching reference. Left column: compact GROUP of six grey rats, tails folded inward inside group silhouette. Right column: compact low mass of dark green horror tentacles with central shadowed golden eye, short coiled tendrils, NO tendrils reaching beyond cell. Top row idle; middle attack toward LEFT; bottom hurt. ALL six full sprites and appendages stay at least 50 pixels away from other sprites and image edges. No background, shadows, ground, labels, text or frames. Important: keep rat group and tentacles separated by at least 150px blank gutter.",
+      "generatedBasename": "exec-0fba96f7-3933-4398-b7ed-d80a61989d4d.png",
+      "accepted": true
+    },
+    {
+      "id": "deep-landmarks-a",
+      "prompt": "Transparent RGBA sprite atlas, THREE equal columns in ONE horizontal row, huge transparent gutters. Production props for a gritty muted brown-olive postapocalyptic pixel RPG. Match the reference pixel texture. Full silhouettes completely contained with 15% blank margin. No text, no people, no ground slab, no frame. Left: ruined city skyline with three shattered high-rise concrete towers and a collapsed street arch, recognizable CITY not village. Center: ancient battlefield wreckage heap of rusted armored tank, broken gun barrels and dormant alien scrap. Right: immense dark circular borehole with jagged rock rim and broken enormous drill machinery, viewed 3/4 side so opening visible. Each separate prop centered in cell, readable when downscaled to24px wide map icon and144px entrance prop.",
+      "generatedBasename": "exec-3e8c51ac-f48e-4815-97f7-2c57e6e5d42e.png",
+      "accepted": true
+    },
+    {
+      "id": "deep-landmarks-b",
+      "prompt": "Transparent RGBA sprite atlas, THREE equal columns in ONE horizontal row, huge transparent gutters. Production props for a gritty muted brown-olive postapocalyptic pixel RPG. Match reference pixel texture. Full silhouettes completely contained with 15% blank margin. No text, no people, no background or ground slab or frame. Left: crashed small curved alien starship, silver grey hull half-buried with one fractured wing, recognizable personal spacecraft. Center: murky swamp landmark with rotting reeds, twisted dead tree and a tiny moss-covered wooden cabin, compact silhouette. Right: gigantic crashed BATTLESHIP Executioner with angular dark steel hull, wrecked gun turrets and orange maintenance hatch, clearly much heavier than small spacecraft. Each separate prop centered in cell, readable downscaled to24px wide map icon and144px entrance prop.",
+      "generatedBasename": "exec-3d7afcfd-ca38-4f99-852b-82c850a74647.png",
+      "accepted": true
+    },
+    {
+      "id": "city-street",
+      "prompt": "16:9 full scene opaque background for gritty postapocalyptic pixel RPG battle. Ruined once-large city, cracked asphalt boulevard and empty military checkpoint, concrete shattered high-rise skyline, abandoned cars mostly BACKGROUND. Muted olive-brown dusty daylight, melancholy, handcrafted pixel clusters. Orthographic side-on ground plane, lower 40 percent clear flat walkable ground for two characters at x25% and x73%, feet at79% image height. No people, no foreground objects blocking characters, no HUD, no lettering, no borders. Match reference style, wide 16:9.",
+      "generatedBasename": "exec-bdd6834c-bc80-49a5-9c59-0d8e7907937b.png",
+      "accepted": true
+    },
+    {
+      "id": "city-hospital",
+      "prompt": "16:9 full scene opaque background for gritty postapocalyptic pixel RPG battle. Abandoned city HOSPITAL interior, stained faded green tile, broken beds pushed against rear wall, shadowy operating theatre doorway, flickering warm overhead lamp, old cabinets. Muted dusty olive brown bluegrey, handcrafted pixel clusters, eerie without gore. Orthographic side-on ground plane, lower40percent clear flat floor for characters at x25% and73%, feet79% height. No people, no HUD, no lettering, no border, no foreground blocking characters. Wide16:9.",
+      "generatedBasename": "exec-8a69872a-1251-432c-9ffa-2badead8741b.png",
+      "accepted": true
+    },
+    {
+      "id": "city-subway",
+      "prompt": "16:9 full scene opaque background for gritty postapocalyptic pixel RPG battle. Underground city subway station platform, broken tiled wall, rusted rails in background, collapsed stairs and dark tunnel to right, dim amber emergency light. Muted brown charcoal moss green, handcrafted pixel clusters. Orthographic side-on ground plane, lower40percent clear flat platform floor for two actors at x25% and73%, feet79%height. No people, no rats, no HUD, no readable lettering, no borders, no foreground objects. Wide16:9.",
+      "generatedBasename": "exec-7539b079-d6ac-41f2-85f7-cb3f621240af.png",
+      "accepted": true
+    },
+    {
+      "id": "swamp-scene",
+      "prompt": "16:9 full scene opaque background for gritty postapocalyptic pixel RPG. Murky desolate swamp, rotting reeds, still pools and crooked trees, small moss-covered wooden cabin at far rear right. Damp desaturated green olive brown with soft fog and warm tiny window. Handcrafted pixel clusters. Side-on ground plane lower40percent clear muddy bank for player and props, feet79%height. No people, no HUD, no lettering, no border. Wide16:9.",
+      "generatedBasename": "exec-f5c56978-de66-405f-9ba2-431e2802801b.png",
+      "accepted": true
+    },
+    {
+      "id": "warship-corridor",
+      "prompt": "16:9 full scene opaque background for gritty postapocalyptic pixel RPG. Abandoned alien military battleship interior corridor, dark angular steel bulkheads, cables and broken panels at rear wall, huge closed hatch, subtle amber power lamps. Muted graphite bluegrey and rust brown pixel clusters. Side-on ground plane lower40percent clear flat metal floor for characters at x25% and73%, feet79%height. No people or robots or objects blocking foreground. No HUD, no lettering, no border. Wide16:9.",
+      "generatedBasename": "exec-edfe7da3-0ece-46d3-b184-c9cb9eb2c309.png",
+      "accepted": true
+    }
+  ]
+}

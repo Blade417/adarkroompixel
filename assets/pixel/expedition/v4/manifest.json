@@ -1,0 +1,522 @@
+{
+  "version": 4,
+  "tool": "built-in image_gen.imagegen",
+  "logicalSize": [
+    576,
+    324
+  ],
+  "alphaCut": 0.5,
+  "anchor": "bottom-center",
+  "poseOrder": [
+    "idle",
+    "attack",
+    "hurt"
+  ],
+  "enemyLayout": "miners: 4 columns x 3 poses; town: first 3 of 4 columns x 3 poses; vigilante: 3 poses in one row; measured gutters",
+  "sources": {
+    "miners.png": {
+      "size": [
+        1448,
+        1086
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.6243170232898874,
+      "sha256": "2c0dad2b510192dfa8dc60f8562daa1d1de336fb8f0f8ff39876d504e11a4441"
+    },
+    "town-enemies.png": {
+      "size": [
+        1448,
+        1086
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.6822905538088988,
+      "sha256": "11438417caac013aa7df8aa61f7da78f50123394313c401f61b388534b1de5e5"
+    },
+    "vigilante.png": {
+      "size": [
+        2172,
+        724
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7037413642237212,
+      "sha256": "a8b74ac8fcef3c463c6518cb1174ee5531256f4814ca02aab86e57017b35fb95"
+    },
+    "mid-landmarks.png": {
+      "size": [
+        2172,
+        724
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.611011695817181,
+      "sha256": "ee7a53362f3516f0d5988de7967539e612b8363ddcb9e366d4e058532c0907f7"
+    },
+    "mine-yard-battle.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "1f51432113088537c2d488d70fd9cc7d5b1d0393588030e1002d60987279d0c0"
+    },
+    "town-battle.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "813317f3f1f7bf2f04e3283dde57e53c7f17d2246f4b1fdd676c2e5e7cd3b4ab"
+    }
+  },
+  "assets": {
+    "mine-guard-idle": {
+      "file": "miners.png",
+      "sourceRect": [
+        54,
+        46,
+        235,
+        337
+      ],
+      "drawSize": [
+        45,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "mine-guard-attack": {
+      "file": "miners.png",
+      "sourceRect": [
+        25,
+        426,
+        315,
+        297
+      ],
+      "drawSize": [
+        68,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "mine-guard-hurt": {
+      "file": "miners.png",
+      "sourceRect": [
+        64,
+        765,
+        228,
+        292
+      ],
+      "drawSize": [
+        50,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "mine-chief-idle": {
+      "file": "miners.png",
+      "sourceRect": [
+        409,
+        24,
+        273,
+        360
+      ],
+      "drawSize": [
+        52,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "mine-chief-attack": {
+      "file": "miners.png",
+      "sourceRect": [
+        369,
+        405,
+        359,
+        319
+      ],
+      "drawSize": [
+        77,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "mine-chief-hurt": {
+      "file": "miners.png",
+      "sourceRect": [
+        400,
+        741,
+        282,
+        318
+      ],
+      "drawSize": [
+        60,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "soldier-idle": {
+      "file": "miners.png",
+      "sourceRect": [
+        789,
+        48,
+        235,
+        336
+      ],
+      "drawSize": [
+        45,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "soldier-attack": {
+      "file": "miners.png",
+      "sourceRect": [
+        751,
+        420,
+        295,
+        304
+      ],
+      "drawSize": [
+        62,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "soldier-hurt": {
+      "file": "miners.png",
+      "sourceRect": [
+        798,
+        765,
+        231,
+        294
+      ],
+      "drawSize": [
+        50,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "veteran-idle": {
+      "file": "miners.png",
+      "sourceRect": [
+        1163,
+        41,
+        238,
+        342
+      ],
+      "drawSize": [
+        45,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "veteran-attack": {
+      "file": "miners.png",
+      "sourceRect": [
+        1107,
+        426,
+        315,
+        298
+      ],
+      "drawSize": [
+        68,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "veteran-hurt": {
+      "file": "miners.png",
+      "sourceRect": [
+        1176,
+        763,
+        228,
+        296
+      ],
+      "drawSize": [
+        49,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "thug-idle": {
+      "file": "town-enemies.png",
+      "sourceRect": [
+        48,
+        77,
+        225,
+        324
+      ],
+      "drawSize": [
+        44,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "thug-attack": {
+      "file": "town-enemies.png",
+      "sourceRect": [
+        69,
+        423,
+        273,
+        318
+      ],
+      "drawSize": [
+        55,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "thug-hurt": {
+      "file": "town-enemies.png",
+      "sourceRect": [
+        57,
+        782,
+        265,
+        264
+      ],
+      "drawSize": [
+        64,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "scavenger-idle": {
+      "file": "town-enemies.png",
+      "sourceRect": [
+        441,
+        87,
+        208,
+        315
+      ],
+      "drawSize": [
+        42,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "scavenger-attack": {
+      "file": "town-enemies.png",
+      "sourceRect": [
+        386,
+        469,
+        317,
+        273
+      ],
+      "drawSize": [
+        74,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "scavenger-hurt": {
+      "file": "town-enemies.png",
+      "sourceRect": [
+        473,
+        792,
+        202,
+        255
+      ],
+      "drawSize": [
+        51,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "madman-idle": {
+      "file": "town-enemies.png",
+      "sourceRect": [
+        821,
+        93,
+        164,
+        310
+      ],
+      "drawSize": [
+        33,
+        62
+      ],
+      "hasAlpha": true
+    },
+    "madman-attack": {
+      "file": "town-enemies.png",
+      "sourceRect": [
+        753,
+        467,
+        286,
+        275
+      ],
+      "drawSize": [
+        64,
+        62
+      ],
+      "hasAlpha": true
+    },
+    "madman-hurt": {
+      "file": "town-enemies.png",
+      "sourceRect": [
+        823,
+        768,
+        191,
+        280
+      ],
+      "drawSize": [
+        42,
+        62
+      ],
+      "hasAlpha": true
+    },
+    "vigilante-idle": {
+      "file": "vigilante.png",
+      "sourceRect": [
+        157,
+        30,
+        416,
+        662
+      ],
+      "drawSize": [
+        43,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "vigilante-attack": {
+      "file": "vigilante.png",
+      "sourceRect": [
+        686,
+        194,
+        799,
+        475
+      ],
+      "drawSize": [
+        114,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "vigilante-hurt": {
+      "file": "vigilante.png",
+      "sourceRect": [
+        1702,
+        70,
+        427,
+        622
+      ],
+      "drawSize": [
+        47,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "landmark-coal": {
+      "file": "mid-landmarks.png",
+      "sourceRect": [
+        22,
+        184,
+        679,
+        428
+      ],
+      "drawSize": [
+        24,
+        15
+      ],
+      "hasAlpha": true
+    },
+    "site-coal": {
+      "file": "mid-landmarks.png",
+      "sourceRect": [
+        22,
+        184,
+        679,
+        428
+      ],
+      "drawSize": [
+        144,
+        91
+      ],
+      "hasAlpha": true
+    },
+    "landmark-sulphur": {
+      "file": "mid-landmarks.png",
+      "sourceRect": [
+        731,
+        169,
+        667,
+        427
+      ],
+      "drawSize": [
+        24,
+        15
+      ],
+      "hasAlpha": true
+    },
+    "site-sulphur": {
+      "file": "mid-landmarks.png",
+      "sourceRect": [
+        731,
+        169,
+        667,
+        427
+      ],
+      "drawSize": [
+        144,
+        92
+      ],
+      "hasAlpha": true
+    },
+    "landmark-town": {
+      "file": "mid-landmarks.png",
+      "sourceRect": [
+        1424,
+        159,
+        728,
+        439
+      ],
+      "drawSize": [
+        24,
+        14
+      ],
+      "hasAlpha": true
+    },
+    "site-town": {
+      "file": "mid-landmarks.png",
+      "sourceRect": [
+        1424,
+        159,
+        728,
+        439
+      ],
+      "drawSize": [
+        144,
+        87
+      ],
+      "hasAlpha": true
+    },
+    "mine-yard-background": {
+      "file": "mine-yard-battle.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "town-background": {
+      "file": "town-battle.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    }
+  }
+}

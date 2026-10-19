@@ -68,7 +68,7 @@ describe('early location presentation', () => {
       expect(landmarkArt(site.tile)).toBe('landmark-' + site.art);
       expect(landmarkArt(site.tile + '!')).toBe(landmarkArt(site.tile));
     }
-    expect(landmarkArt(TILE.CITY)).toBeNull();
+    expect(landmarkArt(TILE.CACHE)).toBe('landmark-cache');
   });
 });
 

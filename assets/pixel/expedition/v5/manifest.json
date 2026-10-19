@@ -1,0 +1,819 @@
+{
+  "version": 5,
+  "tool": "built-in image_gen.imagegen",
+  "logicalSize": [
+    576,
+    324
+  ],
+  "alphaCut": 0.5,
+  "anchor": "bottom-center",
+  "poseOrder": [
+    "idle",
+    "attack",
+    "hurt"
+  ],
+  "enemyLayout": "columns identify enemies; rows idle/attack/hurt; creatures only first two columns accepted; swarms separate",
+  "sources": {
+    "deep-city-military.png": {
+      "size": [
+        1448,
+        1086
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.6261154014427724,
+      "sha256": "5a1df0ed72304fa85ecc422b4e664750cada315e7544101c272f5ae3c891431d"
+    },
+    "deep-city-survivors.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.5338325500488281,
+      "sha256": "135bc9b9a65aad7855562109772b51cfc8528be1d90e14c2da9f2703b786f136"
+    },
+    "deep-city-creatures.png": {
+      "size": [
+        1448,
+        1086
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.5061951202140756,
+      "sha256": "e50ffd15e4ac84d238ec13a2cdded6d8a5c045aab3416b0f5e7f080732ae7847"
+    },
+    "deep-city-swarms.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7589562733968099,
+      "sha256": "6015af028e24a576abe6281f93eb29642cb50dedc96d169b38e1e029800c13a3"
+    },
+    "deep-deep-landmarks-a.png": {
+      "size": [
+        1983,
+        793
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.5134844157685853,
+      "sha256": "7c986bc4a04f7c5909021183cb15e8ddc592c62557567e614678a7c1830b7d7e"
+    },
+    "deep-deep-landmarks-b.png": {
+      "size": [
+        2172,
+        724
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.6337572367550848,
+      "sha256": "368c8a8a9f8a2a97931a940fb5de5bf2d4e79311c567b168afca4b67d62ad5d9"
+    },
+    "deep-city-street.png": {
+      "size": [
+        1672,
+        940
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "fbe06ce5b280c7f119b91de43b92e2b0f7ad9143c1fc99cbb3275c449bd13d99"
+    },
+    "deep-city-hospital.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "07fea704c50b68b88c150dfafac1c58405a323667209dc19e56caf43c58eb996"
+    },
+    "deep-city-subway.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "fd437d43686b37c8cc2b75a7793b12190b753e1dfeabcce9046a5b42aea782b2"
+    },
+    "deep-swamp-scene.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "042aaec797116641b3900ea96d8a5bff3eb66017af7b146f2a64d6b8937e1913"
+    },
+    "deep-warship-corridor.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "5883660aa1c681008b1305dceda2857861fce74eb5b594309b3eabfefc8c09d2"
+    }
+  },
+  "assets": {
+    "city-sniper-idle": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        79,
+        41,
+        265,
+        348
+      ],
+      "drawSize": [
+        49,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "city-sniper-attack": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        23,
+        423,
+        352,
+        305
+      ],
+      "drawSize": [
+        74,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "city-sniper-hurt": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        68,
+        761,
+        287,
+        294
+      ],
+      "drawSize": [
+        62,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "city-commando-idle": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        463,
+        49,
+        218,
+        340
+      ],
+      "drawSize": [
+        41,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "city-commando-attack": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        409,
+        429,
+        314,
+        303
+      ],
+      "drawSize": [
+        66,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "city-commando-hurt": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        465,
+        763,
+        231,
+        296
+      ],
+      "drawSize": [
+        50,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "city-frail-man-idle": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        812,
+        59,
+        205,
+        331
+      ],
+      "drawSize": [
+        38,
+        61
+      ],
+      "hasAlpha": true
+    },
+    "city-frail-man-attack": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        751,
+        434,
+        331,
+        298
+      ],
+      "drawSize": [
+        68,
+        61
+      ],
+      "hasAlpha": true
+    },
+    "city-frail-man-hurt": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        822,
+        774,
+        224,
+        284
+      ],
+      "drawSize": [
+        48,
+        61
+      ],
+      "hasAlpha": true
+    },
+    "city-old-man-idle": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        1146,
+        61,
+        254,
+        329
+      ],
+      "drawSize": [
+        47,
+        61
+      ],
+      "hasAlpha": true
+    },
+    "city-old-man-attack": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        1102,
+        439,
+        323,
+        293
+      ],
+      "drawSize": [
+        67,
+        61
+      ],
+      "hasAlpha": true
+    },
+    "city-old-man-hurt": {
+      "file": "deep-city-military.png",
+      "sourceRect": [
+        1203,
+        777,
+        213,
+        282
+      ],
+      "drawSize": [
+        46,
+        61
+      ],
+      "hasAlpha": true
+    },
+    "city-youth-idle": {
+      "file": "deep-city-survivors.png",
+      "sourceRect": [
+        52,
+        41,
+        300,
+        328
+      ],
+      "drawSize": [
+        59,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "city-youth-attack": {
+      "file": "deep-city-survivors.png",
+      "sourceRect": [
+        19,
+        419,
+        385,
+        275
+      ],
+      "drawSize": [
+        90,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "city-youth-hurt": {
+      "file": "deep-city-survivors.png",
+      "sourceRect": [
+        79,
+        725,
+        273,
+        282
+      ],
+      "drawSize": [
+        62,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "city-squatters-idle": {
+      "file": "deep-city-survivors.png",
+      "sourceRect": [
+        503,
+        70,
+        522,
+        298
+      ],
+      "drawSize": [
+        109,
+        62
+      ],
+      "hasAlpha": true
+    },
+    "city-squatters-attack": {
+      "file": "deep-city-survivors.png",
+      "sourceRect": [
+        449,
+        387,
+        644,
+        307
+      ],
+      "drawSize": [
+        130,
+        62
+      ],
+      "hasAlpha": true
+    },
+    "city-squatters-hurt": {
+      "file": "deep-city-survivors.png",
+      "sourceRect": [
+        508,
+        739,
+        540,
+        268
+      ],
+      "drawSize": [
+        125,
+        62
+      ],
+      "hasAlpha": true
+    },
+    "city-deformed-idle": {
+      "file": "deep-city-survivors.png",
+      "sourceRect": [
+        1179,
+        53,
+        299,
+        316
+      ],
+      "drawSize": [
+        64,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "city-deformed-attack": {
+      "file": "deep-city-survivors.png",
+      "sourceRect": [
+        1102,
+        418,
+        403,
+        276
+      ],
+      "drawSize": [
+        99,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "city-deformed-hurt": {
+      "file": "deep-city-survivors.png",
+      "sourceRect": [
+        1206,
+        722,
+        269,
+        285
+      ],
+      "drawSize": [
+        64,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "city-lizards-idle": {
+      "file": "deep-city-creatures.png",
+      "sourceRect": [
+        44,
+        165,
+        318,
+        183
+      ],
+      "drawSize": [
+        83,
+        48
+      ],
+      "hasAlpha": true
+    },
+    "city-lizards-attack": {
+      "file": "deep-city-creatures.png",
+      "sourceRect": [
+        25,
+        493,
+        341,
+        191
+      ],
+      "drawSize": [
+        86,
+        48
+      ],
+      "hasAlpha": true
+    },
+    "city-lizards-hurt": {
+      "file": "deep-city-creatures.png",
+      "sourceRect": [
+        43,
+        834,
+        295,
+        190
+      ],
+      "drawSize": [
+        75,
+        48
+      ],
+      "hasAlpha": true
+    },
+    "city-bird-idle": {
+      "file": "deep-city-creatures.png",
+      "sourceRect": [
+        395,
+        48,
+        313,
+        308
+      ],
+      "drawSize": [
+        71,
+        70
+      ],
+      "hasAlpha": true
+    },
+    "city-bird-attack": {
+      "file": "deep-city-creatures.png",
+      "sourceRect": [
+        369,
+        380,
+        360,
+        325
+      ],
+      "drawSize": [
+        78,
+        70
+      ],
+      "hasAlpha": true
+    },
+    "city-bird-hurt": {
+      "file": "deep-city-creatures.png",
+      "sourceRect": [
+        413,
+        749,
+        296,
+        289
+      ],
+      "drawSize": [
+        72,
+        70
+      ],
+      "hasAlpha": true
+    },
+    "city-rats-idle": {
+      "file": "deep-city-swarms.png",
+      "sourceRect": [
+        227,
+        116,
+        322,
+        211
+      ],
+      "drawSize": [
+        67,
+        44
+      ],
+      "hasAlpha": true
+    },
+    "city-rats-attack": {
+      "file": "deep-city-swarms.png",
+      "sourceRect": [
+        196,
+        430,
+        368,
+        240
+      ],
+      "drawSize": [
+        67,
+        44
+      ],
+      "hasAlpha": true
+    },
+    "city-rats-hurt": {
+      "file": "deep-city-swarms.png",
+      "sourceRect": [
+        223,
+        749,
+        344,
+        205
+      ],
+      "drawSize": [
+        74,
+        44
+      ],
+      "hasAlpha": true
+    },
+    "city-tentacles-idle": {
+      "file": "deep-city-swarms.png",
+      "sourceRect": [
+        995,
+        107,
+        323,
+        243
+      ],
+      "drawSize": [
+        80,
+        60
+      ],
+      "hasAlpha": true
+    },
+    "city-tentacles-attack": {
+      "file": "deep-city-swarms.png",
+      "sourceRect": [
+        949,
+        412,
+        407,
+        270
+      ],
+      "drawSize": [
+        90,
+        60
+      ],
+      "hasAlpha": true
+    },
+    "city-tentacles-hurt": {
+      "file": "deep-city-swarms.png",
+      "sourceRect": [
+        1000,
+        735,
+        343,
+        226
+      ],
+      "drawSize": [
+        91,
+        60
+      ],
+      "hasAlpha": true
+    },
+    "landmark-city": {
+      "file": "deep-deep-landmarks-a.png",
+      "sourceRect": [
+        18,
+        101,
+        639,
+        617
+      ],
+      "drawSize": [
+        24,
+        23
+      ],
+      "hasAlpha": true
+    },
+    "site-city": {
+      "file": "deep-deep-landmarks-a.png",
+      "sourceRect": [
+        18,
+        101,
+        639,
+        617
+      ],
+      "drawSize": [
+        144,
+        139
+      ],
+      "hasAlpha": true
+    },
+    "landmark-battlefield": {
+      "file": "deep-deep-landmarks-a.png",
+      "sourceRect": [
+        683,
+        230,
+        627,
+        498
+      ],
+      "drawSize": [
+        24,
+        19
+      ],
+      "hasAlpha": true
+    },
+    "site-battlefield": {
+      "file": "deep-deep-landmarks-a.png",
+      "sourceRect": [
+        683,
+        230,
+        627,
+        498
+      ],
+      "drawSize": [
+        144,
+        114
+      ],
+      "hasAlpha": true
+    },
+    "landmark-borehole": {
+      "file": "deep-deep-landmarks-a.png",
+      "sourceRect": [
+        1340,
+        109,
+        624,
+        620
+      ],
+      "drawSize": [
+        24,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "site-borehole": {
+      "file": "deep-deep-landmarks-a.png",
+      "sourceRect": [
+        1340,
+        109,
+        624,
+        620
+      ],
+      "drawSize": [
+        144,
+        143
+      ],
+      "hasAlpha": true
+    },
+    "landmark-shipwreck": {
+      "file": "deep-deep-landmarks-b.png",
+      "sourceRect": [
+        32,
+        276,
+        665,
+        388
+      ],
+      "drawSize": [
+        24,
+        14
+      ],
+      "hasAlpha": true
+    },
+    "site-shipwreck": {
+      "file": "deep-deep-landmarks-b.png",
+      "sourceRect": [
+        32,
+        276,
+        665,
+        388
+      ],
+      "drawSize": [
+        144,
+        84
+      ],
+      "hasAlpha": true
+    },
+    "landmark-swamp": {
+      "file": "deep-deep-landmarks-b.png",
+      "sourceRect": [
+        762,
+        153,
+        559,
+        521
+      ],
+      "drawSize": [
+        24,
+        22
+      ],
+      "hasAlpha": true
+    },
+    "site-swamp": {
+      "file": "deep-deep-landmarks-b.png",
+      "sourceRect": [
+        762,
+        153,
+        559,
+        521
+      ],
+      "drawSize": [
+        144,
+        134
+      ],
+      "hasAlpha": true
+    },
+    "landmark-warship": {
+      "file": "deep-deep-landmarks-b.png",
+      "sourceRect": [
+        1381,
+        88,
+        760,
+        558
+      ],
+      "drawSize": [
+        24,
+        18
+      ],
+      "hasAlpha": true
+    },
+    "site-warship": {
+      "file": "deep-deep-landmarks-b.png",
+      "sourceRect": [
+        1381,
+        88,
+        760,
+        558
+      ],
+      "drawSize": [
+        144,
+        106
+      ],
+      "hasAlpha": true
+    },
+    "city-street-background": {
+      "file": "deep-city-street.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        940
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "city-hospital-background": {
+      "file": "deep-city-hospital.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "city-subway-background": {
+      "file": "deep-city-subway.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "swamp-background": {
+      "file": "deep-swamp-scene.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "warship-corridor-background": {
+      "file": "deep-warship-corridor.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    }
+  }
+}

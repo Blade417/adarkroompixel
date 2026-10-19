@@ -10,9 +10,12 @@ export const EARLY_ENCOUNTERS = [
 export type EarlyEncounterId = typeof EARLY_ENCOUNTERS[number]['id'];
 export const SLICE_SUPPLIES = ['cured meat', 'bone spear', 'iron sword', 'steel sword', 'rifle', 'bullets', 'bolas'] as const;
 export const WEAPON_ART: Record<string, string> = {
-  'bone spear': 'weapon-spear', 'iron sword': 'weapon-iron', 'steel sword': 'weapon-steel', rifle: 'weapon-rifle', bolas: 'weapon-bolas'
+  'bone spear': 'weapon-spear', 'iron sword': 'weapon-iron', 'steel sword': 'weapon-steel', rifle: 'weapon-rifle', bolas: 'weapon-bolas',
+  bayonet: 'weapon-bayonet', 'laser rifle': 'weapon-laser', grenade: 'weapon-grenade',
+  'plasma rifle': 'weapon-plasma', 'energy blade': 'weapon-energy-blade', disruptor: 'weapon-disruptor'
 };
-export const WEAPON_NAMES: Record<string, string> = { fists: '徒手', 'bone spear': '骨矛', 'iron sword': '铁剑', 'steel sword': '钢剑', rifle: '步枪', bolas: '流星索' };
+export const WEAPON_NAMES: Record<string, string> = { fists: '徒手', 'bone spear': '骨矛', 'iron sword': '铁剑', 'steel sword': '钢剑', rifle: '步枪', bolas: '流星索',
+  bayonet: '刺刀', 'laser rifle': '激光步枪', grenade: '手雷', 'plasma rifle': '等离子步枪', 'energy blade': '能量刃', disruptor: '干扰器' };
 export function weaponLabel(id: string): string {
   const w = WEAPONS[id];
   return `${WEAPON_NAMES[id] ?? id} · ${w.damage === 'stun' ? '击晕' : `伤害 ${w.damage}`}`;

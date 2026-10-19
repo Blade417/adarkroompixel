@@ -1,0 +1,43 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "note": "Original PNGs preserved. Armour edits reference v2/traveler-body.png; source poses, cloak, backpack, empty hands and facing preserved. No local image pixel edits.",
+  "prompts": [
+    {
+      "file": "late-weapons.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Asset type: transparent equipment sprite atlas for Emberveil, a dark post-apocalyptic pixel RPG. Exactly SIX isolated objects in a regular 3 columns x 2 rows grid, landscape canvas. Top row left to right: a long worn bayonet knife (dark iron blade and leather wrapped short hilt, blade points RIGHT); a utilitarian old laser rifle (dark grey worn steel, small muted red power emitter, muzzle RIGHT, stock LEFT); an olive round fragmentation grenade with pin and lever, upright. Bottom row left to right: a sleek angular plasma rifle (dark blue-grey steel, restrained amber power chamber, muzzle RIGHT, stock LEFT); an energy blade (short dark hilt LEFT and long narrow pale amber energized solid blade RIGHT); a compact disruptor pistol (dark grey body, short wide ring-shaped muted teal emitter at RIGHT, grip left beneath body). Consistent crisp hand-dithered pixel-art clusters, 1-pixel dark outline, dusty olive, dark steel, brown and limited amber/teal highlights. Readable when scaled to 12-70 pixels wide. Full side-on orthographic objects, NO hands or characters. All long weapons perfectly horizontal, each entirely within its own cell. Generous fully transparent gutters and outer margins, minimum 20% padding on all sides per cell; no overlap between rows. No loose projectiles, no large glow haze, no shadows, no floor, no text, no grid, no labels, no background or checkerboard. Real transparent RGBA background."
+    },
+    {
+      "file": "armour-kinetic.png",
+      "referenced_image_paths": [
+        "D:/projecets/games/adarkroompixel/assets/pixel/expedition/v2/traveler-body.png"
+      ],
+      "transparent_background": true,
+      "prompt": "Use case: identity-preserve. Asset type: transparent game character sprite atlas. Image 1 is the EDIT TARGET. Preserve this exact hooded traveler's identity, muted grey-blue hood and cloak, brown backpack and bedroll, brown gloves and boots, original six poses and original 3-column x 2-row layout, the silhouette scale and position in every cell, facing direction, foot baselines, empty hands and hand positions, pixel-art outlines and dithering. CHANGE ONLY the visible clothing armor: add worn dark charcoal futuristic KINETIC ARMOUR to chest, forearms, shoulders and shins, with a SMALL restrained amber power node on the chest and modest segmented dark metal panels; keep cloak and backpack visible. No helmet replacing the hood. No weapons, no shield object, no new poses, no new objects. Top row is combat idle / forward empty-hand attack / recoiling hurt. Bottom row is map back / map front / map side. Keep all six full bodies separated with large transparent gutters, do not add labels or lines. Preserve genuine transparent RGBA background. Avoid halo, floor, shadows and photorealism."
+    },
+    {
+      "file": "armour-leather.png",
+      "referenced_image_paths": [
+        "D:/projecets/games/adarkroompixel/assets/pixel/expedition/v2/traveler-body.png"
+      ],
+      "transparent_background": true,
+      "prompt": "Use case: identity-preserve. Asset type: transparent game character sprite atlas. Image 1 is the EDIT TARGET. Preserve this exact hooded traveler's identity, muted grey-blue hood and cloak, brown backpack and bedroll, brown gloves and boots, original six poses and original 3-column x 2-row layout, silhouette scale and position in every cell, facing direction, foot baselines, EMPTY HANDS and hand positions, pixel-art outlines and dithering. CHANGE ONLY the visible clothing armor to worn russet brown LEATHER ARMOUR: a stitched leather jerkin with overlapping leather shoulder guards and leather bracers; soft brown leather knee/shin guards. No metal plates, NO glowing parts. Keep the cloak and backpack visible. Do not replace the hood with a helmet. No weapons, no shields, no added props or poses. Top row combat idle / forward empty-hand attack / recoiling hurt; bottom row map back / map front / map side. Each of the six full bodies must remain separated with large transparent gutters. Preserve genuine transparent RGBA background. No text, labels, grid, floors, shadows, halo or photorealism."
+    },
+    {
+      "file": "armour-iron.png",
+      "referenced_image_paths": [
+        "D:/projecets/games/adarkroompixel/assets/pixel/expedition/v2/traveler-body.png"
+      ],
+      "transparent_background": true,
+      "prompt": "Use case: identity-preserve. Asset type: transparent game character sprite atlas. Image 1 is the EDIT TARGET. Preserve this exact hooded traveler's identity, muted grey-blue hood and cloak, brown backpack and bedroll, brown gloves and boots, original six poses and original 3-column x 2-row layout, silhouette scale and position in every cell, facing direction, foot baselines, EMPTY HANDS and hand positions, pixel-art outlines and dithering. CHANGE ONLY the visible clothing armor to rough dark grey IRON ARMOUR: simple battered iron chest plate, small iron shoulder guards, forearm bracers and shin plates over the original tunic. Matte charcoal, brown oxidation and dark rivets; no shiny silver, NO glowing parts. Keep the cloak and backpack visible. Do not replace the hood with a helmet. No weapons, no shields, no added props or poses. Top row combat idle / forward empty-hand attack / recoiling hurt; bottom row map back / map front / map side. Each of the six full bodies must remain separated with large transparent gutters. Preserve genuine transparent RGBA background. No text, labels, grid, floors, shadows, halo or photorealism."
+    },
+    {
+      "file": "armour-steel.png",
+      "referenced_image_paths": [
+        "D:/projecets/games/adarkroompixel/assets/pixel/expedition/v2/traveler-body.png"
+      ],
+      "transparent_background": true,
+      "prompt": "Use case: identity-preserve. Asset type: transparent game character sprite atlas. Image 1 is the EDIT TARGET. Preserve this exact hooded traveler's identity, muted grey-blue hood and cloak, brown backpack and bedroll, brown gloves and boots, original six poses and original 3-column x 2-row layout, silhouette scale and position in every cell, facing direction, foot baselines, EMPTY HANDS and hand positions, pixel-art outlines and dithering. CHANGE ONLY the visible clothing armor to refined pale grey STEEL ARMOUR: layered brushed steel chest plate, clean articulated shoulder guards, forearm guards and shin plates over the original tunic. Clearly lighter cooler grey than iron, restrained pale edges, weathered rather than polished; NO glowing parts. Keep the cloak and backpack visible. Do not replace the hood with a helmet. No weapons, no shields, no added props or poses. Top row combat idle / forward empty-hand attack / recoiling hurt; bottom row map back / map front / map side. Each of the six full bodies must remain separated with large transparent gutters. Preserve genuine transparent RGBA background. No text, labels, grid, floors, shadows, halo or photorealism."
+    }
+  ]
+}

@@ -24,10 +24,18 @@ function run(src: string, scope: Record<string, unknown>, returnExpr = 'undefine
 export function loadContent(g: Game, sources: ContentSources): LoadedContent {
   const audio = run(sources.audioLibrary, {}, 'typeof AudioLibrary !== "undefined" ? AudioLibrary : {}') as Record<string, string>;
 
+  // onLoad initializes this before Combat exists; subsequent reads/writes use the
+  // active combat so the original boss script shares its persisted lastSpecial.
+  let pendingLastSpecial: string | undefined;
   const events: ContentEvents = {
     Global: [], Room: [], Outside: [], Marketing: [], Encounters: [], Setpieces: {}, Executioner: {},
     _LEAVE_COOLDOWN: 1,
-    _lastSpecial: undefined,
+    get _lastSpecial() { return g.events.active()?.combat?.lastSpecial ?? pendingLastSpecial; },
+    set _lastSpecial(value: string | undefined) {
+      const combat = g.events.active()?.combat;
+      if (combat) combat.lastSpecial = value;
+      else pendingLastSpecial = value;
+    },
     setStatus: (fighter: any, status: any) => g.events.active()?.combat?.setStatus(fighter, status),
     saveDelay: (action: () => void, stateName: string, delay?: number | false) => g.events.saveDelay(action, stateName, delay)
   };

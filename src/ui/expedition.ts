@@ -5,6 +5,18 @@ import { TILE, WEAPONS, WORLD } from '../core/data';
 import type { Direction } from '../core/locations/world';
 import type { ExpeditionRenderer } from '../pixel/expedition';
 import { esc, isTyping, Patch } from './dom';
+import type { Status } from '../core/events/combat';
+import { ARMOUR_NAMES, visibleWeapon } from '../app/expedition-equipment';
+
+const COMBAT_STATUS: Record<Exclude<Status, 'none'>, string> = {
+  shield: 'Shield: the next hit heals instead of hurting.',
+  energised: 'Energised: the next hit deals four times the damage.',
+  venomous: 'Venomous: the next hit inflicts lingering poison.',
+  enraged: 'Enraged: attacks much faster for a short time.',
+  meditation: 'Meditating: stores incoming damage for a counterattack.',
+  boost: 'Boosted: weapon cooldowns are halved.',
+  exploding: 'Unstable core: explosion imminent.'
+};
 
 /** Live UI. The main game owns its clock, storage, audio and lifecycle. */
 export class ExpeditionPanel {
@@ -31,7 +43,7 @@ export class ExpeditionPanel {
     this.root.innerHTML = `<div class="exp-content"><div class="exp-heading"><div><span class="eyebrow">${t('村庄之外', 'Beyond the village')}</span><h1></h1></div><div><button data-exp="pause"></button> <button data-exp="close">${t('回生火间', 'Return to the room')}</button></div></div>
       <p class="exp-paused" role="status" hidden>${t('远行已暂停。战斗、冷却和村庄时间均已暂停，点击“继续”恢复。', 'Paused. Combat, cooldowns and village time resume when you continue.')}</p>
       <div class="exp-layout"><div><div class="exp-scene"><canvas width="1152" height="648" tabindex="0" aria-label="${t('远行地图', 'Expedition map')}"></canvas><span class="exp-place"></span><div class="exp-health" hidden></div><div class="exp-loading" role="status">${t('正在载入远行素材…', 'Loading expedition art…')}</div></div>
-      <div class="exp-attacks actions"></div><div class="exp-utilities actions"></div><article class="exp-narrative" aria-live="polite"></article><div class="exp-log" role="log"></div></div><aside class="exp-side" aria-label="${t('行囊与归途', 'Supplies and return route')}"></aside></div>
+      <div class="exp-equipment" aria-label="${t('当前装备', 'Current equipment')}"></div><div class="exp-attacks actions"></div><div class="exp-utilities actions"></div><article class="exp-narrative" aria-live="polite"></article><div class="exp-log" role="log"></div></div><aside class="exp-side" aria-label="${t('行囊与归途', 'Supplies and return route')}"></aside></div>
       <p class="exp-help">${t('WASD / 方向键逐格移动 · 数字键使用对应武器或选项 · E 吃肉 · P 暂停 · 战利品需装入行囊并带回村庄', 'WASD / arrows to move · Numbers for attacks or choices · E to eat · P to pause · Pack loot and bring it home')}</p></div>`;
     parent.append(this.root);
     this.canvas = this.root.querySelector('canvas')!;
@@ -147,11 +159,13 @@ export class ExpeditionPanel {
     const place = landmark ? g.t(landmark.label.replaceAll('&nbsp;', ' ')) : tile === TILE.FOREST ? t('森林', 'Forest') : tile === TILE.FIELD ? t('草原', 'Fields') : tile === TILE.BARRENS ? t('荒地', 'Barrens') : tile === TILE.ROAD ? t('道路', 'Road') : t('村庄', 'Village');
     setText('.exp-place', world ? `${place} · ${t('距村', 'Distance')} ${g.world.getDistance()}` : t('聚落林缘', 'Village outskirts'));
     const site = sitePresentation(g);
+    setText('.exp-equipment', `${g.t(ARMOUR_NAMES[g.path.armour()])} · ${g.t(visibleWeapon(ex))}`);
     const sceneLabel = site ? g.t(ev!.def.title) : place;
     this.canvas.setAttribute('aria-label', combat ? `${sceneLabel} · ${t('战斗', 'Combat')}: ${g.t(ev?.scene.enemyName ?? ev?.scene.enemy ?? '')}` : `${site ? t('地点场景', 'Location scene') : t('远行地图', 'Expedition map')} · ${sceneLabel}`);
     const health = this.root.querySelector<HTMLElement>('.exp-health')!;
     health.hidden = !combat;
-    if (combat) this.patch.set(health, `<div>${t('旅行者', 'Wanderer')} ${g.world.health} / ${g.world.getMaxHealth()}<progress max="${g.world.getMaxHealth()}" value="${g.world.health}"></progress></div><div>${name(ev!.scene.enemyName ?? ev!.scene.enemy ?? '')} ${combat.enemy.hp} / ${combat.enemy.maxHp}${combat.enemy.stunned ? ' · ' + t('击晕', 'Stunned') : ''}<progress max="${combat.enemy.maxHp}" value="${combat.enemy.hp}"></progress></div>`);
+    const status = (s: Status) => s === 'none' ? '' : `<small class="exp-combat-status">${esc(g.t(COMBAT_STATUS[s]))}</small>`;
+    if (combat) this.patch.set(health, `<div>${t('旅行者', 'Wanderer')} ${g.world.health} / ${g.world.getMaxHealth()}<progress max="${g.world.getMaxHealth()}" value="${g.world.health}"></progress>${status(combat.player.status)}</div><div>${name(ev!.scene.enemyName ?? ev!.scene.enemy ?? '')} ${combat.enemy.hp} / ${combat.enemy.maxHp}${combat.enemy.stunned ? ' · ' + t('击晕', 'Stunned') : ''}<progress max="${combat.enemy.maxHp}" value="${combat.enemy.hp}"></progress>${status(combat.enemy.status)}</div>`);
     const attackActions = combat && !combat.isOver() ? combat.attacks() : [];
     const utilityActions = combat?.utilities() ?? [];
     const attackFocus = (document.activeElement as HTMLElement | null)?.dataset.exp;

@@ -50,6 +50,16 @@ export class Expedition implements ExpeditionView {
     }
     this.opened = this.game.active === 'world';
     this.paused = this.opened;
+    // Restore only a still-pending real strike. Old view saves need no migration;
+    // no animation can re-fire the attack or spend ammunition a second time.
+    this.lastStrike = null;
+    const pending = this.game.events.active()?.combat?.snapshot().tasks
+      .filter(({ task }) => task.type === 'strike' && task.attacker === 'wanderer').at(-1);
+    if (pending?.task.type === 'strike') {
+      const impact = pending.task.kind === 'ranged' ? 200 : 100;
+      const age = Math.max(0, impact + (pending.task.stage === 'finish' ? 100 : 0) - pending.timer.remaining);
+      this.lastStrike = { id: this.wieldedWeapon, time: this.game.clock.now - Math.min(319, age) };
+    }
   }
 
   private remember(): void {

@@ -1,0 +1,49 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "note": "Original PNGs preserved without local pixel edits. Initial feral-terror atlas overlaps horizontal bounds and is unused; spaced edit supplies all accepted poses. Seven accepted sources, eight PNGs including the unused draft.",
+  "prompts": [
+    {
+      "file": "wild-shivering.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Production sprite for Emberveil Pixel, a subdued post-apocalyptic pixel-art RPG. Crisp hand-dithered pixel clusters, readable dark outlines, limited dusty olive, brown, charcoal and grey palette, restrained amber edge light. No photorealism, glossy rendering, text, labels, borders, grid lines, watermark, drop shadows, floor or checkerboard. Exactly THREE full-body poses in ONE horizontal row, evenly spaced in three isolated columns: left IDLE, center ATTACKING LEFT, right HURT recoiling. Same character design, scale and proportions in every pose. All face LEFT. Every silhouette fully contained in its column with at least 20% transparent outer margin and wide transparent gaps; no overlap. Landscape canvas. Genuine transparent RGBA background. All three feet at the same baseline. Subject: an emaciated pale adult man, crouched tense shoulders visibly shivering, ragged dusty grey cloth shirt and torn brown trousers, bare thin forearms, worn feet. No hood, armour, weapon or backpack. Attack is an unexpected unarmed leftward punch; hurt has raised defensive forearm. Distinct from the cloak-wearing player."
+    },
+    {
+      "file": "wild-man-eater.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Production sprite for Emberveil Pixel, a subdued post-apocalyptic pixel-art RPG. Crisp hand-dithered pixel clusters, readable dark outlines, limited dusty olive, brown, charcoal and grey palette, restrained amber edge light. No photorealism, glossy rendering, text, labels, borders, grid lines, watermark, drop shadows, floor or checkerboard. Exactly THREE full-body poses in ONE horizontal row, evenly spaced in three isolated columns: left IDLE, center ATTACKING LEFT, right HURT recoiling. Same character design, scale and proportions in every pose. All face LEFT. Every silhouette fully contained in its column with at least 20% transparent outer margin and wide transparent gaps; no overlap. Landscape canvas. Genuine transparent RGBA background. All three feet at the same baseline. Subject: a large hulking forest man-eater beast, bear-like hunched muscular charcoal-brown mammal with long pale foreclaws, short coarse fur, heavy shoulders, blunt muzzle and small amber eyes. No horns, wings, spikes or humanoid clothes. Idle crouches on four limbs; attack lunges and swipes LEFT; hurt pulls muzzle back and hunches. Menacing but no gore."
+    },
+    {
+      "file": "wild-feral-terror.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Production sprite for Emberveil Pixel, a subdued post-apocalyptic pixel-art RPG. Crisp hand-dithered pixel clusters, readable dark outlines, limited dusty olive, brown, charcoal and grey palette, restrained amber edge light. No photorealism, glossy rendering, text, labels, borders, grid lines, watermark, drop shadows, floor or checkerboard. Exactly THREE full-body poses in ONE horizontal row, evenly spaced in three isolated columns: left IDLE, center ATTACKING LEFT, right HURT recoiling. Same character design, scale and proportions in every pose. All face LEFT. Every silhouette fully contained in its column with at least 20% transparent outer margin and wide transparent gaps; no overlap. Landscape canvas. Genuine transparent RGBA background. All three feet at the same baseline. Subject: a feral forest terror, an enormous lanky wolf-like dark ash-grey creature with ragged mane, elongated arms, two powerful hind legs, long hooked claws and narrow pale muzzle. Its silhouette is taller and more angular than a bear, wild bristling fur; no horns, wings, human equipment or second head. Attack long claw swipe LEFT, hurt recoils low. No gore."
+    },
+    {
+      "file": "special-swamp-elder.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Production sprite for Emberveil Pixel, a subdued post-apocalyptic pixel-art RPG. Crisp hand-dithered pixel clusters, readable dark outlines, limited dusty olive, brown, charcoal and grey palette, restrained amber edge light. No photorealism, glossy rendering, text, labels, borders, grid lines, watermark, drop shadows, floor or checkerboard. A SINGLE full-body older wanderer sitting cross-legged in a calm trance, facing LEFT in side view, head bowed, grey beard, plain faded olive-brown robe with grey shawl, weathered hands resting on knees, small worn cloth bundle beside his hip. Empty hands, no staff, no floating magic, no halo. A quiet retired traveler, not a wizard or combat enemy. Centered complete sitting silhouette with very large transparent margins on all sides. Genuine transparent RGBA background."
+    },
+    {
+      "file": "special-cache-landmark.png",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Production sprite for Emberveil Pixel, a subdued post-apocalyptic pixel-art RPG. Crisp hand-dithered pixel clusters, readable dark outlines, limited dusty olive, brown, charcoal and grey palette, restrained amber edge light. No photorealism, glossy rendering, text, labels, borders, grid lines, watermark, drop shadows, floor or checkerboard. A SINGLE isolated small destroyed village seen in elevated three-quarter perspective, charred skeletal timber shack frame, collapsed dusty brown roofs, scattered burnt beams, small old closed supply crates at the center. Muted ruined settlement silhouette, no living characters, no visible bodies, no smoke clouds, no fire, no trees or surrounding terrain. Must be readable both as a 24-pixel map icon and a 144-pixel entrance prop. Entire cluster fully centered with generous transparent margins. Genuine transparent RGBA background."
+    },
+    {
+      "file": "special-swamp-cabin.png",
+      "transparent_background": false,
+      "prompt": "Use case: stylized-concept. 16:9 background for a side-view dark post-apocalyptic pixel-art RPG. INTERIOR of a tiny moss-covered swamp timber cabin. Crisp hand-dithered pixel clusters, muted charcoal, damp olive, dusty wood brown, faint amber highlights. Weathered plank walls with moss creeping through cracks, shadowed doorway at left, small high window at right showing damp green reeds, woven reed mat and humble old shelf, minimal old pots in back. Room is poor, quiet and abandoned-looking. FLOOR plane runs horizontally, clear character foot baseline at 79.5% down the picture. Leave open uncluttered space around x25% for the traveler and x73% for a seated elder. No people, animals, humanoid silhouettes, weapons, text, UI, dramatic beams or magic. Opaque landscape 16:9 composition, sharp pixel clusters, no blur or vignette."
+    },
+    {
+      "file": "special-cache-interior.png",
+      "transparent_background": false,
+      "prompt": "Use case: stylized-concept. 16:9 background for a side-view dark post-apocalyptic pixel-art RPG. INTERIOR of a ruined central shack in a destroyed village. Charred timber uprights, collapsed roof rafters open to a grey dusty sky, soot-marked broken plank walls, old metal supply lockers, a small stack of closed faded crates in the BACK RIGHT, storage niches. Desolate but some provisions survived. Crisp hand-dithered pixel clusters, charcoal, dusty umber, faded brown and olive, very restrained amber edge highlights. FLOOR is a horizontal dusty plank plane with character foot baseline at 79.5% down the picture; clear open central-left foreground for the traveler. No people, bodies, animals, text, UI, active flames, smoke clouds, floating items or light beams. Opaque landscape 16:9 composition, sharp pixel clusters, no blur or vignette."
+    },
+    {
+      "file": "wild-feral-terror-spaced.png",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "D:/projecets/games/adarkroompixel/assets/pixel/expedition/v8/wild-feral-terror.png"
+      ],
+      "prompt": "Use case: precise-object-edit. This sprite sheet is the EDIT TARGET. Preserve the same three grey lanky wolf-like feral terror poses, colors, pixel clusters, scale relative to one another, and LEFT facing. CHANGE ONLY spacing/layout: put each complete pose into a separate equal-width column with a LARGE genuinely transparent vertical gutter between them, at least 15% of each column width empty on BOTH sides of every silhouette. Wide landscape canvas, EXACTLY THREE poses in ONE horizontal row, idle / attack LEFT / hurt, foot baselines aligned. No cropping of tail, claws or feet. No pose overlaps the horizontal extent of another. If necessary reduce all three subjects equally to make room. Do not add text, grids, backgrounds, glow, shadows or new objects. Actual transparent RGBA."
+    }
+  ]
+}

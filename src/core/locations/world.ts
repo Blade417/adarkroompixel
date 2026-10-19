@@ -228,6 +228,9 @@ export class World {
         y = Math.floor(this.g.rng.random() * size);
       } while (mask[x][y]);
       this.uncoverMap(x, y, 5, mask);
+      // A map found aboard the ship must also appear in the expedition's copy;
+      // otherwise returning home overwrites the reward with the older mask.
+      if (this.state) this.uncoverMap(x, y, 5, this.state.mask);
     }
     this.testMap();
   }

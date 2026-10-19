@@ -1,0 +1,869 @@
+{
+  "version": 6,
+  "tool": "built-in image_gen.imagegen",
+  "logicalSize": [
+    576,
+    324
+  ],
+  "alphaCut": 0.5,
+  "anchor": "bottom-center",
+  "poseOrder": [
+    "idle",
+    "attack",
+    "hurt"
+  ],
+  "sources": {
+    "warship-crew.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7370395660400391,
+      "sha256": "0f96e114f168f771385539dc6f70b119a8687c1f9936554cc88237e28a1aeef7"
+    },
+    "warship-infestation.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.4438050587972005,
+      "sha256": "8465b90d47758a0f27e662c20351ce87c4f7cb682a3fc9af0a506e685a3ca547"
+    },
+    "warship-queen.png": {
+      "size": [
+        2172,
+        724
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.6994050344413582,
+      "sha256": "08776d9b3717d982fd79b0090bf929ee658942056e0f7f3346d909f81e706c85"
+    },
+    "warship-security.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.6513042449951172,
+      "sha256": "ee88994f11776e80ba31965cf586182a94d6869fa2a28e6f39d968f9d15a4e25"
+    },
+    "warship-machinery.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.6368020375569662,
+      "sha256": "c6fae6d3318e1e27762f96be25e8fd9c68a6819b711261a20e2fc2e9cd84357e"
+    },
+    "warship-combat-bosses.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7416858673095703,
+      "sha256": "a48cb3481496db6cab47706e8e08fe1016579f1408e5457de4e8f1288c1a2886"
+    },
+    "warship-medical-bosses.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7190373738606771,
+      "sha256": "3eae25ff5bf0c86060b97a5aeec619d91114db2f862b654eb89c4cb4224ecec6"
+    },
+    "warship-engineering.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "35258faabdeac768fab1a429d45d7cefae4d8d6b1d6d829dca64b8eb64fb76d1"
+    },
+    "warship-martial.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "99018adc596ede8ceab3662c721e2327c9e24239abb433ce9eb931704a5e463a"
+    },
+    "warship-medical.png": {
+      "size": [
+        1672,
+        940
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "7178b34ec54f126596c753fd003528a309a60db89a4d6cc0b202b8c8a7a50197"
+    },
+    "warship-command.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "0a86a88b49d7b82fc60f55a3c9498fadb8360ca3df0cb2bb000f73932fe077d3"
+    },
+    "warship-antechamber.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "3fc5885b28304ead4336af2867339d3c0b06ab3a2e8e1ca34b04d99c4515b6cd"
+    }
+  },
+  "assets": {
+    "warship-operative-idle": {
+      "file": "warship-crew.png",
+      "sourceRect": [
+        208,
+        45,
+        241,
+        303
+      ],
+      "drawSize": [
+        52,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "warship-operative-attack": {
+      "file": "warship-crew.png",
+      "sourceRect": [
+        94,
+        387,
+        361,
+        272
+      ],
+      "drawSize": [
+        86,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "warship-operative-hurt": {
+      "file": "warship-crew.png",
+      "sourceRect": [
+        154,
+        688,
+        295,
+        277
+      ],
+      "drawSize": [
+        69,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "warship-researcher-idle": {
+      "file": "warship-crew.png",
+      "sourceRect": [
+        685,
+        55,
+        167,
+        293
+      ],
+      "drawSize": [
+        35,
+        62
+      ],
+      "hasAlpha": true
+    },
+    "warship-researcher-attack": {
+      "file": "warship-crew.png",
+      "sourceRect": [
+        590,
+        390,
+        278,
+        270
+      ],
+      "drawSize": [
+        64,
+        62
+      ],
+      "hasAlpha": true
+    },
+    "warship-researcher-hurt": {
+      "file": "warship-crew.png",
+      "sourceRect": [
+        651,
+        704,
+        204,
+        261
+      ],
+      "drawSize": [
+        48,
+        62
+      ],
+      "hasAlpha": true
+    },
+    "warship-immortal-idle": {
+      "file": "warship-crew.png",
+      "sourceRect": [
+        1122,
+        45,
+        246,
+        304
+      ],
+      "drawSize": [
+        57,
+        70
+      ],
+      "hasAlpha": true
+    },
+    "warship-immortal-attack": {
+      "file": "warship-crew.png",
+      "sourceRect": [
+        1044,
+        387,
+        397,
+        273
+      ],
+      "drawSize": [
+        102,
+        70
+      ],
+      "hasAlpha": true
+    },
+    "warship-immortal-hurt": {
+      "file": "warship-crew.png",
+      "sourceRect": [
+        1098,
+        695,
+        274,
+        270
+      ],
+      "drawSize": [
+        71,
+        70
+      ],
+      "hasAlpha": true
+    },
+    "warship-horror-idle": {
+      "file": "warship-infestation.png",
+      "sourceRect": [
+        27,
+        69,
+        449,
+        264
+      ],
+      "drawSize": [
+        92,
+        54
+      ],
+      "hasAlpha": true
+    },
+    "warship-horror-attack": {
+      "file": "warship-infestation.png",
+      "sourceRect": [
+        21,
+        384,
+        481,
+        260
+      ],
+      "drawSize": [
+        100,
+        54
+      ],
+      "hasAlpha": true
+    },
+    "warship-horror-hurt": {
+      "file": "warship-infestation.png",
+      "sourceRect": [
+        32,
+        694,
+        465,
+        296
+      ],
+      "drawSize": [
+        85,
+        54
+      ],
+      "hasAlpha": true
+    },
+    "warship-beast-idle": {
+      "file": "warship-infestation.png",
+      "sourceRect": [
+        1044,
+        46,
+        468,
+        282
+      ],
+      "drawSize": [
+        108,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "warship-beast-attack": {
+      "file": "warship-infestation.png",
+      "sourceRect": [
+        1027,
+        359,
+        493,
+        279
+      ],
+      "drawSize": [
+        115,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "warship-beast-hurt": {
+      "file": "warship-infestation.png",
+      "sourceRect": [
+        1094,
+        656,
+        416,
+        337
+      ],
+      "drawSize": [
+        80,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "warship-queen-idle": {
+      "file": "warship-queen.png",
+      "sourceRect": [
+        115,
+        197,
+        552,
+        391
+      ],
+      "drawSize": [
+        99,
+        70
+      ],
+      "hasAlpha": true
+    },
+    "warship-queen-attack": {
+      "file": "warship-queen.png",
+      "sourceRect": [
+        801,
+        155,
+        599,
+        440
+      ],
+      "drawSize": [
+        95,
+        70
+      ],
+      "hasAlpha": true
+    },
+    "warship-queen-hurt": {
+      "file": "warship-queen.png",
+      "sourceRect": [
+        1552,
+        221,
+        525,
+        369
+      ],
+      "drawSize": [
+        100,
+        70
+      ],
+      "hasAlpha": true
+    },
+    "warship-guard-idle": {
+      "file": "warship-security.png",
+      "sourceRect": [
+        180,
+        18,
+        223,
+        304
+      ],
+      "drawSize": [
+        49,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "warship-guard-attack": {
+      "file": "warship-security.png",
+      "sourceRect": [
+        101,
+        351,
+        316,
+        301
+      ],
+      "drawSize": [
+        70,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "warship-guard-hurt": {
+      "file": "warship-security.png",
+      "sourceRect": [
+        198,
+        691,
+        210,
+        295
+      ],
+      "drawSize": [
+        48,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "warship-quadruped-idle": {
+      "file": "warship-security.png",
+      "sourceRect": [
+        586,
+        52,
+        372,
+        272
+      ],
+      "drawSize": [
+        72,
+        53
+      ],
+      "hasAlpha": true
+    },
+    "warship-quadruped-attack": {
+      "file": "warship-security.png",
+      "sourceRect": [
+        503,
+        382,
+        501,
+        270
+      ],
+      "drawSize": [
+        98,
+        53
+      ],
+      "hasAlpha": true
+    },
+    "warship-quadruped-hurt": {
+      "file": "warship-security.png",
+      "sourceRect": [
+        570,
+        734,
+        383,
+        255
+      ],
+      "drawSize": [
+        80,
+        53
+      ],
+      "hasAlpha": true
+    },
+    "warship-medic-idle": {
+      "file": "warship-security.png",
+      "sourceRect": [
+        1144,
+        14,
+        272,
+        308
+      ],
+      "drawSize": [
+        57,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "warship-medic-attack": {
+      "file": "warship-security.png",
+      "sourceRect": [
+        1037,
+        358,
+        401,
+        294
+      ],
+      "drawSize": [
+        87,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "warship-medic-hurt": {
+      "file": "warship-security.png",
+      "sourceRect": [
+        1167,
+        696,
+        279,
+        293
+      ],
+      "drawSize": [
+        61,
+        64
+      ],
+      "hasAlpha": true
+    },
+    "warship-auto-turret-idle": {
+      "file": "warship-machinery.png",
+      "sourceRect": [
+        129,
+        102,
+        283,
+        211
+      ],
+      "drawSize": [
+        64,
+        48
+      ],
+      "hasAlpha": true
+    },
+    "warship-auto-turret-attack": {
+      "file": "warship-machinery.png",
+      "sourceRect": [
+        60,
+        433,
+        359,
+        212
+      ],
+      "drawSize": [
+        81,
+        48
+      ],
+      "hasAlpha": true
+    },
+    "warship-auto-turret-hurt": {
+      "file": "warship-machinery.png",
+      "sourceRect": [
+        129,
+        756,
+        306,
+        222
+      ],
+      "drawSize": [
+        66,
+        48
+      ],
+      "hasAlpha": true
+    },
+    "warship-defence-turret-idle": {
+      "file": "warship-machinery.png",
+      "sourceRect": [
+        555,
+        46,
+        406,
+        266
+      ],
+      "drawSize": [
+        85,
+        56
+      ],
+      "hasAlpha": true
+    },
+    "warship-defence-turret-attack": {
+      "file": "warship-machinery.png",
+      "sourceRect": [
+        524,
+        375,
+        437,
+        269
+      ],
+      "drawSize": [
+        91,
+        56
+      ],
+      "hasAlpha": true
+    },
+    "warship-defence-turret-hurt": {
+      "file": "warship-machinery.png",
+      "sourceRect": [
+        546,
+        703,
+        408,
+        276
+      ],
+      "drawSize": [
+        83,
+        56
+      ],
+      "hasAlpha": true
+    },
+    "warship-welder-idle": {
+      "file": "warship-machinery.png",
+      "sourceRect": [
+        1094,
+        68,
+        348,
+        246
+      ],
+      "drawSize": [
+        86,
+        61
+      ],
+      "hasAlpha": true
+    },
+    "warship-welder-attack": {
+      "file": "warship-machinery.png",
+      "sourceRect": [
+        1031,
+        400,
+        428,
+        249
+      ],
+      "drawSize": [
+        105,
+        61
+      ],
+      "hasAlpha": true
+    },
+    "warship-welder-hurt": {
+      "file": "warship-machinery.png",
+      "sourceRect": [
+        1087,
+        723,
+        378,
+        256
+      ],
+      "drawSize": [
+        90,
+        61
+      ],
+      "hasAlpha": true
+    },
+    "warship-prototype-idle": {
+      "file": "warship-combat-bosses.png",
+      "sourceRect": [
+        257,
+        9,
+        358,
+        325
+      ],
+      "drawSize": [
+        90,
+        82
+      ],
+      "hasAlpha": true
+    },
+    "warship-prototype-attack": {
+      "file": "warship-combat-bosses.png",
+      "sourceRect": [
+        154,
+        372,
+        522,
+        297
+      ],
+      "drawSize": [
+        144,
+        82
+      ],
+      "hasAlpha": true
+    },
+    "warship-prototype-hurt": {
+      "file": "warship-combat-bosses.png",
+      "sourceRect": [
+        311,
+        702,
+        331,
+        288
+      ],
+      "drawSize": [
+        94,
+        82
+      ],
+      "hasAlpha": true
+    },
+    "warship-sparring-idle": {
+      "file": "warship-combat-bosses.png",
+      "sourceRect": [
+        1004,
+        4,
+        246,
+        329
+      ],
+      "drawSize": [
+        58,
+        78
+      ],
+      "hasAlpha": true
+    },
+    "warship-sparring-attack": {
+      "file": "warship-combat-bosses.png",
+      "sourceRect": [
+        840,
+        362,
+        548,
+        307
+      ],
+      "drawSize": [
+        139,
+        78
+      ],
+      "hasAlpha": true
+    },
+    "warship-sparring-hurt": {
+      "file": "warship-combat-bosses.png",
+      "sourceRect": [
+        1013,
+        701,
+        226,
+        285
+      ],
+      "drawSize": [
+        62,
+        78
+      ],
+      "hasAlpha": true
+    },
+    "warship-automaton-idle": {
+      "file": "warship-medical-bosses.png",
+      "sourceRect": [
+        267,
+        34,
+        221,
+        299
+      ],
+      "drawSize": [
+        50,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "warship-automaton-attack": {
+      "file": "warship-medical-bosses.png",
+      "sourceRect": [
+        156,
+        374,
+        440,
+        285
+      ],
+      "drawSize": [
+        105,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "warship-automaton-hurt": {
+      "file": "warship-medical-bosses.png",
+      "sourceRect": [
+        247,
+        699,
+        230,
+        294
+      ],
+      "drawSize": [
+        53,
+        68
+      ],
+      "hasAlpha": true
+    },
+    "warship-experiment-idle": {
+      "file": "warship-medical-bosses.png",
+      "sourceRect": [
+        936,
+        17,
+        478,
+        313
+      ],
+      "drawSize": [
+        116,
+        76
+      ],
+      "hasAlpha": true
+    },
+    "warship-experiment-attack": {
+      "file": "warship-medical-bosses.png",
+      "sourceRect": [
+        798,
+        365,
+        642,
+        296
+      ],
+      "drawSize": [
+        165,
+        76
+      ],
+      "hasAlpha": true
+    },
+    "warship-experiment-hurt": {
+      "file": "warship-medical-bosses.png",
+      "sourceRect": [
+        982,
+        687,
+        395,
+        308
+      ],
+      "drawSize": [
+        97,
+        76
+      ],
+      "hasAlpha": true
+    },
+    "warship-engineering-background": {
+      "file": "warship-engineering.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "warship-martial-background": {
+      "file": "warship-martial.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "warship-medical-background": {
+      "file": "warship-medical.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        940
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "warship-command-background": {
+      "file": "warship-command.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "warship-antechamber-background": {
+      "file": "warship-antechamber.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    }
+  }
+}

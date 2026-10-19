@@ -1,0 +1,537 @@
+{
+  "version": 7,
+  "tool": "built-in image_gen.imagegen",
+  "logicalSize": [
+    576,
+    324
+  ],
+  "alphaCut": 0.5,
+  "anchor": "bottom-center",
+  "hands": {
+    "leather": {
+      "idle": [
+        0.935,
+        0.408
+      ],
+      "attack": [
+        0.94,
+        0.33
+      ],
+      "hurt": [
+        0.705,
+        0.385
+      ]
+    },
+    "iron": {
+      "idle": [
+        0.935,
+        0.408
+      ],
+      "attack": [
+        0.94,
+        0.33
+      ],
+      "hurt": [
+        0.705,
+        0.385
+      ]
+    },
+    "steel": {
+      "idle": [
+        0.935,
+        0.408
+      ],
+      "attack": [
+        0.94,
+        0.33
+      ],
+      "hurt": [
+        0.705,
+        0.385
+      ]
+    },
+    "kinetic": {
+      "idle": [
+        0.93,
+        0.414
+      ],
+      "attack": [
+        0.94,
+        0.33
+      ],
+      "hurt": [
+        0.71,
+        0.41
+      ]
+    }
+  },
+  "sources": {
+    "late-weapons.png": {
+      "size": [
+        1774,
+        887
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7850779580791821,
+      "sha256": "f501f46d90a26ebaf85b20d8abe37a82aa590ae2f2c69ad331d5e6c11bfd6c5a"
+    },
+    "armour-leather.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7174657185872396,
+      "sha256": "0781856781f3ea6a52d92599bfe63d42136df921c679c4826314733c96cb259f"
+    },
+    "armour-iron.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7154719034830729,
+      "sha256": "5ca4bc81d296147246218f385fda70262a136ef162df069e20757894cf1b723e"
+    },
+    "armour-steel.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7147343953450521,
+      "sha256": "f39c43e01e62972d1a25c111e0df28eeeab6c5abc3fee1732ee1243e33614aa9"
+    },
+    "armour-kinetic.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7046241760253906,
+      "sha256": "1b4087979a255ea4904a6a08a0bb448643b0cd305898e3eaf1a188e7cdeebbd2"
+    }
+  },
+  "assets": {
+    "weapon-bayonet": {
+      "file": "late-weapons.png",
+      "sourceRect": [
+        69,
+        172,
+        579,
+        161
+      ],
+      "drawSize": [
+        39,
+        11
+      ],
+      "hasAlpha": true
+    },
+    "weapon-laser": {
+      "file": "late-weapons.png",
+      "sourceRect": [
+        689,
+        144,
+        723,
+        235
+      ],
+      "drawSize": [
+        69,
+        22
+      ],
+      "hasAlpha": true
+    },
+    "weapon-grenade": {
+      "file": "late-weapons.png",
+      "sourceRect": [
+        1517,
+        144,
+        166,
+        225
+      ],
+      "drawSize": [
+        10,
+        13
+      ],
+      "hasAlpha": true
+    },
+    "weapon-plasma": {
+      "file": "late-weapons.png",
+      "sourceRect": [
+        71,
+        530,
+        670,
+        226
+      ],
+      "drawSize": [
+        70,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "weapon-energy-blade": {
+      "file": "late-weapons.png",
+      "sourceRect": [
+        768,
+        592,
+        584,
+        70
+      ],
+      "drawSize": [
+        53,
+        6
+      ],
+      "hasAlpha": true
+    },
+    "weapon-disruptor": {
+      "file": "late-weapons.png",
+      "sourceRect": [
+        1405,
+        526,
+        303,
+        227
+      ],
+      "drawSize": [
+        34,
+        25
+      ],
+      "hasAlpha": true
+    },
+    "armour-leather-idle": {
+      "file": "armour-leather.png",
+      "sourceRect": [
+        91,
+        95,
+        285,
+        449
+      ],
+      "drawSize": [
+        47,
+        74
+      ],
+      "hasAlpha": true
+    },
+    "armour-leather-attack": {
+      "file": "armour-leather.png",
+      "sourceRect": [
+        544,
+        136,
+        439,
+        408
+      ],
+      "drawSize": [
+        72,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "armour-leather-hurt": {
+      "file": "armour-leather.png",
+      "sourceRect": [
+        1160,
+        143,
+        339,
+        401
+      ],
+      "drawSize": [
+        57,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "armour-leather-map-north": {
+      "file": "armour-leather.png",
+      "sourceRect": [
+        133,
+        613,
+        208,
+        349
+      ],
+      "drawSize": [
+        14,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "armour-leather-map-south": {
+      "file": "armour-leather.png",
+      "sourceRect": [
+        653,
+        614,
+        218,
+        348
+      ],
+      "drawSize": [
+        15,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "armour-leather-map-east": {
+      "file": "armour-leather.png",
+      "sourceRect": [
+        1206,
+        614,
+        221,
+        346
+      ],
+      "drawSize": [
+        15,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "armour-iron-idle": {
+      "file": "armour-iron.png",
+      "sourceRect": [
+        88,
+        90,
+        290,
+        454
+      ],
+      "drawSize": [
+        47,
+        74
+      ],
+      "hasAlpha": true
+    },
+    "armour-iron-attack": {
+      "file": "armour-iron.png",
+      "sourceRect": [
+        545,
+        131,
+        438,
+        413
+      ],
+      "drawSize": [
+        71,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "armour-iron-hurt": {
+      "file": "armour-iron.png",
+      "sourceRect": [
+        1154,
+        141,
+        348,
+        403
+      ],
+      "drawSize": [
+        58,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "armour-iron-map-north": {
+      "file": "armour-iron.png",
+      "sourceRect": [
+        127,
+        606,
+        220,
+        357
+      ],
+      "drawSize": [
+        15,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "armour-iron-map-south": {
+      "file": "armour-iron.png",
+      "sourceRect": [
+        646,
+        608,
+        233,
+        355
+      ],
+      "drawSize": [
+        16,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "armour-iron-map-east": {
+      "file": "armour-iron.png",
+      "sourceRect": [
+        1202,
+        606,
+        230,
+        355
+      ],
+      "drawSize": [
+        16,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "armour-steel-idle": {
+      "file": "armour-steel.png",
+      "sourceRect": [
+        91,
+        93,
+        287,
+        451
+      ],
+      "drawSize": [
+        47,
+        74
+      ],
+      "hasAlpha": true
+    },
+    "armour-steel-attack": {
+      "file": "armour-steel.png",
+      "sourceRect": [
+        544,
+        134,
+        438,
+        410
+      ],
+      "drawSize": [
+        72,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "armour-steel-hurt": {
+      "file": "armour-steel.png",
+      "sourceRect": [
+        1160,
+        139,
+        339,
+        405
+      ],
+      "drawSize": [
+        56,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "armour-steel-map-north": {
+      "file": "armour-steel.png",
+      "sourceRect": [
+        129,
+        606,
+        216,
+        357
+      ],
+      "drawSize": [
+        15,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "armour-steel-map-south": {
+      "file": "armour-steel.png",
+      "sourceRect": [
+        648,
+        606,
+        223,
+        357
+      ],
+      "drawSize": [
+        15,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "armour-steel-map-east": {
+      "file": "armour-steel.png",
+      "sourceRect": [
+        1201,
+        609,
+        238,
+        352
+      ],
+      "drawSize": [
+        16,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "armour-kinetic-idle": {
+      "file": "armour-kinetic.png",
+      "sourceRect": [
+        85,
+        78,
+        293,
+        446
+      ],
+      "drawSize": [
+        49,
+        74
+      ],
+      "hasAlpha": true
+    },
+    "armour-kinetic-attack": {
+      "file": "armour-kinetic.png",
+      "sourceRect": [
+        547,
+        111,
+        444,
+        413
+      ],
+      "drawSize": [
+        72,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "armour-kinetic-hurt": {
+      "file": "armour-kinetic.png",
+      "sourceRect": [
+        1156,
+        117,
+        345,
+        407
+      ],
+      "drawSize": [
+        57,
+        67
+      ],
+      "hasAlpha": true
+    },
+    "armour-kinetic-map-north": {
+      "file": "armour-kinetic.png",
+      "sourceRect": [
+        127,
+        574,
+        223,
+        390
+      ],
+      "drawSize": [
+        14,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "armour-kinetic-map-south": {
+      "file": "armour-kinetic.png",
+      "sourceRect": [
+        645,
+        574,
+        232,
+        390
+      ],
+      "drawSize": [
+        14,
+        24
+      ],
+      "hasAlpha": true
+    },
+    "armour-kinetic-map-east": {
+      "file": "armour-kinetic.png",
+      "sourceRect": [
+        1192,
+        574,
+        241,
+        389
+      ],
+      "drawSize": [
+        15,
+        24
+      ],
+      "hasAlpha": true
+    }
+  }
+}

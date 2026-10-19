@@ -1,0 +1,278 @@
+{
+  "version": 8,
+  "tool": "built-in image_gen.imagegen",
+  "logicalSize": [
+    576,
+    324
+  ],
+  "alphaCut": 0.5,
+  "anchor": "bottom-center",
+  "poseOrder": [
+    "idle",
+    "attack",
+    "hurt"
+  ],
+  "sources": {
+    "wild-shivering.png": {
+      "size": [
+        1774,
+        887
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7017428241326235,
+      "sha256": "578015afcc2c0032082b8d943c35370d0684a42f82bb633249966dd16b2f0807"
+    },
+    "wild-man-eater.png": {
+      "size": [
+        2172,
+        724
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.6081869448429535,
+      "sha256": "426f2f0ba3309f55d2dcbf6a4b1ba2e6b1876b35429eb468e9023ce2b32bd3d2"
+    },
+    "wild-feral-terror-spaced.png": {
+      "size": [
+        1983,
+        793
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7322436167702903,
+      "sha256": "7f7212e51e0013f4515f4f849b1c92284ad93221c7fb53feec7bb414dc108048"
+    },
+    "special-swamp-elder.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.7820657094319662,
+      "sha256": "c9f90fbda88677384392bb78e09f1b7b6d03d95474de2bc8eaa430ff07ca1be5"
+    },
+    "special-cache-landmark.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.6312236785888672,
+      "sha256": "301ff70fc2ec300b0608ebb4073672cdea4f0cf193ba519c182e18dba445f2c4"
+    },
+    "special-swamp-cabin.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "fa71f355a9c10805ff99791187d5fe940f669dfc90b589216fbc9033b7a18b17"
+    },
+    "special-cache-interior.png": {
+      "size": [
+        1672,
+        941
+      ],
+      "hasAlpha": false,
+      "transparentFraction": 0,
+      "sha256": "6911002f26c9efec58b6c0804bbf4b978dce3dab959c1f07ecf8a2794d2dffc7"
+    }
+  },
+  "assets": {
+    "wild-shivering-idle": {
+      "file": "wild-shivering.png",
+      "sourceRect": [
+        114,
+        87,
+        349,
+        706
+      ],
+      "drawSize": [
+        33,
+        66
+      ],
+      "hasAlpha": true
+    },
+    "wild-shivering-attack": {
+      "file": "wild-shivering.png",
+      "sourceRect": [
+        538,
+        118,
+        685,
+        674
+      ],
+      "drawSize": [
+        67,
+        66
+      ],
+      "hasAlpha": true
+    },
+    "wild-shivering-hurt": {
+      "file": "wild-shivering.png",
+      "sourceRect": [
+        1394,
+        149,
+        327,
+        643
+      ],
+      "drawSize": [
+        34,
+        66
+      ],
+      "hasAlpha": true
+    },
+    "wild-man-eater-idle": {
+      "file": "wild-man-eater.png",
+      "sourceRect": [
+        40,
+        141,
+        635,
+        473
+      ],
+      "drawSize": [
+        87,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "wild-man-eater-attack": {
+      "file": "wild-man-eater.png",
+      "sourceRect": [
+        692,
+        119,
+        829,
+        485
+      ],
+      "drawSize": [
+        111,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "wild-man-eater-hurt": {
+      "file": "wild-man-eater.png",
+      "sourceRect": [
+        1599,
+        118,
+        530,
+        486
+      ],
+      "drawSize": [
+        71,
+        65
+      ],
+      "hasAlpha": true
+    },
+    "wild-feral-terror-idle": {
+      "file": "wild-feral-terror-spaced.png",
+      "sourceRect": [
+        77,
+        135,
+        437,
+        544
+      ],
+      "drawSize": [
+        62,
+        77
+      ],
+      "hasAlpha": true
+    },
+    "wild-feral-terror-attack": {
+      "file": "wild-feral-terror-spaced.png",
+      "sourceRect": [
+        616,
+        177,
+        696,
+        505
+      ],
+      "drawSize": [
+        106,
+        77
+      ],
+      "hasAlpha": true
+    },
+    "wild-feral-terror-hurt": {
+      "file": "wild-feral-terror-spaced.png",
+      "sourceRect": [
+        1528,
+        227,
+        427,
+        457
+      ],
+      "drawSize": [
+        72,
+        77
+      ],
+      "hasAlpha": true
+    },
+    "swamp-elder": {
+      "file": "special-swamp-elder.png",
+      "sourceRect": [
+        417,
+        109,
+        752,
+        794
+      ],
+      "drawSize": [
+        49,
+        52
+      ],
+      "hasAlpha": true
+    },
+    "landmark-cache": {
+      "file": "special-cache-landmark.png",
+      "sourceRect": [
+        193,
+        117,
+        1146,
+        821
+      ],
+      "drawSize": [
+        24,
+        17
+      ],
+      "hasAlpha": true
+    },
+    "site-cache": {
+      "file": "special-cache-landmark.png",
+      "sourceRect": [
+        193,
+        117,
+        1146,
+        821
+      ],
+      "drawSize": [
+        144,
+        103
+      ],
+      "hasAlpha": true
+    },
+    "swamp-cabin-background": {
+      "file": "special-swamp-cabin.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    },
+    "cache-interior-background": {
+      "file": "special-cache-interior.png",
+      "sourceRect": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "drawSize": [
+        576,
+        324
+      ],
+      "hasAlpha": false
+    }
+  }
+}
