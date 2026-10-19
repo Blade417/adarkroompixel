@@ -1,0 +1,45 @@
+{
+  "version": 1.3,
+  "features": {
+    "location": {
+      "room": true,
+      "outside": true,
+      "fabricator": true,
+      "spaceShip": true
+    }
+  },
+  "game": {
+    "fire": {
+      "value": 4,
+      "text": "roaring"
+    },
+    "temperature": {
+      "value": 4,
+      "text": "hot"
+    },
+    "builder": {
+      "level": 4
+    },
+    "buildings": {
+      "hut": 2,
+      "workshop": 1
+    },
+    "population": 8,
+    "workers": {},
+    "outside": {
+      "seenForest": true
+    },
+    "spaceShip": {
+      "hull": 0,
+      "thrusters": 2
+    }
+  },
+  "stores": {
+    "wood": 100,
+    "alien alloy": 0,
+    "compass": 1
+  },
+  "previous": {
+    "score": 500
+  }
+}

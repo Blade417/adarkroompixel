@@ -1,0 +1,193 @@
+{
+  "version": 1,
+  "tool": "built-in image_gen.imagegen",
+  "logicalSize": [
+    350,
+    350
+  ],
+  "flightCoordinates": [
+    700,
+    700
+  ],
+  "sources": {
+    "fabricator.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "hasAlpha": false,
+      "sha256": "844d0e72e274bb5fb0c81e5c0408d28502775286f659a379c32e1d0a90552f7b"
+    },
+    "shipyard.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "hasAlpha": false,
+      "sha256": "ee7e493555913b680a01c29673db4204b68e062fe67e89a6d2b8f5b02180bae7"
+    },
+    "escape.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "hasAlpha": false,
+      "sha256": "84a449a0d228947cfb9da9468d0d2b287d53f02a1bd3088f85378bf09cfe1a7b"
+    },
+    "homefleet.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "hasAlpha": false,
+      "sha256": "b3c18becf0d690ee4ec9e374c81630721af2a3df9ce6bc6a508c951f7792d81b"
+    },
+    "flight-atlas.png": {
+      "size": [
+        1312,
+        1199
+      ],
+      "hasAlpha": true,
+      "transparentFraction": 0.620232307410647,
+      "sha256": "2637b63908829797a0fc0d4f607e1097c535284db1f74f06e5594b57e846080d"
+    }
+  },
+  "assets": {
+    "fabricator": {
+      "file": "fabricator.png",
+      "sourceRect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "drawSize": [
+        350,
+        350
+      ],
+      "transparent": false
+    },
+    "shipyard": {
+      "file": "shipyard.png",
+      "sourceRect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "drawSize": [
+        350,
+        350
+      ],
+      "transparent": false
+    },
+    "escape": {
+      "file": "escape.png",
+      "sourceRect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "drawSize": [
+        350,
+        350
+      ],
+      "transparent": false
+    },
+    "homefleet": {
+      "file": "homefleet.png",
+      "sourceRect": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "drawSize": [
+        350,
+        350
+      ],
+      "transparent": false
+    },
+    "flight-ship": {
+      "file": "flight-atlas.png",
+      "region": [
+        0,
+        0,
+        656,
+        585
+      ],
+      "sourceRect": [
+        166,
+        31,
+        427,
+        515
+      ],
+      "drawSize": [
+        20,
+        30
+      ],
+      "transparent": true
+    },
+    "asteroid-0": {
+      "file": "flight-atlas.png",
+      "region": [
+        656,
+        0,
+        1312,
+        585
+      ],
+      "sourceRect": [
+        804,
+        12,
+        321,
+        570
+      ],
+      "drawSize": [
+        20,
+        37
+      ],
+      "transparent": true
+    },
+    "asteroid-1": {
+      "file": "flight-atlas.png",
+      "region": [
+        0,
+        585,
+        656,
+        1199
+      ],
+      "sourceRect": [
+        209,
+        591,
+        346,
+        593
+      ],
+      "drawSize": [
+        20,
+        37
+      ],
+      "transparent": true
+    },
+    "asteroid-2": {
+      "file": "flight-atlas.png",
+      "region": [
+        656,
+        585,
+        1312,
+        1199
+      ],
+      "sourceRect": [
+        801,
+        591,
+        336,
+        593
+      ],
+      "drawSize": [
+        20,
+        37
+      ],
+      "transparent": true
+    }
+  }
+}

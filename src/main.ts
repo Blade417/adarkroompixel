@@ -161,7 +161,7 @@ const host: HudHost = {
 const app = document.getElementById('app')!;
 const hud = new Hud(app, game, host, journey);
 const expeditionPanel = new ExpeditionPanel(app, expedition, () => { layout(); requestAnimationFrame(() => hud.canvas.focus({ preventScroll: true })); });
-const endgamePanel = new EndgamePanel(app, endgame, () => host.travel('room'), leave);
+const endgamePanel = new EndgamePanel(app, endgame, () => host.travel('room'), leave, sample);
 const sceneControls = new SceneControls(hud.canvas.parentElement!, journey, uiStrings(game.i18n.lang),
   () => hud.canInteract() && !player.playing, place => host.travel(place));
 const villageControls = new VillageControls(hud.canvas.parentElement!, journey, uiStrings(game.i18n.lang),

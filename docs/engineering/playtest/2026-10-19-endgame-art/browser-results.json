@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-19",
+  "baseCommit": "727c901",
+  "origin": "http://127.0.0.1:5645/",
+  "fixtureRoot": "2026-10-16-endgame",
+  "syntheticQA": true,
+  "upgraded": {
+    "alloy": 17,
+    "blade": 1,
+    "ship": {
+      "hull": 2,
+      "thrusters": 3,
+      "seenShip": true
+    }
+  },
+  "normalAscent": {
+    "startedAtAltitude": 0,
+    "restoredPosition": [
+      445,
+      350
+    ],
+    "fullRealtimeAscent": true,
+    "score": 1308,
+    "total": 1808,
+    "nextGenerationTotal": 1808,
+    "inheritedItems": 24
+  },
+  "beacon": {
+    "art": "art",
+    "copy": "寂静的母舰队飞船滑行于太空，信标轻轻脉动。坐标已经锁定。除了等待，别无他事。信标亮起稳定的蓝光，随后黯淡下去。飞船开始减速。庞大的流浪者母舰队渐渐映入眼帘。巨大的世界舰以异样的姿态漂浮在碎片云中，伤痕累累，死寂无声。空气快耗尽了。舱内一片冰冷。本轮得分1,800累计得分2,300下一代将从一间寒冷的小屋重新开始。上一代遗留的部分物资，等待你在世界中找回。开始下一轮",
+    "scene": "homefleet"
+  },
+  "reducedMotionChecked": true,
+  "englishShipyardChecked": true,
+  "desktopActualViewport": [
+    1280,
+    720
+  ],
+  "requested900Applied": false,
+  "horizontalOverflow": false,
+  "lateArtOnOpening": [],
+  "openingNetworkEvents": 24,
+  "openingNetworkHasMore": false,
+  "fallback": {
+    "origin": "http://127.0.0.1:5646/",
+    "art": "fallback",
+    "feedback": "已制成：能量刃 × 1",
+    "scene": "fabricator",
+    "side": "嗡鸣的制造机外星合金19以外星合金制造流浪者装备。探索战舰可找到更多蓝图。能量刃强力近战武器。出发前需装进行囊。持有：1消耗：外星合金 1制造 · 能量刃液体循环器提高远行水量上限，持有即生效。持有：0消耗：外星合金 2制造 · 液体循环器货运无人机提高远行负重上限，持有即生效。持有：0消耗：外星合金 2制造 · 货运无人机尚待发现的蓝图配方：6",
+    "otherScene": {
+      "art": "art",
+      "scene": "shipyard"
+    },
+    "recoveredArt": "art",
+    "blockRuleRemoved": true,
+    "expectedWarnings": 1
+  },
+  "normalConsole": []
+}

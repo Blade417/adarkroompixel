@@ -2,6 +2,8 @@ import './endgame.css';
 import { BEACON_OUTRO, Endgame, FABRICATOR_PURPOSES } from '../app/endgame';
 import { FABRICATOR, SHIP } from '../core/data';
 import { EndgameRenderer } from '../pixel/endgame';
+import { endgameScene } from '../app/endgame-visuals';
+import type { SampleMode } from '../pixel/resample';
 import { esc, isTyping, Patch } from './dom';
 
 export class EndgamePanel {
@@ -19,14 +21,14 @@ export class EndgamePanel {
   private lastPlace = '';
   private readonly t = (zh: string, en: string) => this.model.game.i18n.lang === 'zh' ? zh : en;
 
-  constructor(parent: HTMLElement, readonly model: Endgame, private readonly goHome: () => void, private readonly next: () => void) {
+  constructor(parent: HTMLElement, readonly model: Endgame, private readonly goHome: () => void, private readonly next: () => void, sample: SampleMode = 'mode') {
     const t = this.t;
     this.root.className = 'endgame-panel'; this.root.hidden = true;
     this.root.setAttribute('aria-label', t('流浪者的归途', 'The wanderer’s way home'));
     this.root.innerHTML = `<div class="eg-wrap"><div class="eg-heading"><div><span class="eyebrow">${t('火光之外', 'Beyond the firelight')}</span><h1></h1></div><div class="eg-controls"><button data-late="pause"></button><button data-late="home">${t('回生火间', 'Return to the room')}</button></div></div><p class="eg-banner" role="status" hidden></p><div class="eg-layout"><article><div class="eg-picture"><canvas width="700" height="700" tabindex="0"></canvas><span class="eg-visual-note"></span></div><p class="eg-feedback" role="status"></p></article><aside class="eg-side"></aside></div><p class="eg-help"></p></div>`;
     parent.append(this.root);
     this.canvas = this.root.querySelector('canvas')!;
-    this.renderer = new EndgameRenderer(this.canvas);
+    this.renderer = new EndgameRenderer(this.canvas, sample);
     this.side = this.root.querySelector('.eg-side')!;
     this.banner = this.root.querySelector('.eg-banner')!;
     this.feedback = this.root.querySelector('.eg-feedback')!;
@@ -69,9 +71,9 @@ export class EndgamePanel {
     else if (action === 'next') { if (m.nextGeneration()) this.next(); }
     else if (action.startsWith('craft:')) {
       const id = action.slice(6);
-      if (m.fabricate(id)) this.feedback.textContent = t('已制成：', 'Fabricated: ') + g.t(FABRICATOR[id].name) + ` × ${FABRICATOR[id].quantity ?? 1}`;
+      if (m.fabricate(id)) { this.feedback.textContent = t('已制成：', 'Fabricated: ') + g.t(FABRICATOR[id].name) + ` × ${FABRICATOR[id].quantity ?? 1}`; this.renderer.pulse(g); }
     } else if (action === 'hull' || action === 'engine') {
-      if (m.upgrade(action)) this.feedback.textContent = t(action === 'hull' ? '船体已加固。' : '引擎已升级。', action === 'hull' ? 'Hull reinforced.' : 'Engine upgraded.');
+      if (m.upgrade(action)) { this.feedback.textContent = t(action === 'hull' ? '船体已加固。' : '引擎已升级。', action === 'hull' ? 'Hull reinforced.' : 'Engine upgraded.'); this.renderer.pulse(g); }
     } else if (action === 'launch') { if (m.launch()) this.feedback.textContent = ''; }
     this.update();
   }
@@ -87,7 +89,7 @@ export class EndgamePanel {
     if (place !== this.lastPlace) { this.lastPlace = place; this.feedback.textContent = ''; }
     if (!this.visible && !blocked) { this.canvas.focus({ preventScroll: true }); this.visible = true; }
     if (now - this.lastUpdate > 100) { this.update(); this.lastUpdate = now; }
-    this.renderer.render(this.model.game, Boolean(this.model.ending), reduced);
+    this.renderer.render(this.model.game, this.model.ending, reduced);
   }
 
   private update(): void {
@@ -96,13 +98,14 @@ export class EndgamePanel {
     const title = end ? t('群星之间', 'Among the stars') : flying ? g.space.title() : g.title();
     const titleEl = this.root.querySelector('h1')!;
     titleEl.textContent = end ? title : g.t(title);
-    this.canvas.setAttribute('aria-label', end ? title : flying ? t(`升空：高度 ${g.space.altitude}，船体 ${g.space.hull}，位置 ${Math.round(g.space.shipX)}，${Math.round(g.space.shipY)}`, `Ascent: altitude ${g.space.altitude}, hull ${g.space.hull}, position ${Math.round(g.space.shipX)}, ${Math.round(g.space.shipY)}`) : t('流浪者机械的像素结构示意', 'Pixel diagram of wanderer machinery'));
+    const scene = endgameScene(g.active, end), source = this.renderer.source(scene);
+    this.canvas.setAttribute('aria-label', end ? end.expansion ? t('寂静的母舰队：巨大的残破世界舰漂浮在碎片之间。', 'The silent homefleet: scarred worldships drift among debris.') : t('逃离星球：独行飞船驶离碎片云。', 'Escape: a lone craft leaves the debris cloud behind.') : flying ? t(`升空：高度 ${g.space.altitude}，船体 ${g.space.hull}，位置 ${Math.round(g.space.shipX)}，${Math.round(g.space.shipY)}`, `Ascent: altitude ${g.space.altitude}, hull ${g.space.hull}, position ${Math.round(g.space.shipX)}, ${Math.round(g.space.shipY)}`) : g.active === 'fabricator' ? t('制造机：幽暗工坊中的合金加工装置。', 'Fabricator: an alloy machine in a dim workshop.') : t('飞船整备：林间空地上的破旧星舰。', 'Shipyard: a weathered starship in a forest clearing.'));
     const pause = this.root.querySelector<HTMLButtonElement>('[data-late="pause"]')!;
     pause.hidden = !flying; pause.textContent = m.paused ? t('继续', 'Continue') : t('暂停', 'Pause');
     this.root.querySelector<HTMLElement>('[data-late="home"]')!.hidden = flying || Boolean(end);
     this.banner.hidden = !flying || !m.paused;
     this.banner.textContent = t('升空已暂停。飞船、陨石和所有计时均已冻结，点击“继续”恢复。', 'Ascent paused. Ship, asteroids and all timers resume when you continue.');
-    this.root.querySelector('.eg-visual-note')!.textContent = end ? end.expansion ? t('寂静的母舰队', 'The silent homefleet') : t('碎片云已在身后', 'Beyond the debris cloud') : flying ? t('穿过碎片云', 'Through the debris cloud') : t('结构示意 · 流浪者技术', 'Schematic · Wanderer technology');
+    this.root.querySelector('.eg-visual-note')!.textContent = source === 'fallback' ? t('简化画面 · 素材未能载入', 'Simplified view · Artwork unavailable') : end ? end.expansion ? t('寂静的母舰队', 'The silent homefleet') : t('碎片云已在身后', 'Beyond the debris cloud') : flying ? t('穿过碎片云', 'Through the debris cloud') : g.active === 'fabricator' ? t('合金工坊 · 流浪者技术', 'Alloy workshop · Wanderer technology') : t('林间整备场 · 破旧星舰', 'Forest shipyard · A weathered starship');
     this.root.querySelector('.eg-help')!.textContent = flying ? t('方向键 / WASD 移动 · 按住画布拖动驾驶 · P 暂停 · 切离页面、设置和读档后暂停', 'Arrows / WASD to steer · Drag on the canvas · P to pause · Pauses on hiding, settings and reload') : end ? t('你的分数和上一代遗留物资将保留到下一轮。', 'Your score and inherited supplies carry into the next generation.') : g.active === 'fabricator' ? t('蓝图带回村庄后会解锁对应配方。成品存入仓库，出发前可装进行囊。', 'Bring blueprints home to unlock recipes. Finished equipment goes into storage, ready to pack.') : t('升空前可以返回村庄继续整备。离开之后，先穿过碎片云再寻找归途。', 'Return to the village to prepare before launch. Once aloft, cross the debris cloud to find your way home.');
     const stat = (label: string, value: string | number) => `<div class="stat"><span>${esc(label)}</span><strong>${esc(String(value))}</strong></div>`;
     const button = (action: string, label: string, disabled = false, primary = false) => `<button data-late="${esc(action)}"${disabled ? ' disabled' : ''}${primary ? ' class="primary"' : ''}>${esc(label)}</button>`;

@@ -3,23 +3,28 @@ import { ForestJourney } from '../../src/app/forest';
 import { OpeningProgress } from '../../src/app/opening';
 import { settlementGoal } from '../../src/app/progression';
 import { seededRng } from '../../src/core';
-import { startGame } from '../helpers';
+import { makeGame, startGame } from '../helpers';
 
 /** Accelerated clock, fresh state, legal player actions only. No injected supplies or unlocks. */
-export function playFreshSettlement(seed = 42, maxSeconds = 7200) {
-  const g = startGame(undefined, { rng: seededRng(seed), craftables: PIXEL_RECIPES });
-  const trip = new ForestJourney(g), workshop = new BuilderWorkshop(g, trip), opening = new OpeningProgress(g);
+export function playFreshSettlement(seed = 42, maxSeconds = 7200, reloadAt: readonly string[] = []) {
+  const rng = seededRng(seed);
+  let g = startGame(undefined, { rng, craftables: PIXEL_RECIPES });
+  let trip = new ForestJourney(g), workshop = new BuilderWorkshop(g, trip), opening = new OpeningProgress(g);
+  let previousTime = 0;
+  const reloads: { milestone: string; second: number }[] = [];
   const checkpoints: Record<string, number> = {}, events: string[] = [];
   const have = (id: string) => g.store.num(`stores["${id}"]`);
   const built = (id: string) => g.store.num(`game.buildings["${id}"]`);
-  const mark = (id: string) => { checkpoints[id] ??= Math.round(g.clock.now / 1000); };
+  const elapsed = () => Math.round((previousTime + g.clock.now) / 1000);
+  const mark = (id: string) => { checkpoints[id] ??= elapsed(); };
   const home = () => trip.travel('room');
   const build = (id: Parameters<BuilderWorkshop['build']>[0]) => {
     if (!workshop.options().includes(id) || !g.room.canAfford(g.room.costOf(id))) return false;
     if (!workshop.atSettlement) { home(); return true; }
     return workshop.build(id);
   };
-  g.bus.on(event => { if (event.type === 'event:start') events.push(g.events.active()!.def.title); });
+  const watchEvents = () => g.bus.on(event => { if (event.type === 'event:start') events.push(g.events.active()!.def.title); });
+  watchEvents();
   let completed = false;
   for (let second = 0; second <= maxSeconds; second++) {
     opening.update();
@@ -28,11 +33,20 @@ export function playFreshSettlement(seed = 42, maxSeconds = 7200) {
     for (const id of ['cart', 'trap', 'hut', 'lodge', 'tannery', 'smokehouse', 'workshop', 'trading post']) if (built(id)) mark(id);
     for (const id of ['waterskin', 'rucksack', 'bone spear', 'compass']) if (have(id)) mark(id);
     if (have('cured meat') >= 10) mark('food');
+    const nextReload = reloadAt.find(id => checkpoints[id] !== undefined && !reloads.some(entry => entry.milestone === id));
+    if (nextReload && !g.events.active()) {
+      const storage = g.storage;
+      g.saveNow(); previousTime += g.clock.now; g.stop();
+      g = makeGame({ storage, rng, craftables: PIXEL_RECIPES }); g.start();
+      trip = new ForestJourney(g); trip.restoreLocation();
+      workshop = new BuilderWorkshop(g, trip); opening = new OpeningProgress(g); watchEvents();
+      reloads.push({ milestone: nextReload, second: elapsed() });
+    }
     if (settlementGoal(g).id === 'ready') { mark('ready'); completed = true; break; }
     if (second % 5 === 0) act();
     g.tick(1000);
   }
-  const result = { seed, completed, seconds: Math.round(g.clock.now / 1000), checkpoints, events,
+  const result = { seed, completed, seconds: elapsed(), checkpoints, reloads, events,
     huts: g.outside.huts, population: g.outside.population, goal: settlementGoal(g).id,
     stores: { ...g.store.get('stores') }, workers: { ...g.store.get('game.workers') } };
   const save = g.exportCode(); g.stop();

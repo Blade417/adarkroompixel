@@ -1,20 +1,45 @@
 import type { Game } from '../core/game';
 import { SPACE } from '../core/data';
+import type { Ending } from '../app/endgame';
+import { endgameScene, flightShipRect, type EndgameScene } from '../app/endgame-visuals';
+import { loadEndgameArt, type EndgameArt } from './endgame-art';
+import type { SampleMode } from './resample';
 
-/** Code-drawn pixel diagrams; no rules, collision boxes or timing live in this renderer. */
+/** Original art with per-piece diagram fallbacks. Rules and collision remain in the core. */
 export class EndgameRenderer {
   private readonly buffer = document.createElement('canvas');
   private readonly g: CanvasRenderingContext2D;
   private readonly display: CanvasRenderingContext2D;
+  private art: EndgameArt = {};
+  private started = false;
+  private loaded = false;
+  private effect: { scene: EndgameScene; at: number } | null = null;
 
-  constructor(private readonly canvas: HTMLCanvasElement) {
+  constructor(private readonly canvas: HTMLCanvasElement, private readonly sample: SampleMode = 'mode') {
     this.buffer.width = 350; this.buffer.height = 350;
     this.g = this.buffer.getContext('2d')!;
+    this.g.imageSmoothingEnabled = false;
     this.display = canvas.getContext('2d')!;
   }
 
-  render(game: Game, ending: boolean, reduced: boolean): void {
+  pulse(game: Game): void { this.effect = { scene: endgameScene(game.active, null), at: game.clock.now }; }
+
+  source(scene: EndgameScene): 'loading' | 'art' | 'fallback' {
+    if (!this.loaded) return 'loading';
+    return scene === 'ascent'
+      ? this.art['flight-ship'] && [0, 1, 2].every(i => this.art[`asteroid-${i}` as keyof EndgameArt]) ? 'art' : 'fallback'
+      : this.art[scene] ? 'art' : 'fallback';
+  }
+
+  render(game: Game, ending: Ending | null, reduced: boolean): void {
+    // No late-game downloads or baking on the initial room's startup path.
+    if (!this.started) {
+      this.started = true;
+      void loadEndgameArt(this.sample).then(art => { this.art = art; this.loaded = true; });
+    }
     const g = this.g;
+    const scene = endgameScene(game.active, ending);
+    this.canvas.dataset.scene = scene; this.canvas.dataset.art = this.source(scene);
     const flying = game.active === 'space' && !ending;
     const p = ending ? 1 : flying ? game.space.progress() : 0;
     g.fillStyle = p > .7 ? '#070e19' : p > .3 ? '#111d2b' : '#202b32'; g.fillRect(0, 0, 350, 350);
@@ -28,15 +53,30 @@ export class EndgameRenderer {
       const scale = 350 / SPACE.WIDTH;
       g.save(); g.scale(scale, scale);
       for (const a of s.asteroids) {
+        const rock = this.art[`asteroid-${a.id % 3}` as keyof EndgameArt];
+        if (rock) {
+          // Fill the complete original hazard rectangle; never stretch past its bounds.
+          g.fillStyle = '#555950'; g.fillRect(Math.floor(a.x), Math.floor(a.y), a.width, a.height);
+          g.drawImage(rock.canvas, Math.floor(a.x), Math.floor(a.y), a.width, a.height);
+          continue;
+        }
         g.fillStyle = '#8d8980'; g.fillRect(Math.floor(a.x), Math.floor(a.y), a.width, a.height);
         g.fillStyle = '#b0a595'; g.fillRect(Math.floor(a.x) + 3, Math.floor(a.y) + 3, a.width - 6, 7);
         g.fillStyle = '#575951'; g.fillRect(Math.floor(a.x) + 5, Math.floor(a.y) + 19, 8, 9);
       }
-      this.ship(Math.round(s.shipX), Math.round(s.shipY), 1, true, reduced ? 0 : game.clock.now);
+      const ship = this.art['flight-ship'];
+      if (ship) {
+        const r = flightShipRect(Math.round(s.shipX), Math.round(s.shipY));
+        g.drawImage(ship.canvas, r.x, r.y, r.w, r.h);
+        g.fillStyle = '#c6a35e';
+        const length = reduced ? 4 : 4 + Math.floor(game.clock.now / 100) % 3;
+        g.fillRect(r.x + 3, r.y + r.h - 1, 2, length); g.fillRect(r.x + r.w - 5, r.y + r.h - 1, 2, length);
+        g.fillStyle = '#eedbb0'; g.fillRect(Math.round(s.shipX) - 1, Math.round(s.shipY) - 1, 2, 2);
+      } else this.ship(Math.round(s.shipX), Math.round(s.shipY), 1, true, reduced ? 0 : game.clock.now);
       g.restore();
     } else if (ending) {
       // The fleet stays a quiet silhouette so the ending copy carries the reveal.
-      for (const [x, y, size] of [[65, 112, 2], [270, 88, 2], [166, 72, 1]]) this.ship(x, y, size, false, 0);
+      if (ending.expansion) for (const [x, y, size] of [[65, 112, 2], [270, 88, 2], [166, 72, 1]]) this.ship(x, y, size, false, 0);
       this.ship(175, 215, 4, true, 0);
       g.fillStyle = '#a9b7bd'; g.fillRect(172, 294, 6, 1);
     } else {
@@ -52,6 +92,16 @@ export class EndgameRenderer {
         g.strokeStyle = '#59645a'; g.strokeRect(57, 100, 236, 207);
         g.fillStyle = '#c3af7a'; g.fillRect(55, 98, 12, 2); g.fillRect(283, 305, 12, 2);
       }
+    }
+    const background = scene === 'ascent' ? undefined : this.art[scene];
+    if (background) g.drawImage(background.canvas, 0, 0);
+    // A brief, restrained rim after a successful action, never an idle animation or a new item.
+    if (this.effect?.scene === scene) {
+      const age = game.clock.now - this.effect.at;
+      if (age >= 0 && age < 700) {
+        g.strokeStyle = '#c4b07d'; g.lineWidth = 1;
+        g.strokeRect(.5, .5, 349, 349);
+      } else this.effect = null;
     }
     this.display.imageSmoothingEnabled = false;
     this.display.drawImage(this.buffer, 0, 0, this.canvas.width, this.canvas.height);

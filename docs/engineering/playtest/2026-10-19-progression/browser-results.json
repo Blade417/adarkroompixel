@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-19",
+  "productionOrigin": "http://127.0.0.1:5655/",
+  "naturalOrigin": "http://127.0.0.1:5654/",
+  "guides": [
+    {
+      "label": "earned-first-trip-return",
+      "action": "去近林采集",
+      "body": "已经有了第一次远行经验。可在工坊制作皮甲，提高生存机会；护甲持有即生效，不占行囊。距这项目标还缺：皮革 200 · 鳞片 3这是发展建议，可按自己的节奏推进。",
+      "height": 720,
+      "scrollWidth": 1280,
+      "title": "为下一次远行准备护甲",
+      "width": 1280
+    },
+    {
+      "label": "synthetic-fabricator",
+      "action": "前往制造器",
+      "body": "带回的装置已经接通。可以用外星合金制造能量刃；成品进入仓库，远行前仍要装进行囊。这是发展建议，可按自己的节奏推进。",
+      "height": 720,
+      "scrollWidth": 1280,
+      "title": "试用流浪者制造器",
+      "width": 1280
+    },
+    {
+      "label": "fabricated-to-recycler",
+      "action": "前往制造器",
+      "body": "制造器可以制作液体循环器，扩大远行携水量。持有即生效，无需装包；也可按自己的计划保留合金。这是发展建议，可按自己的节奏推进。",
+      "height": 720,
+      "scrollWidth": 1280,
+      "title": "制造液体循环器",
+      "width": 1280
+    },
+    {
+      "label": "synthetic-hull",
+      "action": "查看飞船整备",
+      "body": "合金已经备好。前往飞船整备场，加固至少一层船体才可起飞；更多船体能承受更多撞击。这是发展建议，可按自己的节奏推进。",
+      "height": 720,
+      "scrollWidth": 1280,
+      "title": "加固飞船船体",
+      "width": 1280
+    },
+    {
+      "label": "hull-upgraded-to-launch",
+      "action": "查看飞船整备",
+      "body": "飞船已具备起飞条件。可先继续加固船体、升级引擎，再确认升空。驾驶躲避陨石，坚持 60 秒；若坠毁，可在整备后重试。这是发展建议，可按自己的节奏推进。",
+      "height": 720,
+      "scrollWidth": 1280,
+      "title": "准备离开这颗星球",
+      "width": 1280
+    },
+    {
+      "label": "launch-after-reload",
+      "action": "查看飞船整备",
+      "body": "飞船已具备起飞条件。可先继续加固船体、升级引擎，再确认升空。驾驶躲避陨石，坚持 60 秒；若坠毁，可在整备后重试。这是发展建议，可按自己的节奏推进。",
+      "height": 720,
+      "scrollWidth": 1280,
+      "title": "准备离开这颗星球",
+      "width": 1280
+    },
+    {
+      "label": "synthetic-no-alloy",
+      "action": "准备远行",
+      "body": "发现的飞船还不能起飞。探索遗迹带回外星合金，返村后在整备场加固船体；也可检查贸易站已有的商品。距这项目标还缺：外星合金 1这是发展建议，可按自己的节奏推进。",
+      "height": 720,
+      "scrollWidth": 1280,
+      "title": "为飞船寻找合金",
+      "width": 1280
+    },
+    {
+      "label": "cold-missing-wood",
+      "action": "去近林采集",
+      "body": "炉火已经熄灭。收集足够木头后回屋重新点燃，暖起来才能继续制作。距这项目标还缺：木头 5这是发展建议，可按自己的节奏推进。",
+      "height": 720,
+      "scrollWidth": 1280,
+      "title": "重新点燃炉火",
+      "width": 1280
+    },
+    {
+      "label": "cold-collected-wood",
+      "action": "照料炉火",
+      "body": "炉火已经熄灭。收集足够木头后回屋重新点燃，暖起来才能继续制作。这是发展建议，可按自己的节奏推进。",
+      "height": 720,
+      "scrollWidth": 1280,
+      "title": "重新点燃炉火",
+      "width": 1280
+    },
+    {
+      "label": "relit-warming",
+      "action": "照料炉火",
+      "body": "照料炉火，等待房间升温。留意门外与角落里的动静。这是发展建议，可按自己的节奏推进。",
+      "height": 720,
+      "scrollWidth": 1280,
+      "title": "让房间暖起来",
+      "width": 1280
+    },
+    {
+      "label": "english-hull",
+      "action": "View ship preparations",
+      "body": "The alloy is ready. Visit the shipyard and add at least one hull layer before launch. More hull allows more impacts.A suggested path; you choose your own pace.",
+      "height": 720,
+      "scrollWidth": 1280,
+      "title": "Reinforce the starship hull",
+      "width": 1280
+    }
+  ],
+  "naturalFinal": {
+    "population": 4,
+    "buildings": {
+      "cart": 1,
+      "trap": 1,
+      "hut": 1
+    },
+    "wood": 179
+  },
+  "normalLogs": [],
+  "fullNaturalPlaythrough": false,
+  "savedForContinuation": true
+}

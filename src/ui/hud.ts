@@ -497,6 +497,7 @@ export class Hud {
     this.closeBuilding(false);
     if (goal.target === 'none') return;
     if (goal.target === 'expedition') { this.host.openExpedition(); return; }
+    if (goal.target === 'ship' || goal.target === 'fabricator') { this.host.openEndgame(goal.target); return; }
     if (goal.target === 'fire') {
       if (this.forest.away) this.host.travel('room');
       this.tendBtn.focus(); return;

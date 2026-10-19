@@ -1,0 +1,69 @@
+[
+  {
+    "seed": 42,
+    "method": "earned fresh save, visible terrain only, seeded normal encounter rolls, accelerated combat clock",
+    "returned": true,
+    "outcome": "home",
+    "moves": [
+      "east",
+      "east",
+      "east",
+      "east",
+      "west",
+      "west",
+      "west",
+      "west"
+    ],
+    "combats": [],
+    "goal": "armour",
+    "foodBefore": 20,
+    "foodAfter": 17,
+    "health": 10
+  },
+  {
+    "seed": 7,
+    "method": "earned fresh save, visible terrain only, seeded normal encounter rolls, accelerated combat clock",
+    "returned": true,
+    "outcome": "home",
+    "moves": [
+      "east",
+      "east",
+      "east",
+      "east",
+      "west",
+      "west",
+      "west",
+      "west"
+    ],
+    "combats": [
+      "enemy:two-headed creature"
+    ],
+    "goal": "armour",
+    "foodBefore": 20,
+    "foodAfter": 17,
+    "health": 10
+  },
+  {
+    "seed": 99,
+    "method": "earned fresh save, visible terrain only, seeded normal encounter rolls, accelerated combat clock",
+    "returned": true,
+    "outcome": "home",
+    "moves": [
+      "east",
+      "east",
+      "east",
+      "east",
+      "west",
+      "west",
+      "west",
+      "west"
+    ],
+    "combats": [
+      "enemy:gaunt man"
+    ],
+    "goal": "armour",
+    "foodBefore": 20,
+    "foodAfter": 17,
+    "health": 10
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "method": "real-time UI from empty start, no imported state or resource edits; interrupted by source hot reloads; not a full playthrough",
+  "trace": [
+    {
+      "at": 8925,
+      "action": "start-and-light",
+      "state": "Browser tab: 4, Title: \"生火间 · 余烬之境\", URL: \"http://127.0.0.1:5654/\".\n0 AXWebArea 生火间 · 余烬之境, URL: 127.0.0.1:5654/\n\t1 container app\n\t\t2 container\n\t\t\t3 heading 余烬之境, Value: 1\n\t\t\t\t4 text 余烬之境\n\t\t\t5 container 地点\n\t\t\t\t6 content list\n\t\t\t\t\t7 text 生火间\n\t\t\t8 pop up button Description: 打开设置, Help: 设置\n\t\t9 container\n\t\t\t10 button (collapsed) 下一步 · 让房间暖起来, Secondary Actions: Expand\n\t\t\t\t11 text 下一步\n\t\t\t\t12 text  · \n\t\t\t\t13 text 让房间暖起来\n\t\t\t14 image 黑屋场景：火堆燃烧着。房间寒冷刺骨。\n\t\t\t15 button (disabled) 添柴 · 再等 10 秒\n\t\t\t16 text 火光亮了起来\n\t\t\t17 container 记录\n\t\t\t\t18 heading 记录, Value: 2, ID: log-h\n\t\t\t\t\t19 text 记录\n\t\t\t\t20 container\n\t\t\t\t\t21 text 火光映出窗外，投入黑暗之中。 火堆燃烧着。 火堆熄灭了。 房间寒冷刺骨。\n\t\t22 text 火光亮了起来\n\nThe focused UI element is 15 button (disabled) 添柴 · 再等 10 秒"
+    },
+    {
+      "at": 41840,
+      "action": "stoke",
+      "state": "Browser tab: 4, Title: \"生火间 · 余烬之境\", URL: \"http://127.0.0.1:5654/\".\n0 AXWebArea 生火间 · 余烬之境, URL: 127.0.0.1:5654/\n\t1 container app\n\t\t2 container\n\t\t\t3 heading 余烬之境, Value: 1\n\t\t\t\t4 text 余烬之境\n\t\t\t5 container 地点\n\t\t\t\t6 content list\n\t\t\t\t\t7 text 生火间\n\t\t\t8 pop up button Description: 打开设置, Help: 设置\n\t\t9 container\n\t\t\t10 button (collapsed) 下一步 · 让房间暖起来, Secondary Actions: Expand\n\t\t\t\t11 text 下一步\n\t\t\t\t12 text  · \n\t\t\t\t13 text 让房间暖起来\n\t\t\t14 image 黑屋场景：火堆燃烧着。房间很冷。陌生人蜷缩在角落里发抖。\n\t\t\t15 button 添柴 · 点击火炉，或按 F 键\n\t\t\t23 text 添柴 · F\n\t\t\t17 container 记录\n\t\t\t\t18 heading 记录, Value: 2, ID: log-h\n\t\t\t\t\t19 text 记录\n\t\t\t\t20 container\n\t\t\t\t\t24 text 一个衣衫褴褛的陌生人步履蹒跚地步入门来，瘫倒在角落里。 房间很冷。 火光映出窗外，投入黑暗之中。 火堆燃烧着。 火堆熄灭了。 房间寒冷刺骨。\n\t\t22 text 火光亮了起来\n\nThe focused UI element is 15 button 添柴 · 点击火炉，或按 F 键"
+    },
+    {
+      "at": 99383,
+      "action": "gather-both-and-return",
+      "state": "Browser tab: 4, Title: \"生火间 · 余烬之境\", URL: \"http://127.0.0.1:5654/\".\nThere has been no change in the accessibility tree.\nThe focused UI element is 14 image 黑屋场景：火堆燃烧着。房间暖和。陌生人蜷缩在角落里发抖。墙边堆着木柴。"
+    },
+    {
+      "at": 208596,
+      "action": "observe-recovery",
+      "state": "Browser tab: 4, Title: \"生火间 · 余烬之境\", URL: \"http://127.0.0.1:5654/\".\n0 AXWebArea 生火间 · 余烬之境, URL: 127.0.0.1:5654/\n\t1 container app\n\t\t23 container 神秘的流浪者\n\t\t\t24 text 事件\n\t\t\t25 heading 神秘的流浪者, Value: 2, ID: ev-title\n\t\t\t\t26 text 神秘的流浪者\n\t\t\t27 container ev-body\n\t\t\t\t28 text 一名流浪者推着空手推车来到门前。他说，如果给他一些木头，他会带回更多。\n\t\t\t\t29 text 建造者拿不准这个人是否可信。\n\t\t\t\t30 text 一名神秘的流浪者来到门前。\n\t\t\t31 button (disabled) 交出 100 份 消耗：木头 100\n\t\t\t\t32 text 交出 100 份\n\t\t\t\t33 text 消耗：木头 100\n\t\t\t34 button (disabled) 交出 500 份 消耗：木头 500\n\t\t\t\t35 text 交出 500 份\n\t\t\t\t36 text 消耗：木头 500\n\t\t\t37 button 请他离开\n\t\t22 text 火光亮了起来\n\nThe focused UI element is 37 button 请他离开"
+    },
+    {
+      "at": 244795,
+      "action": "craft-cart",
+      "state": "Browser tab: 4, Title: \"生火间 · 余烬之境\", URL: \"http://127.0.0.1:5654/\".\nThere has been no change in the accessibility tree.\nThe focused UI element is 0 AXWebArea 生火间 · 余烬之境, URL: 127.0.0.1:5654/"
+    },
+    {
+      "at": 418594,
+      "action": "cart-gather-and-first-trap",
+      "state": "Browser tab: 4, Title: \"生火间 · 余烬之境\", URL: \"http://127.0.0.1:5654/\".\nThere has been no change in the accessibility tree.\nThe focused UI element is 32 pop up button 与建造者交谈，制作物件"
+    },
+    {
+      "at": 619720,
+      "action": "check-first-trap",
+      "state": "Browser tab: 4, Title: \"近林 · 余烬之境\", URL: \"http://127.0.0.1:5654/\".\nThere has been no change in the accessibility tree.\nThe focused UI element is 20 button (disabled) 检查陷阱 · 陷阱 ×1 · 90 秒后再检查"
+    },
+    {
+      "at": 782796,
+      "action": "build-first-hut-and-visit",
+      "state": "Browser tab: 4, Title: \"聚落 · 余烬之境\", URL: \"http://127.0.0.1:5654/\".\nThere has been no change in the accessibility tree.\nThe focused UI element is 18 image 聚落俯视图：生火间居中，1 间小屋向外展开，人口 0 / 4。"
+    },
+    {
+      "at": 1227972,
+      "action": "residents-and-save",
+      "population": 4,
+      "buildings": {
+        "cart": 1,
+        "trap": 1,
+        "hut": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,513 @@
+{
+  "method": "fresh state, legal actions, accelerated clock; not manual full-game completion",
+  "runs": [
+    {
+      "seed": 42,
+      "completed": true,
+      "seconds": 5526,
+      "checkpoints": {
+        "forest": 45,
+        "builder": 121,
+        "cart": 186,
+        "trap": 206,
+        "hut": 311,
+        "lodge": 931,
+        "trading post": 3266,
+        "compass": 3721,
+        "tannery": 3761,
+        "smokehouse": 4106,
+        "food": 4206,
+        "workshop": 4731,
+        "waterskin": 4736,
+        "bone spear": 4741,
+        "rucksack": 5526,
+        "ready": 5526
+      },
+      "reloads": [],
+      "events": [
+        "The Mysterious Wanderer",
+        "A Ruined Trap",
+        "The Beggar",
+        "Penrose",
+        "Penrose",
+        "Noises",
+        "A Ruined Trap",
+        "A Ruined Trap",
+        "Penrose",
+        "The Mysterious Wanderer",
+        "A Ruined Trap",
+        "The Shady Builder",
+        "Penrose",
+        "The Beggar",
+        "A Beast Attack",
+        "The Scout",
+        "The Shady Builder",
+        "The Nomad",
+        "A Ruined Trap",
+        "The Shady Builder"
+      ],
+      "huts": 8,
+      "population": 32,
+      "goal": "ready",
+      "stores": {
+        "wood": 1303,
+        "fur": 2243,
+        "bait": 0,
+        "meat": 4282,
+        "teeth": 33,
+        "cloth": 34,
+        "scales": 5,
+        "compass": 1,
+        "leather": 0,
+        "cured meat": 20,
+        "charm": 1,
+        "waterskin": 1,
+        "bone spear": 1,
+        "rucksack": 1
+      },
+      "workers": {
+        "hunter": 20,
+        "trapper": 0,
+        "tanner": 0,
+        "charcutier": 0
+      },
+      "mode": "continuous"
+    },
+    {
+      "seed": 7,
+      "completed": true,
+      "seconds": 4531,
+      "checkpoints": {
+        "forest": 45,
+        "builder": 121,
+        "cart": 191,
+        "trap": 211,
+        "hut": 311,
+        "lodge": 976,
+        "trading post": 2266,
+        "compass": 2271,
+        "tannery": 2766,
+        "smokehouse": 3081,
+        "food": 3181,
+        "workshop": 3636,
+        "waterskin": 3641,
+        "bone spear": 3691,
+        "rucksack": 4531,
+        "ready": 4531
+      },
+      "reloads": [],
+      "events": [
+        "Noises",
+        "Penrose",
+        "The Mysterious Wanderer",
+        "A Beast Attack",
+        "A Beast Attack",
+        "The Mysterious Wanderer",
+        "The Shady Builder",
+        "A Beast Attack",
+        "Noises",
+        "The Mysterious Wanderer",
+        "Penrose",
+        "A Beast Attack",
+        "A Beast Attack",
+        "Penrose",
+        "A Beast Attack",
+        "A Ruined Trap",
+        "The Beggar"
+      ],
+      "huts": 8,
+      "population": 32,
+      "goal": "ready",
+      "stores": {
+        "wood": 1007,
+        "meat": 3891,
+        "bait": 0,
+        "fur": 1821,
+        "scales": 17,
+        "teeth": 70,
+        "cloth": 26,
+        "compass": 1,
+        "leather": 0,
+        "cured meat": 20,
+        "waterskin": 1,
+        "bone spear": 1,
+        "rucksack": 1
+      },
+      "workers": {
+        "hunter": 20,
+        "trapper": 0,
+        "tanner": 0,
+        "charcutier": 0
+      },
+      "mode": "continuous"
+    },
+    {
+      "seed": 99,
+      "completed": true,
+      "seconds": 5446,
+      "checkpoints": {
+        "forest": 45,
+        "builder": 121,
+        "cart": 186,
+        "trap": 206,
+        "hut": 306,
+        "lodge": 611,
+        "compass": 1801,
+        "trading post": 2991,
+        "tannery": 3681,
+        "smokehouse": 3991,
+        "food": 4091,
+        "workshop": 4796,
+        "waterskin": 4801,
+        "bone spear": 4846,
+        "rucksack": 5446,
+        "ready": 5446
+      },
+      "reloads": [],
+      "events": [
+        "Penrose",
+        "Penrose",
+        "A Beast Attack",
+        "A Beast Attack",
+        "Penrose",
+        "The Mysterious Wanderer",
+        "A Beast Attack",
+        "The Nomad",
+        "A Ruined Trap",
+        "A Ruined Trap",
+        "Penrose",
+        "The Scout",
+        "The Mysterious Wanderer",
+        "The Scout",
+        "A Ruined Trap",
+        "Penrose",
+        "The Master",
+        "The Mysterious Wanderer",
+        "A Ruined Trap",
+        "The Master",
+        "Noises",
+        "Penrose",
+        "A Beast Attack"
+      ],
+      "huts": 8,
+      "population": 32,
+      "goal": "ready",
+      "stores": {
+        "wood": 1132,
+        "meat": 4418,
+        "bait": 0,
+        "scales": 29,
+        "fur": 2467,
+        "cloth": 42,
+        "teeth": 61,
+        "charm": 1,
+        "compass": 1,
+        "leather": 0,
+        "cured meat": 20,
+        "waterskin": 1,
+        "bone spear": 1,
+        "rucksack": 1
+      },
+      "workers": {
+        "hunter": 20,
+        "trapper": 0,
+        "tanner": 0,
+        "charcutier": 0
+      },
+      "mode": "continuous"
+    },
+    {
+      "seed": 42,
+      "completed": true,
+      "seconds": 5241,
+      "checkpoints": {
+        "forest": 45,
+        "builder": 136,
+        "cart": 201,
+        "trap": 221,
+        "hut": 321,
+        "lodge": 1196,
+        "trading post": 2951,
+        "compass": 3101,
+        "tannery": 3476,
+        "smokehouse": 3841,
+        "food": 3941,
+        "workshop": 4336,
+        "waterskin": 4341,
+        "bone spear": 4416,
+        "rucksack": 5241,
+        "ready": 5241
+      },
+      "reloads": [
+        {
+          "milestone": "forest",
+          "second": 45
+        },
+        {
+          "milestone": "builder",
+          "second": 136
+        },
+        {
+          "milestone": "cart",
+          "second": 201
+        },
+        {
+          "milestone": "hut",
+          "second": 321
+        },
+        {
+          "milestone": "lodge",
+          "second": 1196
+        },
+        {
+          "milestone": "compass",
+          "second": 3101
+        },
+        {
+          "milestone": "workshop",
+          "second": 4336
+        }
+      ],
+      "events": [
+        "Penrose",
+        "The Mysterious Wanderer",
+        "Penrose",
+        "A Ruined Trap",
+        "A Ruined Trap",
+        "Penrose",
+        "Noises",
+        "Penrose",
+        "A Ruined Trap",
+        "A Beast Attack",
+        "Penrose",
+        "The Scout",
+        "A Ruined Trap",
+        "The Beggar",
+        "A Beast Attack",
+        "The Nomad",
+        "The Mysterious Wanderer",
+        "A Beast Attack"
+      ],
+      "huts": 8,
+      "population": 32,
+      "goal": "ready",
+      "stores": {
+        "wood": 1550,
+        "fur": 2003.5,
+        "bait": 0,
+        "teeth": 58,
+        "meat": 4045.5,
+        "scales": 14,
+        "cloth": 25,
+        "charm": 1,
+        "compass": 1,
+        "leather": 0,
+        "cured meat": 20,
+        "waterskin": 1,
+        "bone spear": 1,
+        "rucksack": 1
+      },
+      "workers": {
+        "hunter": 20,
+        "trapper": 0,
+        "tanner": 0,
+        "charcutier": 0
+      },
+      "mode": "milestone-reloads"
+    },
+    {
+      "seed": 7,
+      "completed": true,
+      "seconds": 4616,
+      "checkpoints": {
+        "forest": 45,
+        "builder": 136,
+        "cart": 201,
+        "trap": 221,
+        "hut": 321,
+        "lodge": 831,
+        "trading post": 2466,
+        "compass": 2671,
+        "tannery": 2851,
+        "smokehouse": 4046,
+        "food": 4146,
+        "workshop": 4511,
+        "waterskin": 4521,
+        "bone spear": 4566,
+        "rucksack": 4616,
+        "ready": 4616
+      },
+      "reloads": [
+        {
+          "milestone": "forest",
+          "second": 45
+        },
+        {
+          "milestone": "builder",
+          "second": 136
+        },
+        {
+          "milestone": "cart",
+          "second": 201
+        },
+        {
+          "milestone": "hut",
+          "second": 321
+        },
+        {
+          "milestone": "lodge",
+          "second": 831
+        },
+        {
+          "milestone": "compass",
+          "second": 2671
+        },
+        {
+          "milestone": "workshop",
+          "second": 4511
+        }
+      ],
+      "events": [
+        "A Ruined Trap",
+        "A Beast Attack",
+        "A Beast Attack",
+        "Penrose",
+        "A Beast Attack",
+        "A Ruined Trap",
+        "Noises",
+        "The Mysterious Wanderer",
+        "Penrose",
+        "A Beast Attack",
+        "The Shady Builder",
+        "A Ruined Trap",
+        "Penrose",
+        "The Shady Builder",
+        "Penrose",
+        "The Beggar"
+      ],
+      "huts": 8,
+      "population": 32,
+      "goal": "ready",
+      "stores": {
+        "wood": 76,
+        "meat": 3674,
+        "bait": 0,
+        "fur": 1597,
+        "cloth": 35,
+        "teeth": 63,
+        "scales": 7,
+        "compass": 1,
+        "leather": 0,
+        "cured meat": 20,
+        "waterskin": 1,
+        "bone spear": 1,
+        "rucksack": 1
+      },
+      "workers": {
+        "hunter": 20,
+        "trapper": 0,
+        "tanner": 0,
+        "charcutier": 0
+      },
+      "mode": "milestone-reloads"
+    },
+    {
+      "seed": 99,
+      "completed": true,
+      "seconds": 4671,
+      "checkpoints": {
+        "forest": 45,
+        "builder": 136,
+        "cart": 201,
+        "trap": 221,
+        "hut": 321,
+        "lodge": 1086,
+        "compass": 1991,
+        "trading post": 2151,
+        "tannery": 2906,
+        "smokehouse": 3461,
+        "food": 3561,
+        "workshop": 3956,
+        "waterskin": 3961,
+        "bone spear": 4011,
+        "rucksack": 4671,
+        "ready": 4671
+      },
+      "reloads": [
+        {
+          "milestone": "forest",
+          "second": 45
+        },
+        {
+          "milestone": "builder",
+          "second": 136
+        },
+        {
+          "milestone": "cart",
+          "second": 201
+        },
+        {
+          "milestone": "hut",
+          "second": 321
+        },
+        {
+          "milestone": "lodge",
+          "second": 1086
+        },
+        {
+          "milestone": "compass",
+          "second": 1996
+        },
+        {
+          "milestone": "workshop",
+          "second": 3956
+        }
+      ],
+      "events": [
+        "The Mysterious Wanderer",
+        "Penrose",
+        "Penrose",
+        "Penrose",
+        "Noises",
+        "The Nomad",
+        "A Ruined Trap",
+        "Penrose",
+        "The Scout",
+        "A Ruined Trap",
+        "The Shady Builder",
+        "A Beast Attack",
+        "A Beast Attack",
+        "The Beggar",
+        "A Beast Attack",
+        "The Master",
+        "The Shady Builder"
+      ],
+      "huts": 8,
+      "population": 32,
+      "goal": "ready",
+      "stores": {
+        "wood": 1265,
+        "fur": 1779,
+        "bait": 0,
+        "scales": 20,
+        "cloth": 28,
+        "meat": 3727,
+        "charm": 2,
+        "teeth": 47,
+        "compass": 1,
+        "leather": 0,
+        "cured meat": 20,
+        "waterskin": 1,
+        "bone spear": 1,
+        "rucksack": 1
+      },
+      "workers": {
+        "hunter": 20,
+        "trapper": 0,
+        "tanner": 0,
+        "charcutier": 0
+      },
+      "mode": "milestone-reloads"
+    }
+  ]
+}

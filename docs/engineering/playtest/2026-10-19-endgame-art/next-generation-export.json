@@ -1,0 +1,58 @@
+{
+  "previous": {
+    "score": 1808,
+    "stores": [
+      12,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "version": 1.3,
+  "features": {
+    "location": {
+      "room": true
+    }
+  },
+  "stores": {},
+  "character": {},
+  "income": {},
+  "timers": {},
+  "game": {
+    "builder": {
+      "level": -1
+    },
+    "temperature": {
+      "value": 0,
+      "text": "freezing"
+    },
+    "fire": {
+      "value": 0,
+      "text": "dead"
+    }
+  },
+  "playStats": {},
+  "outfit": {},
+  "config": {},
+  "cooldown": {}
+}
