@@ -90,6 +90,7 @@ export class Hud {
   private readonly skipHint: HTMLElement;
   private readonly eventLayer: HTMLElement;
   private readonly eventCard: HTMLElement;
+  private readonly settlementNews: HTMLElement;
   private readonly titleLayer: HTMLElement;
   private readonly titleCard: HTMLElement;
   private readonly settingsLayer: HTMLElement;
@@ -170,6 +171,7 @@ export class Hud {
     this.logList = q('.log ol');
     this.eventLayer = q('.event-layer');
     this.eventCard = q('.event-layer .card');
+    this.settlementNews = q('.settlement-news');
     this.titleLayer = q('.title-layer');
     this.titleCard = q('.title-card');
     this.settingsLayer = q('.settings-layer');
@@ -233,6 +235,7 @@ export class Hud {
   <h1 class="brand">${u('app.title')}</h1>
   <nav class="tabs" aria-label="${u('tab.nav')}"><ul class="tab-list"></ul></nav>
   <div class="top-actions"><button type="button" class="build-launch" data-act="build-open" aria-label="${u('build.talk')}" aria-haspopup="dialog" hidden>${u('build.open')}</button>
+  <span class="settlement-news" role="status" aria-live="polite" hidden></span>
   <button type="button" class="icon gear" data-act="settings" aria-label="${u('settings.open')}" aria-haspopup="dialog" title="${u('settings.title')}">${GEAR_SVG}</button></div>
 </header>
 <main class="stage">
@@ -432,6 +435,11 @@ export class Hud {
   // ------------------------------------------------------------------ per frame
 
   frame(now: number, view: RoomView, arrival: boolean): void {
+    const count = this.g.events.pendingCount;
+    this.settlementNews.hidden = !this.begun || count === 0;
+    const news = this.ui('event.pending', count);
+    if (this.settlementNews.textContent !== news) this.settlementNews.textContent = news;
+    this.settlementNews.title = this.ui('event.pendingHint');
     this.arrivalPlaying = arrival;
     this.syncModal();
     this.renderTabs();

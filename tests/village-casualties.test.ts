@@ -17,30 +17,29 @@ function candidates(g: ReturnType<typeof village>) {
 }
 
 describe('village event eligibility and consecutive attacks', () => {
-  it('can have only one eligible event in an early village; repeats are then certain', () => {
+  it('does not force consecutive attacks when only one event initially qualifies', () => {
     const g = village();
     expect(candidates(g).map(e => e.title)).toEqual(['A Beast Attack']);
-    for (const roll of [0, .5, .999]) {
-      g.rng = scriptedRng([roll]);
-      g.events.triggerEvent();
-      expect(g.events.active()!.def.title).toBe('A Beast Attack');
-      expect(g.events.click('end')).toBe(true);
-    }
-    expect(g.outside.population).toBe(23); // 1, 6, then 10; no elapsed arrival time.
+    g.rng = scriptedRng([0]); g.events.triggerEvent();
+    expect(g.events.active()!.def.title).toBe('A Beast Attack');
+    g.events.click('end');
+    expect(g.events.candidates()).not.toContain(g.content.events.Outside[4]);
+    g.events.triggerEvent();
+    expect(g.events.active()?.def.title).not.toBe('A Beast Attack');
+    expect(g.outside.population).toBe(39);
   });
 
-  it('reproduces one accepted cameo followed by three beast attacks without a stuck random source', () => {
+  it('keeps visitor alternatives available after a cameo instead of repeating beast attacks', () => {
     const g = village(); g.store.remove('marketing.penrose');
     g.rng = scriptedRng([.999]); g.events.triggerEvent();
     expect(g.events.active()!.def.title).toBe('Penrose');
     expect(g.events.click('give in')).toBe(true); // Core updates a flag; no network/browser navigation.
     expect(g.store.get('marketing.penrose')).toBe(true);
-    for (const roll of [.15, .53, .89]) {
-      g.rng = scriptedRng([roll]); g.events.triggerEvent();
-      expect(g.events.active()!.def.title).toBe('A Beast Attack');
-      g.events.click('end');
-    }
-    expect(g.outside.population).toBe(40 - 2 - 6 - 9);
+    g.rng = scriptedRng([0]); g.events.triggerEvent();
+    expect(g.events.active()!.def.title).toBe('A Beast Attack');
+    g.events.click('end');
+    expect(g.events.candidates()).toContain(g.content.events.Room[0]);
+    expect(g.events.candidates()).not.toContain(g.content.events.Outside[4]);
   });
 
   it('unlocks alternatives only when their original conditions are satisfied', () => {
@@ -55,25 +54,25 @@ describe('village event eligibility and consecutive attacks', () => {
     expect(candidates(g).map(e => e.title)).toContain('A Military Raid');
   });
 
-  it('never schedules a beast attack with zero residents or while exploring the world', () => {
+  it('requires residents but keeps village attacks eligible while exploring the world', () => {
     const g = village(0);
     expect(candidates(g)).toEqual([]);
     g.store.set('game.population', 40); g.active = 'world';
-    expect(candidates(g)).toEqual([]);
+    expect(candidates(g)).toContain(g.content.events.Outside[4]);
   });
 });
 
 describe('actual village casualties, workforce and income', () => {
-  it.each([0, .49, .999])('deducts the original beast roll once at scene load (%s)', roll => {
+  it.each([0, .49, .999])('deducts the scaled beast roll once at scene load (%s)', roll => {
     const g = village(20), feedback = new EventOutcome(g);
     g.rng = scriptedRng([roll]);
     g.events.startEvent(g.content.events.Outside[4]);
-    const dead = Math.floor(roll * 10) + 1;
+    const dead = Math.floor(roll * 3) + 1;
     expect(g.outside.population).toBe(20 - dead);
     expect(feedback.changes).toContainEqual({ kind: 'population', id: 'residents', amount: -dead });
-    expect(g.store.num('stores.fur')).toBe(100);
-    expect(g.store.num('stores.meat')).toBe(100);
-    expect(g.store.num('stores.teeth')).toBe(10);
+    expect(g.store.num('stores.fur')).toBe(30);
+    expect(g.store.num('stores.meat')).toBe(30);
+    expect(g.store.num('stores.teeth')).toBe(3);
     g.events.buttons(); g.events.buttons();
     expect(g.outside.population).toBe(20 - dead);
     feedback.choose('end');
@@ -82,13 +81,13 @@ describe('actual village casualties, workforce and income', () => {
   });
 
   it('caps actual deaths at the population and removes every job when the whole village dies', () => {
-    const g = village(3, { hunter: 2, tanner: 1 }, { lodge: 1, tannery: 1 });
+    const g = village(1, { hunter: 1, tanner: 0 }, { lodge: 1, tannery: 1 });
     const feedback = new EventOutcome(g); g.rng = scriptedRng([.999]);
     g.events.startEvent(g.content.events.Outside[4]);
     expect(g.outside.population).toBe(0);
     expect(g.outside.numGatherers()).toBe(0);
     expect(g.store.get('game.workers')).toMatchObject({ hunter: 0, tanner: 0 });
-    expect(feedback.changes).toContainEqual({ kind: 'population', id: 'residents', amount: -3 });
+    expect(feedback.changes).toContainEqual({ kind: 'population', id: 'residents', amount: -1 });
     expect(g.getIncome('hunter').stores).toEqual({ fur: 0, meat: 0 });
     expect(Object.values(g.getIncome('tanner').stores!).every(n => n === 0)).toBe(true);
     g.events.endEvent(); g.events.stop(); g.outside.stop();
@@ -131,17 +130,17 @@ describe('actual village casualties, workforce and income', () => {
 
   it('reloads the deducted population and production without replaying the attack', () => {
     const storage = new MemoryStorage();
-    const g = startGame(villageState({ game: { buildings: { hut: 4, lodge: 1 }, population: 12, workers: { hunter: 10 } } }), { storage });
-    g.rng = scriptedRng([.49]);
+    const g = startGame(villageState({ game: { buildings: { hut: 4, lodge: 1 }, population: 12, workers: { hunter: 12 } } }), { storage });
+    g.rng = scriptedRng([.999]);
     g.events.startEvent(g.content.events.Outside[4]);
-    expect(g.outside.population).toBe(7);
+    expect(g.outside.population).toBe(10);
     g.saveNow(); g.stop();
     const next = makeGame({ storage }); next.start();
-    expect(next.outside.population).toBe(7);
-    expect(next.store.num('game.workers.hunter')).toBe(7);
-    expect(next.getIncome('hunter').stores).toEqual({ fur: 3.5, meat: 3.5 });
-    expect(next.events.active()).toBeNull();
-    expect(next.store.num('stores.fur')).toBe(100);
+    expect(next.outside.population).toBe(10);
+    expect(next.store.num('game.workers.hunter')).toBe(10);
+    expect(next.getIncome('hunter').stores).toEqual({ fur: 5, meat: 5 });
+    expect(next.events.active()?.def).toBe(next.content.events.Outside[4]);
+    expect(next.store.num('stores.fur')).toBe(20);
   });
 
   it('leaves homes available for new arrivals after deaths, without resurrecting assigned workers', () => {

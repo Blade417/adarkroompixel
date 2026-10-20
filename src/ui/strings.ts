@@ -265,6 +265,8 @@ const ZH = {
   'event.changes': '本次变化：{0}',
   'event.population': '居民',
   'event.invitation': '这是原作推荐另一款游戏《Penrose》的彩蛋。可以直接忽略，不影响当前生存进度。',
+  'event.pending': '村庄消息 {0}',
+  'event.pendingHint': '村庄仍在发展。返村后可依次查看和处理消息，已发生的变化不会重复结算。',
   'event.label': '事件'
 } as const;
 
@@ -531,6 +533,8 @@ const EN: Record<UiKey, string> = {
   'event.changes': 'Changes: {0}',
   'event.population': 'Residents',
   'event.invitation': 'An original-game cameo promoting Penrose. You can ignore it without affecting your survival progress.',
+  'event.pending': 'Village news {0}',
+  'event.pendingHint': 'Village life continues. Review pending news when you return; consequences are applied only once.',
   'event.label': 'Event'
 };
 

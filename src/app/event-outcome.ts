@@ -12,7 +12,7 @@ export class EventOutcome {
   constructor(private readonly game: Game) {
     game.bus.on(event => {
       if (event.type === 'event:start') { this.before = this.snapshot(); this.changes = []; }
-      if (event.type === 'event:scene' && !this.choosing) this.changes = this.diff(this.before, this.snapshot());
+      if (event.type === 'event:scene' && !this.choosing) this.changes = game.events.active()?.initialEffects ?? this.diff(this.before, this.snapshot());
     });
   }
 

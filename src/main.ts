@@ -239,6 +239,7 @@ function currentView(): RoomView {
 }
 
 function frame(now: number): void {
+  game.events.deferPresentation = !hud.begun || hud.overlayOpen || expedition.opened || endgame.opened || player.playing || document.hidden;
   const dt = now - last;
   last = now;
   if (dt > 0 && dt < 1000) fps += (1000 / dt - fps) * 0.05;
@@ -256,6 +257,7 @@ function frame(now: number): void {
     }
     opening.update();
   }
+  if (hud.begun && !game.over) game.events.presentNext();
   const view = currentView();
   if (watcher.observe(game.room.builderLevel, live && !journey.away) && !reduce) player.start(now);
   const nextSceneKey = `${journey.place}|${journey.unlocked}`;

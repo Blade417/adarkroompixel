@@ -1,0 +1,94 @@
+{
+  "version": 1.3,
+  "features": {
+    "location": {
+      "room": true,
+      "outside": true
+    }
+  },
+  "game": {
+    "fire": {
+      "value": 4,
+      "text": "roaring"
+    },
+    "temperature": {
+      "value": 4,
+      "text": "hot"
+    },
+    "builder": {
+      "level": 4
+    },
+    "buildings": {
+      "hut": 1,
+      "trap": 3
+    },
+    "population": 3,
+    "workers": {},
+    "outside": {
+      "seenForest": true
+    },
+    "pixel": {
+      "settlementEvents": {
+        "elapsed": 0,
+        "nextIn": 180000,
+        "pending": [
+          {
+            "id": "Outside:4",
+            "effects": [
+              {
+                "kind": "population",
+                "id": "residents",
+                "amount": -1
+              },
+              {
+                "kind": "stores",
+                "id": "fur",
+                "amount": 10
+              },
+              {
+                "kind": "stores",
+                "id": "meat",
+                "amount": 10
+              },
+              {
+                "kind": "stores",
+                "id": "teeth",
+                "amount": 1
+              }
+            ]
+          }
+        ],
+        "history": {
+          "Outside:4": 0
+        },
+        "lastDisaster": 0,
+        "lastEvent": "Outside:4",
+        "active": []
+      }
+    }
+  },
+  "stores": {
+    "wood": 500,
+    "fur": 10,
+    "meat": 10,
+    "teeth": 1
+  },
+  "marketing": {
+    "penrose": true
+  },
+  "character": {},
+  "income": {
+    "gatherer": {
+      "delay": 10,
+      "stores": {
+        "wood": 3
+      }
+    }
+  },
+  "timers": {},
+  "playStats": {},
+  "previous": {},
+  "outfit": {},
+  "config": {},
+  "cooldown": {}
+}

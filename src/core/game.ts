@@ -105,7 +105,7 @@ export class Game {
     this.events = new EventRunner(this);
     this.content = loadContent(this, opts.content);
     this.bus.on(e => {
-      if (['world:move', 'world:home', 'world:died', 'combat:attack', 'combat:end', 'event:scene', 'event:update', 'space:hit', 'space:crash'].includes(e.type)) this.requestSave();
+      if (['world:move', 'world:home', 'world:died', 'combat:attack', 'combat:end', 'event:scene', 'event:end', 'event:update', 'space:hit', 'space:crash'].includes(e.type)) this.requestSave();
     });
   }
 
@@ -146,11 +146,13 @@ export class Game {
       this.active = 'space';
       this.space.resume(s.get('runtime.space'));
     }
+    this.events.restoreSettlement();
   }
 
   /** advance game time */
   tick(ms: number): void {
     this.clock.advance(ms);
+    this.events.presentNext();
   }
 
   private onState(e: StateUpdate): void {
@@ -374,6 +376,7 @@ export class Game {
 
   saveNow(): void {
     if (this.over) return;
+    this.events.persist();
     if (this.path.initialized) this.store.set('outfit', { ...this.path.outfit }, true);
     const world = this.active === 'world' ? this.world.snapshot() : null;
     if (world) this.store.set('runtime.expedition', { version: 1, world, events: this.events.snapshot(),

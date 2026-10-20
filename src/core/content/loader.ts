@@ -6,6 +6,7 @@
 import type { Game } from '../game';
 import type { ContentSources, LocationId } from '../types';
 import type { ContentEvents } from '../events/runner';
+import { balanceSettlementEvents } from '../events/settlement';
 
 export interface LoadedContent {
   events: ContentEvents;
@@ -22,6 +23,8 @@ function run(src: string, scope: Record<string, unknown>, returnExpr = 'undefine
 }
 
 export function loadContent(g: Game, sources: ContentSources): LoadedContent {
+  // Original visitor content stores this method directly as an onChoose callback.
+  g.world.applyMap = g.world.applyMap.bind(g.world);
   const audio = run(sources.audioLibrary, {}, 'typeof AudioLibrary !== "undefined" ? AudioLibrary : {}') as Record<string, string>;
 
   // onLoad initializes this before Combat exists; subsequent reads/writes use the
@@ -55,9 +58,11 @@ export function loadContent(g: Game, sources: ContentSources): LoadedContent {
     getIncome: (src: string) => g.getIncome(src)
   };
 
+  let eligibilityLocation: LocationId | null = null;
   const Engine = {
     get activeModule() {
-      return g.active ? g.locationObject(g.active) : null;
+      const location = eligibilityLocation ?? g.active;
+      return location ? g.locationObject(location) : null;
     }
   };
 
@@ -95,5 +100,19 @@ export function loadContent(g: Game, sources: ContentSources): LoadedContent {
       scope.Enemies = result;
     }
   }
+  // Eligibility belongs to the settlement, irrespective of the page being viewed.
+  // The scoped override only evaluates predicates; it never moves the player or affects encounters.
+  for (const [group, location] of [['Global', 'room'], ['Room', 'room'], ['Outside', 'outside']] as const) {
+    for (const event of events[group]) {
+      const available = event.isAvailable;
+      event.isAvailable = () => {
+        if (!s.get(`features.location.${location}`)) return false;
+        eligibilityLocation = location;
+        try { return Boolean(available?.()); }
+        finally { eligibilityLocation = null; }
+      };
+    }
+  }
+  balanceSettlementEvents(g, events);
   return { events, audio, enemies };
 }

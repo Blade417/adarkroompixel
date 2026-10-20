@@ -7,6 +7,9 @@ import type { Game } from '../game';
 import type { TimerId } from '../clock';
 import type { EventButton, EventScene, GameEventDef } from '../types';
 import { Combat, type CombatSnapshot } from './combat';
+import { SETTLEMENT_EVENTS } from './settlement';
+
+export interface SettlementChange { kind: 'stores' | 'buildings' | 'population'; id: string; amount: number }
 
 /** the `Events` object the content scripts see and fill in */
 export interface ContentEvents {
@@ -29,11 +32,14 @@ export interface ActiveEvent {
   combat: Combat | null;
   /** victory screen of a fight (deathMessage + loot + leave) */
   afterCombat: boolean;
+  initialEffects?: SettlementChange[];
 }
 export interface EventSnapshot {
   group: string; key: string; sceneName: string; loot: Record<string, number> | null;
   afterCombat: boolean; combat: CombatSnapshot | null;
+  initialEffects?: SettlementChange[];
 }
+interface PendingEvent { id: string; effects: SettlementChange[] }
 
 export interface ButtonView {
   id: string;
@@ -61,13 +67,29 @@ export class EventRunner {
   private pool: GameEventDef[] = [];
   private nextTimer: TimerId | null = null;
   private delayTimers: TimerId[] = [];
+  private pending: PendingEvent[] = [];
+  private history: Record<string, number> = {};
+  private epoch = 0;
+  private lastDisaster = -Infinity;
+  private lastEvent = '';
+  private savedSettlement: EventSnapshot[] = [];
+  /** Presentation can wait while an overlay, journey or flight is open. Simulation continues. */
+  deferPresentation = false;
 
   constructor(private g: Game) {}
 
   init(content: ContentEvents): void {
     this.content = content;
     this.pool = [...content.Global, ...content.Room, ...content.Outside, ...content.Marketing];
-    this.scheduleNextEvent();
+    const saved = this.g.store.get('game.pixel.settlementEvents');
+    this.epoch = Number.isFinite(saved?.elapsed) ? saved.elapsed - this.g.clock.now : 0;
+    this.pending = Array.isArray(saved?.pending) ? saved.pending.filter((e: PendingEvent) => this.definition(e.id)).slice(0, SETTLEMENT_EVENTS.maxPending) : [];
+    this.history = saved?.history ?? {};
+    this.lastDisaster = Number.isFinite(saved?.lastDisaster) ? saved.lastDisaster : -Infinity;
+    this.lastEvent = saved?.lastEvent ?? '';
+    this.savedSettlement = Array.isArray(saved?.active) ? saved.active : [];
+    if (Number.isFinite(saved?.nextIn)) this.scheduleIn(Math.max(250, Math.min(6 * 60_000, saved.nextIn)), true);
+    else this.scheduleNextEvent();
     this.recallDelay('wait', content);
   }
 
@@ -88,7 +110,7 @@ export class EventRunner {
         const entries = Object.entries(this.content[group] as Record<string, GameEventDef>);
         const entry = entries.find(([, def]) => def === ev.def);
         if (entry) return { group, key: entry[0], sceneName: ev.sceneName, loot: ev.loot ? { ...ev.loot } : null,
-          afterCombat: ev.afterCombat, combat: ev.combat?.snapshot() ?? null };
+          afterCombat: ev.afterCombat, combat: ev.combat?.snapshot() ?? null, initialEffects: ev.initialEffects };
       }
       throw Error('Cannot save unknown event definition');
     });
@@ -101,7 +123,7 @@ export class EventRunner {
       const def = this.content[entry.group]?.[entry.key] as GameEventDef | undefined;
       if (!def?.scenes[entry.sceneName]) throw Error('Unknown saved expedition scene');
       const ev: ActiveEvent = { def, sceneName: entry.sceneName, scene: def.scenes[entry.sceneName],
-        loot: entry.loot ? { ...entry.loot } : null, afterCombat: entry.afterCombat, combat: null };
+        loot: entry.loot ? { ...entry.loot } : null, afterCombat: entry.afterCombat, combat: null, initialEffects: entry.initialEffects };
       if (entry.combat) { ev.combat = new Combat(this.g, this, ev.scene); ev.combat.resume(entry.combat); }
       return ev;
     });
@@ -112,22 +134,117 @@ export class EventRunner {
 
   // ------------------------------------------------------------- scheduling
 
+  private get elapsed(): number { return this.epoch + this.g.clock.now; }
+
+  private id(def: GameEventDef): string {
+    for (const group of ['Global', 'Room', 'Outside', 'Marketing'] as const) {
+      const index = this.content[group].indexOf(def);
+      if (index >= 0) return `${group}:${index}`;
+    }
+    return '';
+  }
+
+  private definition(id: string): GameEventDef | undefined {
+    if (typeof id !== 'string') return;
+    const [group, index] = id.split(':');
+    if (!['Global', 'Room', 'Outside', 'Marketing'].includes(group)) return;
+    return this.content[group]?.[Number(index)];
+  }
+
+  /** Eligible settlement events are independent of the player's page and expedition. */
+  candidates(): GameEventDef[] {
+    const pending = new Set(this.pending.map(e => e.id));
+    const active = this.active()?.def;
+    return this.pool.filter(def => {
+      const id = this.id(def), last = this.history[id];
+      const delay = id === 'Outside:4' ? SETTLEMENT_EVENTS.beastDelay : SETTLEMENT_EVENTS.repeatDelay;
+      return def !== active && !pending.has(id) && Boolean(def.isAvailable?.()) &&
+        (last === undefined || this.elapsed - last >= delay) &&
+        (!id.startsWith('Outside:') || this.elapsed - this.lastDisaster >= SETTLEMENT_EVENTS.disasterDelay);
+    });
+  }
+
+  get pendingCount(): number { return this.pending.length; }
+
+  /** Saves relative game time, so refresh and switching pages cannot reset cooldowns. */
+  persist(): void {
+    const active = this.active();
+    this.g.store.set('game.pixel.settlementEvents', {
+      elapsed: this.elapsed, nextIn: this.g.clock.snapshot(this.nextTimer)?.remaining ?? 0,
+      pending: this.pending, history: this.history, lastDisaster: Number.isFinite(this.lastDisaster) ? this.lastDisaster : null,
+      lastEvent: this.lastEvent, active: active && this.pool.includes(active.def) ? this.snapshot() : []
+    }, true);
+  }
+
+  restoreSettlement(): void {
+    if (this.savedSettlement.length && !this.active() && this.g.active !== 'world' && this.g.active !== 'space') {
+      const valid = this.savedSettlement.filter(e => this.definition(`${e.group}:${e.key}`)?.scenes[e.sceneName]);
+      if (valid.length) { this.resume(valid); this.g.bus.emit({ type: 'event:scene' }); }
+    }
+    this.savedSettlement = [];
+  }
+
+  presentNext(): boolean {
+    if (this.deferPresentation || this.active() || !['room', 'outside'].includes(this.g.active ?? '')) return false;
+    const pending = this.pending.shift();
+    if (!pending) return false;
+    const def = this.definition(pending.id);
+    if (!def) return false;
+    this.startEvent(def, pending.effects);
+    this.g.requestSave();
+    return true;
+  }
+
+  private effectsSnapshot(): Record<string, number> {
+    const snapshot: Record<string, number> = { 'population:residents': this.g.outside.population };
+    for (const [kind, path] of [['stores', 'stores'], ['buildings', 'game.buildings']] as const) {
+      for (const [id, n] of Object.entries(this.g.store.get(path) ?? {})) if (typeof n === 'number') snapshot[`${kind}:${id}`] = n;
+    }
+    return snapshot;
+  }
+
+  private enqueue(def: GameEventDef): void {
+    const id = this.id(def), scene = def.scenes.start;
+    const before = this.effectsSnapshot();
+    // Only settlement start scenes are prepared here: never exploration, combat or setpieces.
+    // Initial consequences happen now; presenting or reloading the message must not apply them again.
+    scene.onLoad?.call(scene);
+    if (scene.reward) this.g.store.addM('stores', scene.reward);
+    const after = this.effectsSnapshot();
+    const effects = [...new Set([...Object.keys(before), ...Object.keys(after)])].flatMap(key => {
+      const amount = (after[key] ?? 0) - (before[key] ?? 0), split = key.indexOf(':');
+      return amount ? [{ kind: key.slice(0, split) as SettlementChange['kind'], id: key.slice(split + 1), amount }] : [];
+    });
+    this.pending.push({ id, effects });
+    this.history[id] = this.elapsed;
+    this.lastEvent = id;
+    if (id.startsWith('Outside:')) this.lastDisaster = this.elapsed;
+    const notice = this.g.i18n.lang === 'zh' ? `村庄消息：${def.title}。` : `Settlement news: ${def.title}.`;
+    this.g.notify(null, notice);
+    this.persist();
+    this.g.requestSave();
+  }
+
+  private scheduleIn(ms: number, exact = false): void {
+    this.g.clock.clear(this.nextTimer);
+    this.nextTimer = this.g.clock.setTimeout(() => this.triggerEvent(), ms, exact);
+  }
+
   scheduleNextEvent(scale?: number): void {
     const [lo, hi] = EVENTS.TIME_RANGE;
     let next = Math.floor(this.g.rng.random() * (hi - lo)) + lo;
     if (scale && scale > 0) next *= scale;
-    this.nextTimer = this.g.clock.setTimeout(() => this.triggerEvent(), next * 60 * 1000);
+    this.scheduleIn(next * 60 * 1000);
   }
 
   triggerEvent(): void {
-    if (!this.active()) {
-      const possible = this.pool.filter((e) => e.isAvailable?.());
-      if (possible.length === 0) {
-        this.scheduleNextEvent(0.5);
-        return;
-      }
-      this.startEvent(possible[Math.floor(this.g.rng.random() * possible.length)]);
+    if (!this.g.over && this.pending.length < SETTLEMENT_EVENTS.maxPending) {
+      let possible = this.candidates();
+      const different = possible.filter(def => this.id(def) !== this.lastEvent);
+      if (different.length) possible = different;
+      if (possible.length) this.enqueue(possible[Math.floor(this.g.rng.random() * possible.length)]);
     }
+    this.presentNext();
     this.scheduleNextEvent();
   }
 
@@ -144,15 +261,20 @@ export class EventRunner {
 
   // ------------------------------------------------------------- lifecycle
 
-  startEvent(def: GameEventDef | undefined): void {
+  startEvent(def: GameEventDef | undefined, initialEffects?: SettlementChange[]): void {
     if (!def) return;
     if (def.audio) this.g.bus.emit({ type: 'audio', channel: 'eventMusic', key: this.g.audioKey(def.audio) });
     this.g.keyLock = true;
     this.g.tabNavigation = false;
     this.g.cooldowns.persistEnabled = false;
-    this.stack.unshift({ def, sceneName: '', scene: {}, loot: null, combat: null, afterCombat: false });
+    this.stack.unshift({ def, sceneName: '', scene: {}, loot: null, combat: null, afterCombat: false, initialEffects });
     this.g.bus.emit({ type: 'event:start' });
-    this.loadScene('start');
+    if (initialEffects) {
+      const ev = this.active()!;
+      ev.sceneName = 'start'; ev.scene = def.scenes.start;
+      this.startButtonCooldowns(ev.scene.buttons);
+      this.g.bus.emit({ type: 'event:scene' });
+    } else this.loadScene('start');
   }
 
   switchEvent(def: GameEventDef | undefined): void {
@@ -187,6 +309,7 @@ export class EventRunner {
     ev.loot = null;
     ev.combat = null;
     ev.afterCombat = false;
+    ev.initialEffects = undefined;
     scene.onLoad?.call(scene);
     if (this.active() !== ev) return; // onLoad switched or ended the event
     if (scene.notification) this.g.notify(null, scene.notification);
