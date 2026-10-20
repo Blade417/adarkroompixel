@@ -2,21 +2,26 @@ import manifest from '../../assets/pixel/endgame/v1/manifest.json';
 import { ctx2d, makeCanvas } from './paint';
 import { resample, type SampleMode } from './resample';
 import type { Sprite } from './sprites';
+import { loadArtImage } from './loading';
+import { loadPackedArt } from './runtime-art';
 
 export type EndgameArtId = 'fabricator' | 'shipyard' | 'escape' | 'homefleet' | 'flight-ship' | 'asteroid-0' | 'asteroid-1' | 'asteroid-2';
 export type EndgameArt = Partial<Record<EndgameArtId, Sprite>>;
 interface ArtSpec { file: string; sourceRect: number[]; drawSize: number[]; transparent: boolean }
 const specs = manifest.assets as Record<EndgameArtId, ArtSpec>;
 const urls = import.meta.glob('../../assets/pixel/endgame/v1/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const endgameAssetUrls = Object.values(urls);
 
 /** Decode each original once, then bake bounded crops; a failed file affects only its pieces. */
-export async function loadEndgameArt(sample: SampleMode): Promise<EndgameArt> {
+export async function loadEndgameArt(sample: SampleMode, packed = true): Promise<EndgameArt> {
+  const ready = packed && sample === 'mode' ? await loadPackedArt('later') : null;
+  if (ready) return ready.sprites;
   const art: EndgameArt = {};
   await Promise.all(Object.entries(manifest.sources).map(async ([file]) => {
     try {
       const url = Object.entries(urls).find(([path]) => path.endsWith('/' + file))?.[1];
       if (!url) throw new Error(`Missing endgame art: ${file}`);
-      const image = new Image(); image.src = url; await image.decode();
+      const image = await loadArtImage(url);
       for (const [id, spec] of Object.entries(specs) as [EndgameArtId, ArtSpec][]) {
         if (spec.file !== file) continue;
         const [x, y, w, h] = spec.sourceRect, [dw, dh] = spec.drawSize;

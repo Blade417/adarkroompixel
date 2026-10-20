@@ -73,6 +73,7 @@ export class Hud {
   readonly stage: HTMLElement;
   /** the player has pressed Begin / Continue (the clock runs) */
   begun = false;
+  private assetsReady = false;
 
   private readonly ui: Ui;
   private readonly feedback: Feedback;
@@ -265,7 +266,7 @@ export class Hud {
   <div class="title-card" role="dialog" aria-modal="true" aria-labelledby="title-name" aria-describedby="title-sub" tabindex="-1">
     <h2 class="title-name" id="title-name">${u('app.title')}</h2>
     <p class="title-sub" id="title-sub">${u('app.subtitle')}</p>
-    <button type="button" class="primary begin" data-act="begin">${u(this.host.hasSave ? 'title.continue' : 'title.begin')}</button>
+    <button type="button" class="primary begin" data-act="begin" disabled>${u(this.host.hasSave ? 'title.continue' : 'title.begin')}</button>
     <div class="title-row">${langSeg}<button type="button" class="link" data-act="settings" aria-haspopup="dialog">${u('settings.title')}</button><button type="button" class="link" data-act="feedback" aria-haspopup="dialog">${u('feedback.open')}</button></div>
     <p class="title-note">${u('title.note')}</p>
   </div>
@@ -810,7 +811,7 @@ export class Hud {
   // ------------------------------------------------------------------ title & settings
 
   private begin(): void {
-    if (this.begun) return;
+    if (this.begun || !this.assetsReady) return;
     this.begun = true;
     this.guideUntil = performance.now() + 9000;
     this.root.dataset.begun = '';
@@ -818,6 +819,11 @@ export class Hud {
     this.host.begin();
     this.syncModal();
     if (this.settingsLayer.hidden) this.canvas.focus({ preventScroll: true });
+  }
+
+  setAssetsReady(): void {
+    this.assetsReady = true;
+    this.root.querySelector<HTMLButtonElement>('.begin')!.disabled = false;
   }
 
   /** focus the title screen's main button (after the page is laid out) */
@@ -1049,6 +1055,7 @@ export class Hud {
   }
 
   private onKey(e: KeyboardEvent): void {
+    if (!this.assetsReady) return;
     if (e.defaultPrevented) return;
     if (e.key === 'Tab') {
       this.trapTab(e);

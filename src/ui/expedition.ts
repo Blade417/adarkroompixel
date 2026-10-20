@@ -24,6 +24,7 @@ export class ExpeditionPanel {
   private readonly patch = new Patch();
   private renderer: ExpeditionRenderer | null = null;
   private loading = false;
+  private preparing: Promise<void> | null = null;
   private artFailed = false;
   private lastUi = -Infinity;
   private lastOpened = false;
@@ -85,18 +86,25 @@ export class ExpeditionPanel {
   private ensureArt(): void {
     if (this.loading || this.renderer || this.artFailed) return;
     this.loading = true;
-    void import('../pixel/expedition').then(async module => {
-      const art = await module.loadExpeditionArt();
-      this.renderer = new module.ExpeditionRenderer(this.canvas, art);
-      this.root.querySelector<HTMLElement>('.exp-loading')!.hidden = true;
-      this.update();
-    }).catch(error => {
+    void this.prepareArt().catch(error => {
       this.loading = false;
+      this.preparing = null;
       this.artFailed = true;
       const loading = this.root.querySelector<HTMLElement>('.exp-loading')!;
       loading.innerHTML = `${esc(this.text('素材加载失败。', 'Art failed to load.'))}${this.button('retry', this.text('重试', 'Retry'))}`;
       console.error('[expedition]', error);
     });
+  }
+
+  prepareArt(): Promise<void> {
+    if (this.preparing) return this.preparing;
+    this.preparing = import('../pixel/expedition').then(async module => {
+      const art = await module.loadExpeditionArt();
+      this.renderer = new module.ExpeditionRenderer(this.canvas, art);
+      this.root.querySelector<HTMLElement>('.exp-loading')!.hidden = true;
+      this.update();
+    });
+    return this.preparing;
   }
 
   frame(now: number, blocked: boolean, reduced: boolean): void {

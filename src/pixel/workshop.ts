@@ -3,6 +3,8 @@ import { ctx2d, makeCanvas } from './paint';
 import { resample, type SampleMode } from './resample';
 import type { Point, Rect } from './layout';
 import type { Sprite } from './sprites';
+import { loadArtImage } from './loading';
+import { loadPackedArt } from './runtime-art';
 import { toCss, type Fit } from './fit';
 
 export const WORKSHOP_MANIFEST = manifest;
@@ -19,6 +21,7 @@ export const WORKSHOP_TARGETS = Object.fromEntries(WORKSHOP_IDS.map(id => {
 })) as Record<WorkshopId, Rect>;
 
 const urls = import.meta.glob('../../assets/pixel/workshop/v2/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const workshopAssetUrls = Object.values(urls);
 
 /** Keep small-screen tap areas separate when the props are closer than 44 CSS pixels. */
 export function workshopHitRects(fit: Fit): Record<WorkshopId, Rect> {
@@ -33,14 +36,16 @@ export function workshopHitRects(fit: Fit): Record<WorkshopId, Rect> {
 }
 
 /** Keep the generated originals intact and bake their alpha-bounded regions once. */
-export async function loadWorkshopArt(sample: SampleMode): Promise<WorkshopArt> {
+export async function loadWorkshopArt(sample: SampleMode, packed = true): Promise<WorkshopArt> {
+  const ready = packed && sample === 'mode' ? await loadPackedArt('workshop') : null;
+  if (ready) return ready.sprites;
   const art: WorkshopArt = {};
   await Promise.all(WORKSHOP_IDS.map(async id => {
     try {
       const spec = manifest.assets[id];
       const url = Object.entries(urls).find(([path]) => path.endsWith('/' + spec.file))?.[1];
       if (!url) throw new Error(`Missing workshop art: ${spec.file}`);
-      const image = new Image(); image.src = url; await image.decode();
+      const image = await loadArtImage(url);
       const [x, y, w, h] = spec.sourceRect, [dw, dh] = spec.drawSize;
       const source = makeCanvas(w, h), sg = ctx2d(source);
       sg.drawImage(image, x, y, w, h, 0, 0, w, h);

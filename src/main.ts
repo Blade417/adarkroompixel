@@ -28,6 +28,9 @@ import { Expedition } from './app/expedition';
 import { ExpeditionPanel } from './ui/expedition';
 import { Endgame } from './app/endgame';
 import { EndgamePanel } from './ui/endgame';
+import { StartupAssets, useStartupAssets } from './pixel/loading';
+import { startupArt } from './pixel/preload';
+import { LoadingScreen } from './ui/loading';
 
 const params = new URLSearchParams(location.search);
 const DEBUG = params.has('debug');
@@ -160,6 +163,7 @@ const host: HudHost = {
 
 const app = document.getElementById('app')!;
 const hud = new Hud(app, game, host, journey);
+const loadingScreen = new LoadingScreen(app, prefs.language);
 const expeditionPanel = new ExpeditionPanel(app, expedition, () => { layout(); requestAnimationFrame(() => hud.canvas.focus({ preventScroll: true })); });
 const endgamePanel = new EndgamePanel(app, endgame, () => host.travel('room'), leave, sample);
 const sceneControls = new SceneControls(hud.canvas.parentElement!, journey, uiStrings(game.i18n.lang),
@@ -304,13 +308,14 @@ window.addEventListener('pagehide', persist);
 // ---------------------------------------------------------------- start
 
 async function boot(): Promise<void> {
-  const [art, forestArt, villageArt] = await Promise.all([loadSceneArt(sample), loadForestArt(sample).catch(error => {
-    console.warn('[forest] Art could not load', error);
-    return null;
-  }), loadVillageArt(sample).catch(error => {
-    console.warn('[village] Art could not load', error);
-    return null;
-  })]);
+  const assets = new StartupAssets(startupArt(sample), progress => loadingScreen.update(progress));
+  useStartupAssets(assets);
+  await assets.download();
+  const art = await assets.prepare('room', () => loadSceneArt(sample));
+  const forestArt = await assets.prepare('forest', () => loadForestArt(sample));
+  const villageArt = await assets.prepare('village', () => loadVillageArt(sample));
+  await assets.prepare('expedition', () => expeditionPanel.prepareArt());
+  await assets.prepare('later', () => endgamePanel.prepareArt());
   renderer = new Renderer(hud.canvas, art);
   if (forestArt) {
     forestRenderer = new ForestRenderer(hud.canvas, forestArt);
@@ -326,6 +331,12 @@ async function boot(): Promise<void> {
     last = now;
     frame(now);
   });
+  assets.finish();
+  useStartupAssets(null);
+  // Paint the completed progress before revealing the fully prepared title screen.
+  await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+  loadingScreen.remove();
+  hud.setAssetsReady();
   hud.focusStart();
 
   if (DEBUG) {
@@ -366,4 +377,8 @@ async function boot(): Promise<void> {
   }
 };
 
-void boot();
+void boot().catch(error => {
+  useStartupAssets(null);
+  loadingScreen.fail();
+  console.error('[startup] Artwork could not be prepared', error);
+});

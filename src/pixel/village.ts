@@ -6,20 +6,25 @@ import { ctx2d, makeCanvas } from './paint';
 import { resample, type SampleMode } from './resample';
 import type { Fit } from './fit';
 import { villageLandscape } from './village-landscape';
+import { loadArtImage } from './loading';
+import { loadPackedArt } from './runtime-art';
 
 const specs = { ...manifest.assets, ...landscapeManifest.assets, ...publicManifest.assets };
 type ArtId = keyof typeof specs;
 export type VillageArt = Record<ArtId, HTMLCanvasElement>;
 const urls = import.meta.glob(['../../assets/pixel/village/v1/hearth-house.png', '../../assets/pixel/village/v1/cottages.png', '../../assets/pixel/village/v2/*.png', '../../assets/pixel/village/v3/*.png'], { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const villageAssetUrls = Object.values(urls);
 
 /** Decode each source once; crops remove atlas spacing without changing the original PNGs. */
-export async function loadVillageArt(mode: SampleMode): Promise<VillageArt> {
+export async function loadVillageArt(mode: SampleMode, packed = true): Promise<VillageArt> {
+  const ready = packed && mode === 'mode' ? await loadPackedArt('village') : null;
+  if (ready) return Object.fromEntries(Object.entries(ready.sprites).map(([id, s]) => [id, s.canvas])) as VillageArt;
   const sources = new Map<string, Promise<HTMLImageElement>>();
   const entries = await Promise.all(Object.entries(specs).map(async ([id, spec]) => {
     if (!sources.has(spec.file)) sources.set(spec.file, (async () => {
       const url = Object.entries(urls).find(([path]) => path.endsWith('/' + spec.file))?.[1];
       if (!url) throw Error(`Missing village art: ${spec.file}`);
-      const image = new Image(); image.src = url; await image.decode(); return image;
+      return loadArtImage(url);
     })());
     const image = await sources.get(spec.file)!;
     const [x, y, w, h] = spec.sourceRect, [dw, dh] = spec.drawSize;

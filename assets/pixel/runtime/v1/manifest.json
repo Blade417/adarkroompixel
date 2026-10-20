@@ -1,0 +1,2190 @@
+{
+  "version": 1,
+  "groups": {
+    "room": {
+      "file": "room.webp",
+      "width": 1372,
+      "height": 270,
+      "sprites": {
+        "room": [
+          0,
+          0,
+          480,
+          270
+        ],
+        "door": [
+          482,
+          0,
+          63,
+          112
+        ],
+        "hearth": [
+          547,
+          0,
+          133,
+          142
+        ],
+        "fire-1-0": [
+          682,
+          0,
+          20,
+          4
+        ],
+        "fire-2-0": [
+          704,
+          0,
+          18,
+          23
+        ],
+        "fire-2-1": [
+          724,
+          0,
+          19,
+          18
+        ],
+        "fire-2-2": [
+          745,
+          0,
+          18,
+          22
+        ],
+        "fire-2-3": [
+          765,
+          0,
+          18,
+          13
+        ],
+        "fire-3-0": [
+          785,
+          0,
+          26,
+          34
+        ],
+        "fire-3-1": [
+          813,
+          0,
+          28,
+          26
+        ],
+        "fire-3-2": [
+          843,
+          0,
+          26,
+          32
+        ],
+        "fire-3-3": [
+          871,
+          0,
+          27,
+          19
+        ],
+        "fire-4-0": [
+          900,
+          0,
+          32,
+          42
+        ],
+        "fire-4-1": [
+          934,
+          0,
+          34,
+          33
+        ],
+        "fire-4-2": [
+          970,
+          0,
+          33,
+          40
+        ],
+        "fire-4-3": [
+          1005,
+          0,
+          34,
+          24
+        ],
+        "huddled-0": [
+          1041,
+          0,
+          50,
+          44
+        ],
+        "huddled-1": [
+          1093,
+          0,
+          50,
+          44
+        ],
+        "huddled-2": [
+          1145,
+          0,
+          52,
+          44
+        ],
+        "huddled-3": [
+          1199,
+          0,
+          50,
+          44
+        ],
+        "woodpile-0": [
+          1251,
+          0,
+          29,
+          18
+        ],
+        "woodpile-1": [
+          1282,
+          0,
+          38,
+          29
+        ],
+        "woodpile-2": [
+          1322,
+          0,
+          48,
+          32
+        ]
+      },
+      "meta": {
+        "border": [
+          12.282171581769436,
+          15.868632707774799,
+          20.185656836461128
+        ],
+        "fireLevels": [
+          [],
+          [
+            "fire-1-0"
+          ],
+          [
+            "fire-2-0",
+            "fire-2-1",
+            "fire-2-2",
+            "fire-2-3"
+          ],
+          [
+            "fire-3-0",
+            "fire-3-1",
+            "fire-3-2",
+            "fire-3-3"
+          ],
+          [
+            "fire-4-0",
+            "fire-4-1",
+            "fire-4-2",
+            "fire-4-3"
+          ]
+        ],
+        "fireFps": 8,
+        "huddled": [
+          "huddled-0",
+          "huddled-1",
+          "huddled-2",
+          "huddled-3"
+        ],
+        "huddledFps": 2.5,
+        "woodpile": [
+          "woodpile-0",
+          "woodpile-1",
+          "woodpile-2"
+        ]
+      },
+      "alphaPixels": {
+        "fire-1-0": [
+          36,
+          210,
+          88,
+          37,
+          191,
+          40,
+          206,
+          87,
+          37,
+          191,
+          88,
+          206,
+          87,
+          37,
+          191,
+          92,
+          113,
+          35,
+          29,
+          191,
+          108,
+          115,
+          36,
+          33,
+          191,
+          112,
+          210,
+          89,
+          37,
+          191,
+          116,
+          210,
+          89,
+          39,
+          191,
+          120,
+          238,
+          150,
+          61,
+          191,
+          124,
+          210,
+          91,
+          39,
+          191,
+          128,
+          117,
+          37,
+          33,
+          191,
+          160,
+          117,
+          37,
+          33,
+          191,
+          164,
+          210,
+          89,
+          37,
+          191,
+          168,
+          252,
+          210,
+          119,
+          191,
+          172,
+          211,
+          89,
+          39,
+          191,
+          176,
+          115,
+          35,
+          29,
+          191,
+          180,
+          113,
+          36,
+          32,
+          191,
+          184,
+          115,
+          36,
+          33,
+          191,
+          188,
+          210,
+          89,
+          39,
+          191,
+          192,
+          238,
+          151,
+          63,
+          191,
+          196,
+          240,
+          154,
+          65,
+          191,
+          200,
+          252,
+          210,
+          119,
+          191,
+          204,
+          252,
+          210,
+          119,
+          191,
+          208,
+          238,
+          151,
+          63,
+          191,
+          212,
+          211,
+          91,
+          39,
+          191,
+          216,
+          113,
+          35,
+          31,
+          191,
+          224,
+          105,
+          33,
+          29,
+          191,
+          228,
+          202,
+          85,
+          36,
+          191,
+          232,
+          252,
+          211,
+          121,
+          191,
+          244,
+          109,
+          33,
+          29,
+          191,
+          248,
+          113,
+          35,
+          29,
+          191,
+          252,
+          113,
+          35,
+          29,
+          191,
+          256,
+          211,
+          92,
+          40,
+          191,
+          260,
+          115,
+          37,
+          32,
+          191,
+          264,
+          117,
+          37,
+          33,
+          191,
+          268,
+          116,
+          37,
+          32,
+          191,
+          272,
+          252,
+          210,
+          117,
+          191,
+          276,
+          252,
+          210,
+          119,
+          191,
+          280,
+          252,
+          210,
+          120,
+          191,
+          284,
+          238,
+          150,
+          61,
+          191,
+          288,
+          211,
+          92,
+          41,
+          191,
+          292,
+          113,
+          36,
+          32,
+          191,
+          296,
+          116,
+          37,
+          33,
+          191,
+          300,
+          115,
+          37,
+          33,
+          191,
+          304,
+          211,
+          91,
+          37,
+          191,
+          308,
+          113,
+          36,
+          32,
+          191,
+          312,
+          116,
+          36,
+          33,
+          191
+        ]
+      },
+      "bytes": 163304,
+      "rgbaSha256": "aaf8a79fd0f6d22c9e369ddb335f9d9a6f52b0b15eab5ce6552b372b5093cd6d",
+      "sha256": "9b38585b00b3c9990ad9dbf1ecfde07436c8c35ae8d1f518504d9476b2b4fe8e"
+    },
+    "workshop": {
+      "file": "workshop.webp",
+      "width": 112,
+      "height": 27,
+      "sprites": {
+        "cart": [
+          0,
+          0,
+          74,
+          27
+        ],
+        "trap": [
+          76,
+          0,
+          34,
+          17
+        ]
+      },
+      "meta": {},
+      "alphaPixels": {},
+      "bytes": 3190,
+      "rgbaSha256": "f49e15a9eec23cb73558170c2f2237c8fdafaab0df986fe660bc307ea5855fab",
+      "sha256": "5fb3ac107451d2ab20f7647fcbe084788f2066e286a55d1ba42a6ad9a9892388"
+    },
+    "forest": {
+      "file": "forest.webp",
+      "width": 1166,
+      "height": 270,
+      "sprites": {
+        "forest-back": [
+          0,
+          0,
+          480,
+          270
+        ],
+        "forest-foreground": [
+          482,
+          0,
+          480,
+          270
+        ],
+        "loose-branches": [
+          964,
+          0,
+          64,
+          16
+        ],
+        "fallen-log": [
+          1030,
+          0,
+          100,
+          30
+        ],
+        "home-marker": [
+          1132,
+          0,
+          32,
+          64
+        ]
+      },
+      "meta": {},
+      "alphaPixels": {},
+      "bytes": 196544,
+      "rgbaSha256": "b21072bb0f2bf111a9a8d26ac0261552863b805a124bafe112ba9ba6112ffd31",
+      "sha256": "e6dfcb929998a33e10121f1faefe2271415228ebb4e80e2bc76f692dc092960c"
+    },
+    "village": {
+      "file": "village.webp",
+      "width": 1202,
+      "height": 270,
+      "sprites": {
+        "terrain": [
+          0,
+          0,
+          480,
+          270
+        ],
+        "hearth": [
+          482,
+          0,
+          64,
+          44
+        ],
+        "hut0": [
+          548,
+          0,
+          38,
+          28
+        ],
+        "hut1": [
+          588,
+          0,
+          38,
+          26
+        ],
+        "hut2": [
+          628,
+          0,
+          38,
+          27
+        ],
+        "hut3": [
+          668,
+          0,
+          38,
+          26
+        ],
+        "tree0": [
+          708,
+          0,
+          18,
+          41
+        ],
+        "tree1": [
+          728,
+          0,
+          26,
+          41
+        ],
+        "tree2": [
+          756,
+          0,
+          31,
+          45
+        ],
+        "tree3": [
+          789,
+          0,
+          19,
+          29
+        ],
+        "lodge": [
+          810,
+          0,
+          58,
+          34
+        ],
+        "workshop": [
+          870,
+          0,
+          60,
+          37
+        ],
+        "tannery": [
+          932,
+          0,
+          58,
+          28
+        ],
+        "trade": [
+          992,
+          0,
+          64,
+          31
+        ],
+        "smokehouse": [
+          1058,
+          0,
+          54,
+          35
+        ],
+        "steelworks": [
+          1114,
+          0,
+          42,
+          28
+        ],
+        "armoury": [
+          1158,
+          0,
+          42,
+          22
+        ]
+      },
+      "meta": {},
+      "alphaPixels": {},
+      "bytes": 264396,
+      "rgbaSha256": "5adeacfd0a9bd1838a1a3a3c13511cf41a83e6a660976ec8dca4f265efbdb824",
+      "sha256": "05b462352d070b6ab9c6c164a3beabd968061d44624dd1dd7d6fe5c9e6697bab"
+    },
+    "expedition": {
+      "file": "expedition.webp",
+      "width": 2041,
+      "height": 4127,
+      "sprites": {
+        "background": [
+          0,
+          0,
+          576,
+          324
+        ],
+        "beast-idle": [
+          578,
+          0,
+          85,
+          51
+        ],
+        "beast-attack": [
+          665,
+          0,
+          90,
+          51
+        ],
+        "beast-hurt": [
+          757,
+          0,
+          68,
+          51
+        ],
+        "body-idle": [
+          827,
+          0,
+          47,
+          74
+        ],
+        "body-attack": [
+          876,
+          0,
+          72,
+          67
+        ],
+        "body-hurt": [
+          950,
+          0,
+          57,
+          67
+        ],
+        "map-north": [
+          1009,
+          0,
+          14,
+          24
+        ],
+        "map-south": [
+          1025,
+          0,
+          15,
+          24
+        ],
+        "map-east": [
+          1042,
+          0,
+          15,
+          24
+        ],
+        "weapon-spear": [
+          1059,
+          0,
+          66,
+          7
+        ],
+        "weapon-iron": [
+          1127,
+          0,
+          33,
+          10
+        ],
+        "weapon-steel": [
+          1162,
+          0,
+          39,
+          11
+        ],
+        "weapon-rifle": [
+          1203,
+          0,
+          45,
+          10
+        ],
+        "weapon-bolas": [
+          1250,
+          0,
+          25,
+          11
+        ],
+        "bullet": [
+          1277,
+          0,
+          7,
+          2
+        ],
+        "gaunt-idle": [
+          1286,
+          0,
+          56,
+          63
+        ],
+        "gaunt-attack": [
+          1344,
+          0,
+          94,
+          63
+        ],
+        "gaunt-hurt": [
+          1440,
+          0,
+          59,
+          63
+        ],
+        "bird-idle": [
+          1501,
+          0,
+          59,
+          47
+        ],
+        "bird-attack": [
+          1562,
+          0,
+          83,
+          47
+        ],
+        "bird-hurt": [
+          1647,
+          0,
+          44,
+          47
+        ],
+        "twohead-idle": [
+          1693,
+          0,
+          102,
+          65
+        ],
+        "twohead-attack": [
+          1797,
+          0,
+          111,
+          65
+        ],
+        "twohead-hurt": [
+          1910,
+          0,
+          93,
+          65
+        ],
+        "field-background": [
+          0,
+          326,
+          576,
+          324
+        ],
+        "barrens-background": [
+          578,
+          326,
+          576,
+          324
+        ],
+        "landmark-house": [
+          1156,
+          326,
+          24,
+          21
+        ],
+        "site-house": [
+          1182,
+          326,
+          144,
+          124
+        ],
+        "landmark-cave": [
+          1328,
+          326,
+          24,
+          23
+        ],
+        "site-cave": [
+          1354,
+          326,
+          144,
+          137
+        ],
+        "landmark-mine": [
+          1500,
+          326,
+          24,
+          21
+        ],
+        "site-mine": [
+          1526,
+          326,
+          144,
+          127
+        ],
+        "landmark-outpost": [
+          1672,
+          326,
+          24,
+          19
+        ],
+        "site-outpost": [
+          1698,
+          326,
+          144,
+          112
+        ],
+        "squatter-idle": [
+          1844,
+          326,
+          63,
+          64
+        ],
+        "squatter-attack": [
+          1909,
+          326,
+          92,
+          64
+        ],
+        "squatter-hurt": [
+          0,
+          652,
+          55,
+          64
+        ],
+        "cave-lizard-idle": [
+          57,
+          652,
+          68,
+          37
+        ],
+        "cave-lizard-attack": [
+          127,
+          652,
+          69,
+          37
+        ],
+        "cave-lizard-hurt": [
+          198,
+          652,
+          57,
+          37
+        ],
+        "lizard-idle": [
+          257,
+          652,
+          76,
+          45
+        ],
+        "lizard-attack": [
+          335,
+          652,
+          76,
+          45
+        ],
+        "lizard-hurt": [
+          413,
+          652,
+          73,
+          45
+        ],
+        "site-beast-idle": [
+          488,
+          652,
+          75,
+          55
+        ],
+        "site-beast-attack": [
+          565,
+          652,
+          82,
+          55
+        ],
+        "site-beast-hurt": [
+          649,
+          652,
+          72,
+          55
+        ],
+        "matriarch-idle": [
+          723,
+          652,
+          91,
+          66
+        ],
+        "matriarch-attack": [
+          816,
+          652,
+          107,
+          66
+        ],
+        "matriarch-hurt": [
+          925,
+          652,
+          83,
+          66
+        ],
+        "house-background": [
+          1010,
+          652,
+          576,
+          324
+        ],
+        "cave-background": [
+          0,
+          978,
+          576,
+          324
+        ],
+        "mine-background": [
+          578,
+          978,
+          576,
+          324
+        ],
+        "mine-guard-idle": [
+          1156,
+          978,
+          45,
+          64
+        ],
+        "mine-guard-attack": [
+          1203,
+          978,
+          68,
+          64
+        ],
+        "mine-guard-hurt": [
+          1273,
+          978,
+          50,
+          64
+        ],
+        "mine-chief-idle": [
+          1325,
+          978,
+          52,
+          68
+        ],
+        "mine-chief-attack": [
+          1379,
+          978,
+          77,
+          68
+        ],
+        "mine-chief-hurt": [
+          1458,
+          978,
+          60,
+          68
+        ],
+        "soldier-idle": [
+          1520,
+          978,
+          45,
+          64
+        ],
+        "soldier-attack": [
+          1567,
+          978,
+          62,
+          64
+        ],
+        "soldier-hurt": [
+          1631,
+          978,
+          50,
+          64
+        ],
+        "veteran-idle": [
+          1683,
+          978,
+          45,
+          64
+        ],
+        "veteran-attack": [
+          1730,
+          978,
+          68,
+          64
+        ],
+        "veteran-hurt": [
+          1800,
+          978,
+          49,
+          64
+        ],
+        "thug-idle": [
+          1851,
+          978,
+          44,
+          64
+        ],
+        "thug-attack": [
+          1897,
+          978,
+          55,
+          64
+        ],
+        "thug-hurt": [
+          1954,
+          978,
+          64,
+          64
+        ],
+        "scavenger-idle": [
+          0,
+          1304,
+          42,
+          64
+        ],
+        "scavenger-attack": [
+          44,
+          1304,
+          74,
+          64
+        ],
+        "scavenger-hurt": [
+          120,
+          1304,
+          51,
+          64
+        ],
+        "madman-idle": [
+          173,
+          1304,
+          33,
+          62
+        ],
+        "madman-attack": [
+          208,
+          1304,
+          64,
+          62
+        ],
+        "madman-hurt": [
+          274,
+          1304,
+          42,
+          62
+        ],
+        "vigilante-idle": [
+          318,
+          1304,
+          43,
+          68
+        ],
+        "vigilante-attack": [
+          363,
+          1304,
+          114,
+          68
+        ],
+        "vigilante-hurt": [
+          479,
+          1304,
+          47,
+          68
+        ],
+        "landmark-coal": [
+          528,
+          1304,
+          24,
+          15
+        ],
+        "site-coal": [
+          554,
+          1304,
+          144,
+          91
+        ],
+        "landmark-sulphur": [
+          700,
+          1304,
+          24,
+          15
+        ],
+        "site-sulphur": [
+          726,
+          1304,
+          144,
+          92
+        ],
+        "landmark-town": [
+          872,
+          1304,
+          24,
+          14
+        ],
+        "site-town": [
+          898,
+          1304,
+          144,
+          87
+        ],
+        "mine-yard-background": [
+          1044,
+          1304,
+          576,
+          324
+        ],
+        "town-background": [
+          0,
+          1630,
+          576,
+          324
+        ],
+        "city-sniper-idle": [
+          578,
+          1630,
+          49,
+          64
+        ],
+        "city-sniper-attack": [
+          629,
+          1630,
+          74,
+          64
+        ],
+        "city-sniper-hurt": [
+          705,
+          1630,
+          62,
+          64
+        ],
+        "city-commando-idle": [
+          769,
+          1630,
+          41,
+          64
+        ],
+        "city-commando-attack": [
+          812,
+          1630,
+          66,
+          64
+        ],
+        "city-commando-hurt": [
+          880,
+          1630,
+          50,
+          64
+        ],
+        "city-frail-man-idle": [
+          932,
+          1630,
+          38,
+          61
+        ],
+        "city-frail-man-attack": [
+          972,
+          1630,
+          68,
+          61
+        ],
+        "city-frail-man-hurt": [
+          1042,
+          1630,
+          48,
+          61
+        ],
+        "city-old-man-idle": [
+          1092,
+          1630,
+          47,
+          61
+        ],
+        "city-old-man-attack": [
+          1141,
+          1630,
+          67,
+          61
+        ],
+        "city-old-man-hurt": [
+          1210,
+          1630,
+          46,
+          61
+        ],
+        "city-youth-idle": [
+          1258,
+          1630,
+          59,
+          64
+        ],
+        "city-youth-attack": [
+          1319,
+          1630,
+          90,
+          64
+        ],
+        "city-youth-hurt": [
+          1411,
+          1630,
+          62,
+          64
+        ],
+        "city-squatters-idle": [
+          1475,
+          1630,
+          109,
+          62
+        ],
+        "city-squatters-attack": [
+          1586,
+          1630,
+          130,
+          62
+        ],
+        "city-squatters-hurt": [
+          1718,
+          1630,
+          125,
+          62
+        ],
+        "city-deformed-idle": [
+          1845,
+          1630,
+          64,
+          68
+        ],
+        "city-deformed-attack": [
+          1911,
+          1630,
+          99,
+          68
+        ],
+        "city-deformed-hurt": [
+          0,
+          1956,
+          64,
+          68
+        ],
+        "city-lizards-idle": [
+          66,
+          1956,
+          83,
+          48
+        ],
+        "city-lizards-attack": [
+          151,
+          1956,
+          86,
+          48
+        ],
+        "city-lizards-hurt": [
+          239,
+          1956,
+          75,
+          48
+        ],
+        "city-bird-idle": [
+          316,
+          1956,
+          71,
+          70
+        ],
+        "city-bird-attack": [
+          389,
+          1956,
+          78,
+          70
+        ],
+        "city-bird-hurt": [
+          469,
+          1956,
+          72,
+          70
+        ],
+        "city-rats-idle": [
+          543,
+          1956,
+          67,
+          44
+        ],
+        "city-rats-attack": [
+          612,
+          1956,
+          67,
+          44
+        ],
+        "city-rats-hurt": [
+          681,
+          1956,
+          74,
+          44
+        ],
+        "city-tentacles-idle": [
+          757,
+          1956,
+          80,
+          60
+        ],
+        "city-tentacles-attack": [
+          839,
+          1956,
+          90,
+          60
+        ],
+        "city-tentacles-hurt": [
+          931,
+          1956,
+          91,
+          60
+        ],
+        "landmark-city": [
+          1024,
+          1956,
+          24,
+          23
+        ],
+        "site-city": [
+          1050,
+          1956,
+          144,
+          139
+        ],
+        "landmark-battlefield": [
+          1196,
+          1956,
+          24,
+          19
+        ],
+        "site-battlefield": [
+          1222,
+          1956,
+          144,
+          114
+        ],
+        "landmark-borehole": [
+          1368,
+          1956,
+          24,
+          24
+        ],
+        "site-borehole": [
+          1394,
+          1956,
+          144,
+          143
+        ],
+        "landmark-shipwreck": [
+          1540,
+          1956,
+          24,
+          14
+        ],
+        "site-shipwreck": [
+          1566,
+          1956,
+          144,
+          84
+        ],
+        "landmark-swamp": [
+          1712,
+          1956,
+          24,
+          22
+        ],
+        "site-swamp": [
+          1738,
+          1956,
+          144,
+          134
+        ],
+        "landmark-warship": [
+          1884,
+          1956,
+          24,
+          18
+        ],
+        "site-warship": [
+          0,
+          2101,
+          144,
+          106
+        ],
+        "city-street-background": [
+          146,
+          2101,
+          576,
+          324
+        ],
+        "city-hospital-background": [
+          724,
+          2101,
+          576,
+          324
+        ],
+        "city-subway-background": [
+          1302,
+          2101,
+          576,
+          324
+        ],
+        "swamp-background": [
+          0,
+          2427,
+          576,
+          324
+        ],
+        "warship-corridor-background": [
+          578,
+          2427,
+          576,
+          324
+        ],
+        "warship-operative-idle": [
+          1156,
+          2427,
+          52,
+          65
+        ],
+        "warship-operative-attack": [
+          1210,
+          2427,
+          86,
+          65
+        ],
+        "warship-operative-hurt": [
+          1298,
+          2427,
+          69,
+          65
+        ],
+        "warship-researcher-idle": [
+          1369,
+          2427,
+          35,
+          62
+        ],
+        "warship-researcher-attack": [
+          1406,
+          2427,
+          64,
+          62
+        ],
+        "warship-researcher-hurt": [
+          1472,
+          2427,
+          48,
+          62
+        ],
+        "warship-immortal-idle": [
+          1522,
+          2427,
+          57,
+          70
+        ],
+        "warship-immortal-attack": [
+          1581,
+          2427,
+          102,
+          70
+        ],
+        "warship-immortal-hurt": [
+          1685,
+          2427,
+          71,
+          70
+        ],
+        "warship-horror-idle": [
+          1758,
+          2427,
+          92,
+          54
+        ],
+        "warship-horror-attack": [
+          1852,
+          2427,
+          100,
+          54
+        ],
+        "warship-horror-hurt": [
+          1954,
+          2427,
+          85,
+          54
+        ],
+        "warship-beast-idle": [
+          0,
+          2753,
+          108,
+          65
+        ],
+        "warship-beast-attack": [
+          110,
+          2753,
+          115,
+          65
+        ],
+        "warship-beast-hurt": [
+          227,
+          2753,
+          80,
+          65
+        ],
+        "warship-queen-idle": [
+          309,
+          2753,
+          99,
+          70
+        ],
+        "warship-queen-attack": [
+          410,
+          2753,
+          95,
+          70
+        ],
+        "warship-queen-hurt": [
+          507,
+          2753,
+          100,
+          70
+        ],
+        "warship-guard-idle": [
+          609,
+          2753,
+          49,
+          67
+        ],
+        "warship-guard-attack": [
+          660,
+          2753,
+          70,
+          67
+        ],
+        "warship-guard-hurt": [
+          732,
+          2753,
+          48,
+          67
+        ],
+        "warship-quadruped-idle": [
+          782,
+          2753,
+          72,
+          53
+        ],
+        "warship-quadruped-attack": [
+          856,
+          2753,
+          98,
+          53
+        ],
+        "warship-quadruped-hurt": [
+          956,
+          2753,
+          80,
+          53
+        ],
+        "warship-medic-idle": [
+          1038,
+          2753,
+          57,
+          64
+        ],
+        "warship-medic-attack": [
+          1097,
+          2753,
+          87,
+          64
+        ],
+        "warship-medic-hurt": [
+          1186,
+          2753,
+          61,
+          64
+        ],
+        "warship-auto-turret-idle": [
+          1249,
+          2753,
+          64,
+          48
+        ],
+        "warship-auto-turret-attack": [
+          1315,
+          2753,
+          81,
+          48
+        ],
+        "warship-auto-turret-hurt": [
+          1398,
+          2753,
+          66,
+          48
+        ],
+        "warship-defence-turret-idle": [
+          1466,
+          2753,
+          85,
+          56
+        ],
+        "warship-defence-turret-attack": [
+          1553,
+          2753,
+          91,
+          56
+        ],
+        "warship-defence-turret-hurt": [
+          1646,
+          2753,
+          83,
+          56
+        ],
+        "warship-welder-idle": [
+          1731,
+          2753,
+          86,
+          61
+        ],
+        "warship-welder-attack": [
+          1819,
+          2753,
+          105,
+          61
+        ],
+        "warship-welder-hurt": [
+          1926,
+          2753,
+          90,
+          61
+        ],
+        "warship-prototype-idle": [
+          0,
+          2825,
+          90,
+          82
+        ],
+        "warship-prototype-attack": [
+          92,
+          2825,
+          144,
+          82
+        ],
+        "warship-prototype-hurt": [
+          238,
+          2825,
+          94,
+          82
+        ],
+        "warship-sparring-idle": [
+          334,
+          2825,
+          58,
+          78
+        ],
+        "warship-sparring-attack": [
+          394,
+          2825,
+          139,
+          78
+        ],
+        "warship-sparring-hurt": [
+          535,
+          2825,
+          62,
+          78
+        ],
+        "warship-automaton-idle": [
+          599,
+          2825,
+          50,
+          68
+        ],
+        "warship-automaton-attack": [
+          651,
+          2825,
+          105,
+          68
+        ],
+        "warship-automaton-hurt": [
+          758,
+          2825,
+          53,
+          68
+        ],
+        "warship-experiment-idle": [
+          813,
+          2825,
+          116,
+          76
+        ],
+        "warship-experiment-attack": [
+          931,
+          2825,
+          165,
+          76
+        ],
+        "warship-experiment-hurt": [
+          1098,
+          2825,
+          97,
+          76
+        ],
+        "warship-engineering-background": [
+          1197,
+          2825,
+          576,
+          324
+        ],
+        "warship-martial-background": [
+          0,
+          3151,
+          576,
+          324
+        ],
+        "warship-medical-background": [
+          578,
+          3151,
+          576,
+          324
+        ],
+        "warship-command-background": [
+          1156,
+          3151,
+          576,
+          324
+        ],
+        "warship-antechamber-background": [
+          0,
+          3477,
+          576,
+          324
+        ],
+        "weapon-bayonet": [
+          578,
+          3477,
+          39,
+          11
+        ],
+        "weapon-laser": [
+          619,
+          3477,
+          69,
+          22
+        ],
+        "weapon-grenade": [
+          690,
+          3477,
+          10,
+          13
+        ],
+        "weapon-plasma": [
+          702,
+          3477,
+          70,
+          24
+        ],
+        "weapon-energy-blade": [
+          774,
+          3477,
+          53,
+          6
+        ],
+        "weapon-disruptor": [
+          829,
+          3477,
+          34,
+          25
+        ],
+        "armour-leather-idle": [
+          865,
+          3477,
+          47,
+          74
+        ],
+        "armour-leather-attack": [
+          914,
+          3477,
+          72,
+          67
+        ],
+        "armour-leather-hurt": [
+          988,
+          3477,
+          57,
+          67
+        ],
+        "armour-leather-map-north": [
+          1047,
+          3477,
+          14,
+          24
+        ],
+        "armour-leather-map-south": [
+          1063,
+          3477,
+          15,
+          24
+        ],
+        "armour-leather-map-east": [
+          1080,
+          3477,
+          15,
+          24
+        ],
+        "armour-iron-idle": [
+          1097,
+          3477,
+          47,
+          74
+        ],
+        "armour-iron-attack": [
+          1146,
+          3477,
+          71,
+          67
+        ],
+        "armour-iron-hurt": [
+          1219,
+          3477,
+          58,
+          67
+        ],
+        "armour-iron-map-north": [
+          1279,
+          3477,
+          15,
+          24
+        ],
+        "armour-iron-map-south": [
+          1296,
+          3477,
+          16,
+          24
+        ],
+        "armour-iron-map-east": [
+          1314,
+          3477,
+          16,
+          24
+        ],
+        "armour-steel-idle": [
+          1332,
+          3477,
+          47,
+          74
+        ],
+        "armour-steel-attack": [
+          1381,
+          3477,
+          72,
+          67
+        ],
+        "armour-steel-hurt": [
+          1455,
+          3477,
+          56,
+          67
+        ],
+        "armour-steel-map-north": [
+          1513,
+          3477,
+          15,
+          24
+        ],
+        "armour-steel-map-south": [
+          1530,
+          3477,
+          15,
+          24
+        ],
+        "armour-steel-map-east": [
+          1547,
+          3477,
+          16,
+          24
+        ],
+        "armour-kinetic-idle": [
+          1565,
+          3477,
+          49,
+          74
+        ],
+        "armour-kinetic-attack": [
+          1616,
+          3477,
+          72,
+          67
+        ],
+        "armour-kinetic-hurt": [
+          1690,
+          3477,
+          57,
+          67
+        ],
+        "armour-kinetic-map-north": [
+          1749,
+          3477,
+          14,
+          24
+        ],
+        "armour-kinetic-map-south": [
+          1765,
+          3477,
+          14,
+          24
+        ],
+        "armour-kinetic-map-east": [
+          1781,
+          3477,
+          15,
+          24
+        ],
+        "wild-shivering-idle": [
+          1798,
+          3477,
+          33,
+          66
+        ],
+        "wild-shivering-attack": [
+          1833,
+          3477,
+          67,
+          66
+        ],
+        "wild-shivering-hurt": [
+          1902,
+          3477,
+          34,
+          66
+        ],
+        "wild-man-eater-idle": [
+          1938,
+          3477,
+          87,
+          65
+        ],
+        "wild-man-eater-attack": [
+          0,
+          3803,
+          111,
+          65
+        ],
+        "wild-man-eater-hurt": [
+          113,
+          3803,
+          71,
+          65
+        ],
+        "wild-feral-terror-idle": [
+          186,
+          3803,
+          62,
+          77
+        ],
+        "wild-feral-terror-attack": [
+          250,
+          3803,
+          106,
+          77
+        ],
+        "wild-feral-terror-hurt": [
+          358,
+          3803,
+          72,
+          77
+        ],
+        "swamp-elder": [
+          432,
+          3803,
+          49,
+          52
+        ],
+        "landmark-cache": [
+          483,
+          3803,
+          24,
+          17
+        ],
+        "site-cache": [
+          509,
+          3803,
+          144,
+          103
+        ],
+        "swamp-cabin-background": [
+          655,
+          3803,
+          576,
+          324
+        ],
+        "cache-interior-background": [
+          1233,
+          3803,
+          576,
+          324
+        ],
+        "tree": [
+          1811,
+          3803,
+          13,
+          25
+        ],
+        "village": [
+          1826,
+          3803,
+          27,
+          19
+        ]
+      },
+      "meta": {},
+      "alphaPixels": {},
+      "bytes": 6575010,
+      "rgbaSha256": "3ec61c325efd61af3800e979d33fb72aa104b696b7da689d9f7c6a04d9409238",
+      "sha256": "958129c8e52ddf8049bd0778ff417345c4c2f97c8a60f7133d7d4ec1c8a3debb"
+    },
+    "later": {
+      "file": "later.webp",
+      "width": 1496,
+      "height": 350,
+      "sprites": {
+        "flight-ship": [
+          0,
+          0,
+          20,
+          30
+        ],
+        "asteroid-0": [
+          22,
+          0,
+          20,
+          37
+        ],
+        "asteroid-1": [
+          44,
+          0,
+          20,
+          37
+        ],
+        "asteroid-2": [
+          66,
+          0,
+          20,
+          37
+        ],
+        "escape": [
+          88,
+          0,
+          350,
+          350
+        ],
+        "fabricator": [
+          440,
+          0,
+          350,
+          350
+        ],
+        "homefleet": [
+          792,
+          0,
+          350,
+          350
+        ],
+        "shipyard": [
+          1144,
+          0,
+          350,
+          350
+        ]
+      },
+      "meta": {},
+      "alphaPixels": {},
+      "bytes": 665524,
+      "rgbaSha256": "79e56467e1e8e84c3c7bb0fb0e10f673c391d9ed132aeae126e4d09587019c2c",
+      "sha256": "f0860b6e6378b373d0380bde09e0b4aec7049660c6223ca77bfde3204258fba2"
+    }
+  },
+  "sourceHashes": {
+    "assets/pixel/endgame/v1/escape.png": "84a449a0d228947cfb9da9468d0d2b287d53f02a1bd3088f85378bf09cfe1a7b",
+    "assets/pixel/endgame/v1/fabricator.png": "844d0e72e274bb5fb0c81e5c0408d28502775286f659a379c32e1d0a90552f7b",
+    "assets/pixel/endgame/v1/flight-atlas.png": "2637b63908829797a0fc0d4f607e1097c535284db1f74f06e5594b57e846080d",
+    "assets/pixel/endgame/v1/homefleet.png": "b3c18becf0d690ee4ec9e374c81630721af2a3df9ce6bc6a508c951f7792d81b",
+    "assets/pixel/endgame/v1/manifest.json": "b6af4922c265fe8f1c138113df1bc2e55609d68bcab1c7841e3b430e92475ec8",
+    "assets/pixel/endgame/v1/shipyard.png": "ee7e493555913b680a01c29673db4204b68e062fe67e89a6d2b8f5b02180bae7",
+    "assets/pixel/expedition/v1/beast.png": "4130a61bd873655850a4c9405fa701fe1244add8f10aadba59ca6653a7542c6d",
+    "assets/pixel/expedition/v1/forest-battle.png": "e97b7faf4d567a8ab08b54564301a833687f48d50a8afacd58b515fff42f85ec",
+    "assets/pixel/expedition/v1/manifest.json": "5a4a206d286d266fabe92016cd49093f7e4c8840a8fda957d4b94026d4e8c4a5",
+    "assets/pixel/expedition/v2/barrens-battle.png": "0abbc0914c71a35ef5404888233f523a6a80fd6ef2ceadaf09e3009e69459d60",
+    "assets/pixel/expedition/v2/early-enemies.png": "b66c7065f5339a6239f586c982904b369de5501d7c8fea3ff564f6e15f984e47",
+    "assets/pixel/expedition/v2/field-battle.png": "af11a2dff624467f5c8ac91fc862f0d6fbab9272494b4d19d28e92bd233e6e3f",
+    "assets/pixel/expedition/v2/manifest.json": "f5ff4c2dc7a8054d5cace7b74d35bdb3fdb685cdfa8e775643d25c4bdcd41eae",
+    "assets/pixel/expedition/v2/traveler-body.png": "3632001f76fed90411a600feecea58d74cd168cb991072fa1b26c9847d4581ef",
+    "assets/pixel/expedition/v2/weapons.png": "d87274691f6b7c4098ff6f9fc113d4c4a60e1857c0043c75e50e512ec14b7d04",
+    "assets/pixel/expedition/v3/cave-battle.png": "9d7dfd20ba6e1bd0a601828a458c414b9223d1b0e216733be6a7fe0af0e27192",
+    "assets/pixel/expedition/v3/house-battle.png": "3458a89fad22bf2b9336cae7e3c6380ec5c758064308c354cc3d26dd7e750e9f",
+    "assets/pixel/expedition/v3/landmarks.png": "08dfc32a4e3d877944a9fc5aac090261d81ee73e15b0ced52c8f2a1d721edc24",
+    "assets/pixel/expedition/v3/manifest.json": "fe0d97e6ed8e0009104b5b0004050d484456675b65facd1fda203824fc264c37",
+    "assets/pixel/expedition/v3/mine-battle.png": "9838aaaeafca3f9781d643b70d69042ede27b803aec6bf3cc12ac888db32694d",
+    "assets/pixel/expedition/v3/site-enemies.png": "c8a50c38e19294aa9fec3d49bb1b357c8b0aaae017ceba17e2f1c78da5f56d7a",
+    "assets/pixel/expedition/v4/manifest.json": "02a6a51c85ffa52e51dc376b727c659c2f93dd233375d4079297a91f8346c07f",
+    "assets/pixel/expedition/v4/mid-landmarks.png": "ee7a53362f3516f0d5988de7967539e612b8363ddcb9e366d4e058532c0907f7",
+    "assets/pixel/expedition/v4/mine-yard-battle.png": "1f51432113088537c2d488d70fd9cc7d5b1d0393588030e1002d60987279d0c0",
+    "assets/pixel/expedition/v4/miners.png": "2c0dad2b510192dfa8dc60f8562daa1d1de336fb8f0f8ff39876d504e11a4441",
+    "assets/pixel/expedition/v4/town-battle.png": "813317f3f1f7bf2f04e3283dde57e53c7f17d2246f4b1fdd676c2e5e7cd3b4ab",
+    "assets/pixel/expedition/v4/town-enemies.png": "11438417caac013aa7df8aa61f7da78f50123394313c401f61b388534b1de5e5",
+    "assets/pixel/expedition/v4/vigilante.png": "a8b74ac8fcef3c463c6518cb1174ee5531256f4814ca02aab86e57017b35fb95",
+    "assets/pixel/expedition/v5/deep-city-creatures.png": "e50ffd15e4ac84d238ec13a2cdded6d8a5c045aab3416b0f5e7f080732ae7847",
+    "assets/pixel/expedition/v5/deep-city-hospital.png": "07fea704c50b68b88c150dfafac1c58405a323667209dc19e56caf43c58eb996",
+    "assets/pixel/expedition/v5/deep-city-military.png": "5a1df0ed72304fa85ecc422b4e664750cada315e7544101c272f5ae3c891431d",
+    "assets/pixel/expedition/v5/deep-city-street.png": "fbe06ce5b280c7f119b91de43b92e2b0f7ad9143c1fc99cbb3275c449bd13d99",
+    "assets/pixel/expedition/v5/deep-city-subway.png": "fd437d43686b37c8cc2b75a7793b12190b753e1dfeabcce9046a5b42aea782b2",
+    "assets/pixel/expedition/v5/deep-city-survivors.png": "135bc9b9a65aad7855562109772b51cfc8528be1d90e14c2da9f2703b786f136",
+    "assets/pixel/expedition/v5/deep-city-swarms.png": "6015af028e24a576abe6281f93eb29642cb50dedc96d169b38e1e029800c13a3",
+    "assets/pixel/expedition/v5/deep-deep-landmarks-a.png": "7c986bc4a04f7c5909021183cb15e8ddc592c62557567e614678a7c1830b7d7e",
+    "assets/pixel/expedition/v5/deep-deep-landmarks-b.png": "368c8a8a9f8a2a97931a940fb5de5bf2d4e79311c567b168afca4b67d62ad5d9",
+    "assets/pixel/expedition/v5/deep-swamp-scene.png": "042aaec797116641b3900ea96d8a5bff3eb66017af7b146f2a64d6b8937e1913",
+    "assets/pixel/expedition/v5/deep-warship-corridor.png": "5883660aa1c681008b1305dceda2857861fce74eb5b594309b3eabfefc8c09d2",
+    "assets/pixel/expedition/v5/manifest.json": "7964087ed7489ad763cac6282a71a7644188070281bb28f87972a719ef0f0b56",
+    "assets/pixel/expedition/v6/manifest.json": "145e307f6b921d361b2c56a675f959d076eefb9fb1b5a085c424a143c669b89b",
+    "assets/pixel/expedition/v6/warship-antechamber.png": "3fc5885b28304ead4336af2867339d3c0b06ab3a2e8e1ca34b04d99c4515b6cd",
+    "assets/pixel/expedition/v6/warship-combat-bosses.png": "a48cb3481496db6cab47706e8e08fe1016579f1408e5457de4e8f1288c1a2886",
+    "assets/pixel/expedition/v6/warship-command.png": "0a86a88b49d7b82fc60f55a3c9498fadb8360ca3df0cb2bb000f73932fe077d3",
+    "assets/pixel/expedition/v6/warship-crew.png": "0f96e114f168f771385539dc6f70b119a8687c1f9936554cc88237e28a1aeef7",
+    "assets/pixel/expedition/v6/warship-engineering.png": "35258faabdeac768fab1a429d45d7cefae4d8d6b1d6d829dca64b8eb64fb76d1",
+    "assets/pixel/expedition/v6/warship-infestation.png": "8465b90d47758a0f27e662c20351ce87c4f7cb682a3fc9af0a506e685a3ca547",
+    "assets/pixel/expedition/v6/warship-machinery.png": "c6fae6d3318e1e27762f96be25e8fd9c68a6819b711261a20e2fc2e9cd84357e",
+    "assets/pixel/expedition/v6/warship-martial.png": "99018adc596ede8ceab3662c721e2327c9e24239abb433ce9eb931704a5e463a",
+    "assets/pixel/expedition/v6/warship-medical-bosses.png": "3eae25ff5bf0c86060b97a5aeec619d91114db2f862b654eb89c4cb4224ecec6",
+    "assets/pixel/expedition/v6/warship-medical.png": "7178b34ec54f126596c753fd003528a309a60db89a4d6cc0b202b8c8a7a50197",
+    "assets/pixel/expedition/v6/warship-queen.png": "08776d9b3717d982fd79b0090bf929ee658942056e0f7f3346d909f81e706c85",
+    "assets/pixel/expedition/v6/warship-security.png": "ee88994f11776e80ba31965cf586182a94d6869fa2a28e6f39d968f9d15a4e25",
+    "assets/pixel/expedition/v7/armour-iron.png": "5ca4bc81d296147246218f385fda70262a136ef162df069e20757894cf1b723e",
+    "assets/pixel/expedition/v7/armour-kinetic.png": "1b4087979a255ea4904a6a08a0bb448643b0cd305898e3eaf1a188e7cdeebbd2",
+    "assets/pixel/expedition/v7/armour-leather.png": "0781856781f3ea6a52d92599bfe63d42136df921c679c4826314733c96cb259f",
+    "assets/pixel/expedition/v7/armour-steel.png": "f39c43e01e62972d1a25c111e0df28eeeab6c5abc3fee1732ee1243e33614aa9",
+    "assets/pixel/expedition/v7/late-weapons.png": "f501f46d90a26ebaf85b20d8abe37a82aa590ae2f2c69ad331d5e6c11bfd6c5a",
+    "assets/pixel/expedition/v7/manifest.json": "151d84d8da0df5df4b2e6fee4a1d80c92b11b865c567ec5590cbdf2bf52c0550",
+    "assets/pixel/expedition/v8/manifest.json": "23747461c509a3b89f37853ba221c8fbeba3fd1724db76a1bbe0e920220bf657",
+    "assets/pixel/expedition/v8/special-cache-interior.png": "6911002f26c9efec58b6c0804bbf4b978dce3dab959c1f07ecf8a2794d2dffc7",
+    "assets/pixel/expedition/v8/special-cache-landmark.png": "301ff70fc2ec300b0608ebb4073672cdea4f0cf193ba519c182e18dba445f2c4",
+    "assets/pixel/expedition/v8/special-swamp-cabin.png": "fa71f355a9c10805ff99791187d5fe940f669dfc90b589216fbc9033b7a18b17",
+    "assets/pixel/expedition/v8/special-swamp-elder.png": "c9f90fbda88677384392bb78e09f1b7b6d03d95474de2bc8eaa430ff07ca1be5",
+    "assets/pixel/expedition/v8/wild-feral-terror-spaced.png": "7f7212e51e0013f4515f4f849b1c92284ad93221c7fb53feec7bb414dc108048",
+    "assets/pixel/expedition/v8/wild-man-eater.png": "426f2f0ba3309f55d2dcbf6a4b1ba2e6b1876b35429eb468e9023ce2b32bd3d2",
+    "assets/pixel/expedition/v8/wild-shivering.png": "578015afcc2c0032082b8d943c35370d0684a42f82bb633249966dd16b2f0807",
+    "assets/pixel/forest/v1/fallen-log.png": "3b0800588c2962b6b660bbee3c3960c88943bbe32a2f4d62517160dfd1b77d38",
+    "assets/pixel/forest/v1/forest-back.png": "e9454ed6590d3f8d9e9d9ab77445fb472d75d2221ae502664a82a209df747f6a",
+    "assets/pixel/forest/v1/forest-foreground.png": "799152d4d01105cb1f479921822bbbf36408b8755d60033215174a73ef1e0c3a",
+    "assets/pixel/forest/v1/home-marker.png": "5e36a00a03208d73f6c53dfeb1bbf106d3f22019703914b5d580747e0da8be68",
+    "assets/pixel/forest/v1/loose-branches.png": "b74c0d0b80795893826f2b9c5a9ec493f0dd6ee3e0869488493ac511fbd9af8f",
+    "assets/pixel/forest/v1/manifest.json": "abb85e300b2d821c41f029935813c2f87702f102f1fffa5e8e3ed615b105071e",
+    "assets/pixel/room/v1/door-closed.png": "353948c12328541b504dbefbaa3fe9522cc7e06bbf5e4f5e1b1fa448fd389ee3",
+    "assets/pixel/room/v1/fire.png": "39c35864fd44e6afba49e2a7c19a8d36720a72f8f9fe86b91e0081dbdac94fd3",
+    "assets/pixel/room/v1/hearth.png": "8cf6ceb01ffd5cc8f46f86dc6cff756fd0b0c3a72a3762547cc5f335dcb6ba8e",
+    "assets/pixel/room/v1/manifest.json": "223341a57389a3fc8813f48f946565eabbd86f67384145d083533eb07f5d7e33",
+    "assets/pixel/room/v1/room-back.png": "8004a5a240737e0478fa950b37670bcce43ad1f1df0b810ff9b226b231982ef9",
+    "assets/pixel/room/v1/stranger-huddled.png": "d10fae5a8cd526210a8c54ca0a32704ed10d8ce9599988414c57c2c894438e32",
+    "assets/pixel/room/v1/woodpile-v2.png": "bbb904929931461185b13a96a68ecc3d635ec3fb3c1e30bb5e5fe6e02edf1f63",
+    "assets/pixel/village/v1/cottages.png": "7ad6f81ebab66adeee8ee4e656d7c4868d539b18304bebfcf3134d16cd9543d9",
+    "assets/pixel/village/v1/hearth-house.png": "dd97bb1416b5425e019cbfb5222fa37728e84a2dde13825082869cb481fa5426",
+    "assets/pixel/village/v1/manifest.json": "5c9094177a1c5ceb281d40da3fe9c93e120439e4200c64b90f102981a3cb7939",
+    "assets/pixel/village/v2/ground.png": "461430dacad47183a7a24266ccf12d869d1fa35942d1e00195746e54f718fa73",
+    "assets/pixel/village/v2/manifest.json": "2c3ca973b6c7d1063f2c427729871168070a62ec1e5ec968b12081ba02c89eca",
+    "assets/pixel/village/v2/trees.png": "3d77cd908c11216773847dcf85b0cd261fe159447371149bcde5c41a450abc96",
+    "assets/pixel/village/v3/manifest.json": "e9054407495b8cde8d56380d6cbcc5e5c8daa69d44759332ce0ebbee69b3fea3",
+    "assets/pixel/village/v3/public-annexes.png": "641d0e30459f77c5924a6de5b53458a71d89fc478eb6b5e3dd4f6d3b5bb8d8ab",
+    "assets/pixel/village/v3/public-zones.png": "f53702e0d2c611b081be8d94fcd188d1464d5407511864c9a1c0e6224f0782c7",
+    "assets/pixel/workshop/v2/cart.png": "37c03577d48668c2e1ffa3200cd8f81e1776b540bf6ae9112d8ed76fbaf53b2e",
+    "assets/pixel/workshop/v2/manifest.json": "e7a630da9d83c54ecedbb3bf65b1b3585f72c256d228d966ee1ee75d606fd9a7",
+    "assets/pixel/workshop/v2/trap.png": "71e0d729424451bdfe17503b286d3354454a24255b84b57cfccb194f1678b556",
+    "src/pixel/artpack.ts": "360413be8ea91be0b86903d2e9820c2a61cdcde22b038fa444656c2ff3a1e5dd",
+    "src/pixel/endgame-art.ts": "0fdbcb3c355ec541279ff704256770385f38af9521eca602e658266ac34919de",
+    "src/pixel/expedition.ts": "16437dcc34b4184eac5b1854f2687860eaf1532707172d80af28c5105714e82d",
+    "src/pixel/forest.ts": "5b859c472c94f788c22f1ca6e91f677ab0d14c73a5396fec3ba25b2fa6d4f19d",
+    "src/pixel/resample.ts": "da5984f6f5568ed7744e592311a47c8a79e1a541ff30ba36010c71935c17bca2",
+    "src/pixel/village.ts": "24effbfb8e52c02ed09d51bb2339dfbb70d77da19de06252c67d41336a96bafa",
+    "src/pixel/workshop.ts": "e8e235f03e2ca802cbab1e6544cd26736c840ca80040ab3eef351c3bd6749740"
+  },
+  "originalBytes": 140434623,
+  "runtimeBytes": 7867968
+}

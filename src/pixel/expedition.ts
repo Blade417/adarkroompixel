@@ -15,6 +15,8 @@ import { TILE, WORLD } from '../core/data';
 import { EARLY_ENCOUNTERS, WEAPON_ART } from '../app/expedition-catalog';
 import { landmarkArt, SITE_ENEMY_ART, sitePresentation } from '../app/expedition-art';
 import { ARMOUR_RIGS, WEAPON_RIGS, projectilePosition, visibleWeapon } from '../app/expedition-equipment';
+import { loadArtImage } from './loading';
+import { loadPackedArt } from './runtime-art';
 
 export type ExpeditionArt = Record<string, HTMLCanvasElement>;
 type SpriteSpec = { file: string; sourceRect: number[]; drawSize: number[]; hasAlpha: boolean };
@@ -31,8 +33,11 @@ const urls = import.meta.glob([
   '!../../assets/pixel/expedition/v8/wild-feral-terror.png',
   '../../assets/pixel/village/v1/hearth-house.png'
 ], { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const expeditionAssetUrls = Object.values(urls);
 
-export async function loadExpeditionArt(): Promise<ExpeditionArt> {
+export async function loadExpeditionArt(packed = true): Promise<ExpeditionArt> {
+  const ready = packed ? await loadPackedArt('expedition') : null;
+  if (ready) return Object.fromEntries(Object.entries(ready.sprites).map(([id, s]) => [id, s.canvas]));
   const specs: Record<string, SpriteSpec> = {
     ...Object.fromEntries(Object.entries(manifest.assets).filter(([id]) => id === 'background' || id.startsWith('beast-'))),
     ...equipmentManifest.assets,
@@ -50,7 +55,7 @@ export async function loadExpeditionArt(): Promise<ExpeditionArt> {
     if (!sources.has(spec.file)) sources.set(spec.file, (async () => {
       const source = Object.entries(urls).find(([path]) => path.endsWith('/' + spec.file))?.[1];
       if (!source) throw Error(`Missing expedition art: ${spec.file}`);
-      const image = new Image(); image.src = source; await image.decode(); return image;
+      return loadArtImage(source);
     })());
     const image = await sources.get(spec.file)!;
     const [x, y, w, h] = spec.sourceRect, [dw, dh] = spec.drawSize;

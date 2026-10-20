@@ -78,6 +78,8 @@ export class EndgamePanel {
     this.update();
   }
 
+  prepareArt(): Promise<void> { return this.renderer.prepare(); }
+
   frame(now: number, blocked: boolean, reduced: boolean): void {
     const show = this.model.opened;
     this.root.hidden = !show;

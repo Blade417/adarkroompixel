@@ -8,6 +8,8 @@ import manifestJson from '../../assets/pixel/room/v1/manifest.json';
 import { ctx2d, makeCanvas } from './paint';
 import { borderColour, resample, type Pixels, type SampleMode } from './resample';
 import type { Sprite } from './sprites';
+import { loadArtImage } from './loading';
+import { loadPackedArt } from './runtime-art';
 
 export type RectTuple = [number, number, number, number];
 
@@ -62,6 +64,7 @@ const URLS = import.meta.glob('../../assets/pixel/room/v1/*.png', {
   query: '?url',
   import: 'default'
 }) as Record<string, string>;
+export const roomAssetUrls = Object.values(URLS);
 
 export function artUrl(file: string): string | undefined {
   for (const [path, url] of Object.entries(URLS)) if (path.endsWith(`/${file}`)) return url;
@@ -72,11 +75,7 @@ export function artUrl(file: string): string | undefined {
 export const ALPHA_CUT = 0.5;
 
 async function loadImage(url: string): Promise<HTMLImageElement> {
-  const img = new Image();
-  img.decoding = 'async';
-  img.src = url;
-  await img.decode();
-  return img;
+  return loadArtImage(url);
 }
 
 function pixelsToSprite(p: Pixels): Sprite {
@@ -183,7 +182,18 @@ export function bakeFire(spec: AssetSpec, img: HTMLImageElement, sample: SampleM
 }
 
 /** load and bake every piece of the pack; each piece fails on its own */
-export async function bakeArtPack(sample: SampleMode): Promise<ArtBakes> {
+export async function bakeArtPack(sample: SampleMode, packed = true): Promise<ArtBakes> {
+  const ready = packed && sample === 'mode' ? await loadPackedArt('room') : null;
+  if (ready) {
+    const s = ready.sprites;
+    const m = ready.meta as unknown as { border: [number, number, number]; fireLevels: string[][]; fireFps: number; huddled: string[]; huddledFps: number; woodpile: string[] };
+    return {
+      room: { sprite: s.room, border: m.border }, hearth: s.hearth, door: s.door,
+      fire: { levels: m.fireLevels.map(keys => keys.map(k => s[k])), fps: m.fireFps },
+      huddled: { frames: m.huddled.map(k => s[k]), fps: m.huddledFps },
+      woodpile: m.woodpile.map(k => s[k]), failed: []
+    };
+  }
   const out: ArtBakes = { failed: [] };
   const piece = async (id: ArtId, fn: (spec: AssetSpec, img: HTMLImageElement) => void): Promise<void> => {
     try {

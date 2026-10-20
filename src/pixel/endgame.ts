@@ -13,6 +13,7 @@ export class EndgameRenderer {
   private art: EndgameArt = {};
   private started = false;
   private loaded = false;
+  private preparing: Promise<void> | null = null;
   private effect: { scene: EndgameScene; at: number } | null = null;
 
   constructor(private readonly canvas: HTMLCanvasElement, private readonly sample: SampleMode = 'mode') {
@@ -24,6 +25,14 @@ export class EndgameRenderer {
 
   pulse(game: Game): void { this.effect = { scene: endgameScene(game.active, null), at: game.clock.now }; }
 
+  prepare(): Promise<void> {
+    if (!this.preparing) {
+      this.started = true;
+      this.preparing = loadEndgameArt(this.sample).then(art => { this.art = art; this.loaded = true; });
+    }
+    return this.preparing;
+  }
+
   source(scene: EndgameScene): 'loading' | 'art' | 'fallback' {
     if (!this.loaded) return 'loading';
     return scene === 'ascent'
@@ -32,10 +41,9 @@ export class EndgameRenderer {
   }
 
   render(game: Game, ending: Ending | null, reduced: boolean): void {
-    // No late-game downloads or baking on the initial room's startup path.
+    // Startup prepares this renderer once; the standalone preview can still prepare on demand.
     if (!this.started) {
-      this.started = true;
-      void loadEndgameArt(this.sample).then(art => { this.art = art; this.loaded = true; });
+      void this.prepare();
     }
     const g = this.g;
     const scene = endgameScene(game.active, ending);

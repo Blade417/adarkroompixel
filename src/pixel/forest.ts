@@ -4,6 +4,8 @@ import type { Fit } from './fit';
 import { ctx2d, makeCanvas } from './paint';
 import { resample, type SampleMode } from './resample';
 import type { Rect } from './layout';
+import { loadArtImage } from './loading';
+import { loadPackedArt } from './runtime-art';
 
 type ArtId = keyof typeof manifest.assets;
 export const FOREST_TARGETS: Record<Exclude<ForestTarget, 'door'>, Rect> = {
@@ -14,12 +16,15 @@ export const FOREST_TARGETS: Record<Exclude<ForestTarget, 'door'>, Rect> = {
 function rect(r: number[]): Rect { return { x: r[0], y: r[1], w: r[2], h: r[3] }; }
 export type ForestArt = Record<ArtId, HTMLCanvasElement>;
 const urls = import.meta.glob('../../assets/pixel/forest/v1/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const forestAssetUrls = Object.values(urls);
 
-export async function loadForestArt(mode: SampleMode): Promise<ForestArt> {
+export async function loadForestArt(mode: SampleMode, packed = true): Promise<ForestArt> {
+  const ready = packed && mode === 'mode' ? await loadPackedArt('forest') : null;
+  if (ready) return Object.fromEntries(Object.entries(ready.sprites).map(([id, s]) => [id, s.canvas])) as ForestArt;
   const entries = await Promise.all(Object.entries(manifest.assets).map(async ([id, spec]) => {
     const url = Object.entries(urls).find(([path]) => path.endsWith('/' + spec.file))?.[1];
     if (!url) throw Error(`Forest art missing: ${spec.file}`);
-    const image = new Image(); image.src = url; await image.decode();
+    const image = await loadArtImage(url);
     const frame = spec.frames[0], [x, y, w, h] = frame.sourceRect, [dw, dh] = frame.drawSize;
     const source = makeCanvas(w, h), sg = ctx2d(source);
     sg.drawImage(image, x, y, w, h, 0, 0, w, h);
