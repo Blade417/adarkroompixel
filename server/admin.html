@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>余烬之境 · 反馈收件箱</title><link rel="stylesheet" href="./admin.css"><script src="./admin.js" defer></script>
+<main><header><div><p class="eyebrow">EMBER VEIL / PLAYER NOTES</p><h1>反馈收件箱</h1><p class="dim">读懂玩家遇到的问题，让下一次旅途更顺畅。</p></div><button id="logout" hidden>退出</button></header>
+<section class="panel" id="login-panel"><h2>维护者登录</h2><p class="dim">联系方式和存档仅对维护者开放。</p><form id="login"><label for="username">账号</label><input id="username" value="owner" autocomplete="username" required><label for="password">密码</label><input id="password" type="password" autocomplete="current-password" required><button type="submit">打开收件箱</button></form></section>
+<p id="notice" role="status" aria-live="polite"></p>
+<section id="inbox" hidden><div id="counts" class="counts"></div><div class="toolbar"><label>筛选 <select id="filter"><option value="">全部反馈</option><option value="new">待处理</option><option value="reviewing">处理中</option><option value="resolved">已解决</option></select></label><button id="refresh">刷新</button></div><div id="items"></div><nav class="pager" aria-label="翻页"><button id="previous">上一页</button><span id="page"></span><button id="next">下一页</button></nav></section>
+<footer>余烬之境 · 仅保存玩家主动提交的反馈</footer></main></html>

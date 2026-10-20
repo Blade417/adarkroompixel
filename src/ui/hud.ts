@@ -22,6 +22,7 @@ import { WORKSHOP_IDS, workshopHitRects, type WorkshopId } from '../pixel/worksh
 import { esc, isInteractive, isTyping, num, Patch } from './dom';
 import { layoutVars, type HudLayout } from './layout';
 import { uiStrings, type Ui, type UiKey } from './strings';
+import { Feedback } from './feedback';
 
 export type TendSource = 'hearth' | 'key';
 
@@ -74,6 +75,7 @@ export class Hud {
   begun = false;
 
   private readonly ui: Ui;
+  private readonly feedback: Feedback;
   private readonly patch = new Patch();
   private readonly header: HTMLElement;
   private readonly tabList: HTMLElement;
@@ -209,6 +211,9 @@ export class Hud {
     for (const e of g.notifications.log.slice(-LOG_MAX)) this.onLog(e.text);
     g.notifications.subscribe((e) => this.onLog(e.text));
 
+    this.feedback = new Feedback(root, host.language,
+      () => !this.begun ? 'title' : host.endgameOpen ? 'endgame' : host.expeditionOpen ? 'expedition' : forest.place,
+      () => g.exportCode(), () => this.syncModal());
     this.syncChoices();
     this.syncModal();
   }
@@ -261,7 +266,7 @@ export class Hud {
     <h2 class="title-name" id="title-name">${u('app.title')}</h2>
     <p class="title-sub" id="title-sub">${u('app.subtitle')}</p>
     <button type="button" class="primary begin" data-act="begin">${u(this.host.hasSave ? 'title.continue' : 'title.begin')}</button>
-    <div class="title-row">${langSeg}<button type="button" class="link" data-act="settings" aria-haspopup="dialog">${u('settings.title')}</button></div>
+    <div class="title-row">${langSeg}<button type="button" class="link" data-act="settings" aria-haspopup="dialog">${u('settings.title')}</button><button type="button" class="link" data-act="feedback" aria-haspopup="dialog">${u('feedback.open')}</button></div>
     <p class="title-note">${u('title.note')}</p>
   </div>
 </div>
@@ -298,6 +303,7 @@ export class Hud {
         </div>
       </div>
     </section>
+    <div class="set-actions"><button type="button" class="btn" data-act="feedback" aria-haspopup="dialog">${u('feedback.open')}</button></div>
     <p class="credits">${u('settings.credits')}</p>
     <div class="set-actions end"><button type="button" class="btn" data-act="settings-close">${u('settings.close')}</button></div>
   </div>
@@ -365,7 +371,7 @@ export class Hud {
 
   /** a dialog (title / settings) is open above the room */
   get overlayOpen(): boolean {
-    return !this.titleLayer.hidden || !this.settingsLayer.hidden || !this.buildLayer.hidden;
+    return this.feedback.opened || !this.titleLayer.hidden || !this.settingsLayer.hidden || !this.buildLayer.hidden;
   }
 
   /** the room itself takes input (hover highlight, hearth clicks) */
@@ -861,20 +867,23 @@ export class Hud {
 
   /** inert everything below the topmost open dialog */
   private syncModal(): void {
+    const feedback = this.feedback.opened;
     const settings = !this.settingsLayer.hidden;
     const title = !this.titleLayer.hidden;
     const event = !this.eventLayer.hidden;
     const building = !this.buildLayer.hidden;
-    const under = settings || title || event || building;
+    const under = feedback || settings || title || event || building;
     this.header.inert = under || this.g.over;
     this.stage.inert = under || this.host.expeditionOpen || this.host.endgameOpen;
-    this.titleLayer.inert = settings;
-    this.eventLayer.inert = settings || title;
-    this.buildLayer.inert = settings || title || event;
+    this.settingsLayer.inert = feedback;
+    this.titleLayer.inert = feedback || settings;
+    this.eventLayer.inert = feedback || settings || title;
+    this.buildLayer.inert = feedback || settings || title || event;
     if (under) this.hovering = false;
   }
 
   private topDialog(): HTMLElement | null {
+    if (this.feedback.opened) return this.feedback.card;
     if (!this.settingsLayer.hidden) return this.settingsCard;
     if (!this.titleLayer.hidden) return this.titleCard;
     if (!this.eventLayer.hidden) return this.eventCard;
@@ -981,6 +990,9 @@ export class Hud {
       case 'begin':
         this.begin();
         break;
+      case 'feedback':
+        this.feedback.open(el);
+        break;
       case 'settings':
         this.openSettings(el);
         break;
@@ -1044,7 +1056,10 @@ export class Hud {
     }
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (e.key === 'Escape') {
-      if (!this.settingsLayer.hidden) {
+      if (this.feedback.opened) {
+        e.preventDefault();
+        this.feedback.close();
+      } else if (!this.settingsLayer.hidden) {
         e.preventDefault();
         if (!this.confirmBox.hidden) this.cancelRestart();
         else this.closeSettings();

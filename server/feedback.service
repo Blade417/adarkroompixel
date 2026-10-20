@@ -1,0 +1,25 @@
+[Unit]
+Description=Emberveil Pixel feedback inbox
+After=network.target
+
+[Service]
+User=emberveil-feedback
+Group=emberveil-feedback
+WorkingDirectory=/opt/adarkroompixel/feedback/current
+ExecStart=/usr/bin/python3 /opt/adarkroompixel/feedback/current/feedback.py
+EnvironmentFile=/etc/adarkroompixel-feedback.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+StateDirectory=adarkroompixel-feedback
+StateDirectoryMode=0700
+UMask=0077
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+RestrictAddressFamilies=AF_INET AF_UNIX
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target
