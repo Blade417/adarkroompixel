@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-20",
+  "commit": "02c0f551bb4e8aff3f5829a93e86e48c588569a2",
+  "url": "http://127.0.0.1:5665/",
+  "save": "2026-10-16-endgame/base.txt synthetic QA via visible import",
+  "checks": {
+    "freshFire": true,
+    "energyBlade": {
+      "before": 0,
+      "after": 1,
+      "restored": 1
+    },
+    "alloy": {
+      "before": 20,
+      "afterCraft": 19,
+      "afterHull": 18,
+      "restored": 18
+    },
+    "hull": {
+      "before": 1,
+      "after": 2,
+      "restored": 2
+    },
+    "thrusters": {
+      "before": 2,
+      "restored": 2
+    },
+    "guide": "launch suggestion and ship entry verified"
+  },
+  "layout": {
+    "canvas": [
+      {
+        "art": "art",
+        "scene": "shipyard"
+      }
+    ],
+    "height": 720,
+    "scrollWidth": 1280,
+    "width": 1280
+  },
+  "logs": [],
+  "fullPlaythrough": false,
+  "audioListening": false,
+  "longRunPerformance": false
+}
